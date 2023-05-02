@@ -41,11 +41,11 @@ let largestAmountOfFeatures = 0
 const inputData: Input = {
     origin: 'CLO',
     destination: 'MDE',
-    startDate: new Date(2023, 5, 30),
-    endDate: new Date(2023, 6, 2),
-    startTime: [new Date(2023, 3, 1, 0, 0)],
+    startDate: new Date(2023, 6, 1),
+    endDate: new Date(2023, 6, 5),
+    startTime: [new Date(2023, 6, 1, 0, 0)],
     duration: 3,
-    endTime: [new Date(2023, 3, 5, 23, 59)],
+    endTime: [new Date(2023, 6, 5, 23, 59)],
     adults: 1,
     children: 0,
     cabinClass: 1,
@@ -88,15 +88,16 @@ async function getFlightsData(origin: string, destination: string, departureDate
         },
         headers: {
             //JP
-            //'X-RapidAPI-Key':'62c27ba1abmshdabf3077b3f72b1p1adddajsn9262e48ecdc2',
+            'X-RapidAPI-Key':'62c27ba1abmshdabf3077b3f72b1p1adddajsn9262e48ecdc2',
             //Yo
-            'X-RapidAPI-Key': '603e891f9emshb24af355cf30aadp13595fjsn84c2e8bb5704',
+            //'X-RapidAPI-Key': '603e891f9emshb24af355cf30aadp13595fjsn84c2e8bb5704',
             'X-RapidAPI-Host': 'skyscanner44.p.rapidapi.com',
             useQueryString: true
         }
     };
 
     var result = await getAllflights(options);
+    console.log(result)
     //console.log(result)
     flights = result.itineraries.results
     return flights;
@@ -132,10 +133,10 @@ async function getHotelsData(checkin:string, checkout:string) {
 }
 
 function translateAvailableTime(requirements: Input) {
-    let startTimesHours = []
-    let startTimesMinutes = []
-    let endTimesHours = []
-    let endTimesMinutes = []
+    let startTimesHours: number[] = []
+    let startTimesMinutes: number[] = []
+    let endTimesHours: number[] = []
+    let endTimesMinutes: number[] = []
 
     for (let i = 0; i < requirements.startTime.length; i++) {
         startTimesHours.push(requirements.startTime[i].getHours())
@@ -263,7 +264,7 @@ export async function sendAllInformation(req: Request, res: Response) {
 export async function sendTest(req: Request, res: Response) {
     const modelInputData = fs.readFileSync("./minizincModel/modelInputData.dzn", 'utf-8')
     const modelResponse = await implementModel(String(modelInputData))
-    let allSolutions = []
+    let allSolutions: Solution[] = []
 
     for (let i = 0; i < modelResponse.solutions.length; i++) {
         const sol = modelResponse.solutions[i].extraOutput
@@ -373,18 +374,18 @@ function createLodgingPrices(price: any) {
 }
 
 function createLodgingsArrays(lodgings: any[]) {
-    let lodgingsId = []
-    let lodgingsStartDate = []
-    let lodgingsEndDate = []
-    let lodgingsPeople = []
-    let lodgingsBathrooms = []
-    let lodgingsBedrooms = []
-    let lodgingsBeds = []
-    let lodgingsIsSuperhost = []
-    let lodgingsRating = []
-    let lodgingsFeatures = []
-    let lodgingsCancelPolicy = []
-    let lodgingsPriceTotalAmount = []
+    let lodgingsId: any[] = []
+    let lodgingsStartDate: any[] = []
+    let lodgingsEndDate: any[] = []
+    let lodgingsPeople: any[] = []
+    let lodgingsBathrooms: any[] = []
+    let lodgingsBedrooms: any[] = []
+    let lodgingsBeds: any[] = []
+    let lodgingsIsSuperhost: any[] = []
+    let lodgingsRating: any[] = []
+    let lodgingsFeatures: any[] = []
+    let lodgingsCancelPolicy: any[] = []
+    let lodgingsPriceTotalAmount: any[] = []
 
     for (let i = 0; i < lodgings.length; i++) {
         lodgingsId.push(lodgings[i].id)
@@ -532,7 +533,7 @@ function createPrices(priceOptions: any[]): FlightPrice[] {
 
 
 function createDates(date: string) {
-    let dates = []
+    let dates: number[] = []
     const dateNumber = new Date(date)
     dates.push(dateNumber.getFullYear())
     dates.push(dateNumber.getMonth() + 1)
@@ -544,33 +545,33 @@ function createDates(date: string) {
 }
 
 function createPathsArrays(paths: any[], departure: boolean) {
-    let flightsId = []
-    let flightsDuration = []
-    let flightsStops = []
-    let flightsDeparturesH = []
-    let flightsArrivalsH = []
-    let flightsDeparturesM = []
-    let flightsArrivalsM = []
-    let flightsStopsDepartures = []
-    let flightsStopsArrivals = []
-    let flightsStopsDuration = []
-    let flightsStopsAeroline = []
-    let flightsPriceOptions = []
-    let flightsPriceAgents = []
-    let flightsPriceCarrier = []
-    let flightsAgentsScore = []
+    let flightsId: any[] = []
+    let flightsDuration: any[] = []
+    let flightsStops: any[] = []
+    let flightsDeparturesH: any[] = []
+    let flightsArrivalsH: any[] = []
+    let flightsDeparturesM: any[] = []
+    let flightsArrivalsM: any[] = []
+    let flightsStopsDepartures: any[] = []
+    let flightsStopsArrivals: any[] = []
+    let flightsStopsDuration: any[] = []
+    let flightsStopsAeroline: any[] = []
+    let flightsPriceOptions: any[] = []
+    let flightsPriceAgents: any[] = []
+    let flightsPriceCarrier: any[] = []
+    let flightsAgentsScore: any[] = []
     for (let i = 0; i < paths.length; i++) {
         flightsId.push(paths[i].id)
         flightsDuration.push(paths[i].duration)
         flightsStops.push(paths[i].stops)
-        let departures = []
-        let arrivals = []
-        let departuresHours = []
-        let departuresMinutes = []
-        let arrivalsHours = []
-        let arrivalsMinutes = []
-        let stopsDuration = []
-        let stopsAerolines = []
+        let departures: any[] = []
+        let arrivals: any[] = []
+        let departuresHours: any[] = []
+        let departuresMinutes: any[] = []
+        let arrivalsHours: any[] = []
+        let arrivalsMinutes: any[] = []
+        let stopsDuration: any[] = []
+        let stopsAerolines: any[] = []
 
         let maxAmountOfSegments = maxAmountOfDepartureSegments
         let largestAmountOfPrices = largestAmountOfDeparturePrices
@@ -609,10 +610,10 @@ function createPathsArrays(paths: any[], departure: boolean) {
         flightsStopsDuration[i] = stopsDuration
         flightsStopsAeroline[i] = stopsAerolines
 
-        let prices = []
-        let agents = []
-        let isCarrier = []
-        let agentsScores = []
+        let prices: any[] = []
+        let agents: any[] = []
+        let isCarrier: any[] = []
+        let agentsScores: any[] = []
 
         for (let j = 0; j < largestAmountOfPrices; j++) {
             if (j < paths[i].price.length) {
