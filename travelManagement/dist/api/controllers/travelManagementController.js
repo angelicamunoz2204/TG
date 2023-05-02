@@ -8,13 +8,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.sendAllInformation = exports.sendLodgingsInformation = exports.sendflightsInformation = void 0;
+exports.sendTest = exports.sendAllInformation = exports.sendLodgingsInformation = exports.sendflightsInformation = void 0;
+const CLIMiniZinc_1 = __importDefault(require("minizinc/build/CLIMiniZinc"));
 const axios = require("axios");
 const constants_1 = require("../constants");
 const fs = require("fs");
 const minizincModel = fs.readFileSync("./minizincModel/travelManagementMinizinc.mzn", 'utf-8');
-//const modelInputData = fs.readFileSync("./minizincModel/travelRequerimentsData.dzn", 'utf-8')
+//const model = fs.readFileSync("./minizincModel/mynewfile.dzn", 'utf-8')
 const minizincDataRequirements = constants_1.Constants.minizincDataRequirements;
 const minizincDataRequirementsLong = constants_1.Constants.minizincDataRequirementsLong;
 const minizincDataRequirementsDim = constants_1.Constants.minizincDataRequirementsDim;
@@ -35,15 +39,15 @@ let largestAmountOfFeatures = 0;
 const inputData = {
     origin: 'CLO',
     destination: 'MDE',
-    startDate: new Date(2023, 3, 1),
-    endDate: new Date(2023, 3, 5),
+    startDate: new Date(2023, 5, 30),
+    endDate: new Date(2023, 6, 2),
     startTime: [new Date(2023, 3, 1, 0, 0)],
     duration: 3,
     endTime: [new Date(2023, 3, 5, 23, 59)],
     adults: 1,
     children: 0,
     cabinClass: 1,
-    maxPrice: 2200,
+    maxPrice: 220,
     maxStops: 2,
     maxStopsDuration: 300,
     maxTotalDuration: 700,
@@ -55,7 +59,7 @@ const inputData = {
     beds: 1,
     bathrooms: 1,
     isSuperHost: false,
-    features: [1, 2, 5]
+    features: []
 };
 function getFlightsData(origin, destination, departureDate) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -102,7 +106,7 @@ function getHotelsData(checkin, checkout) {
             method: 'GET',
             url: url,
             params: {
-                location: 'Cali',
+                location: 'Medellin',
                 checkin: checkin,
                 checkout: checkout,
                 adults: '1',
@@ -119,7 +123,7 @@ function getHotelsData(checkin, checkout) {
             }
         };
         var result = yield getAllflights(options);
-        console.log("r", result);
+        //console.log("r",result)
         return result.results;
     });
 }
@@ -153,18 +157,16 @@ function createRequiredInformation(requirements) {
 }
 function createFlightsPaths(req) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log(req);
         let requirements = structuredClone(req);
         const start = requirements.startDate;
         const end = requirements.endDate;
-        console.log(start, end);
         const duration = requirements.duration;
         const durationMils = duration * 1440 * 60000;
         let departureSegments = [];
         let returnSegments = [];
-        while ((end.getTime() - durationMils) >= start.getTime()) {
+        while ((end.getTime() - durationMils + (1440 * 60000)) >= start.getTime()) {
             const rt = new Date(start);
-            const h = new Date(rt.setDate(rt.getDate() + duration));
+            const h = new Date(rt.setDate(rt.getDate() + duration - 1));
             var startString = start.toISOString().slice(0, 10);
             var endString = h.toISOString().slice(0, 10);
             const dep = yield getFlightsData(requirements.origin, requirements.destination, startString);
@@ -173,6 +175,8 @@ function createFlightsPaths(req) {
             returnSegments = returnSegments.concat(ret);
             start.setDate(start.getDate() + 1);
         }
+        writeTextFile("departureFlights", JSON.stringify(departureSegments, null, 2));
+        writeTextFile("returnFlights", JSON.stringify(returnSegments, null, 2));
         const departurePaths = createPathsArrays(createPaths(departureSegments, true), true);
         const returnPaths = createPathsArrays(createPaths(returnSegments, false), false);
         amountOfDepartureFlights = departurePaths[0].length;
@@ -182,22 +186,20 @@ function createFlightsPaths(req) {
 }
 function createLodgingsPaths(req) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log(req);
         let requirements = structuredClone(req);
         const start = requirements.startDate;
-        console.log("ls", start);
         const end = requirements.endDate;
-        console.log("le", end);
         const duration = requirements.duration;
         const durationMils = duration * 1440 * 60000;
         let lodgings = [];
-        while ((end.getTime() - durationMils) >= start.getTime()) {
+        while ((end.getTime() - durationMils + (1440 * 60000)) >= start.getTime()) {
             const rt = new Date(start);
-            const h = new Date(rt.setDate(rt.getDate() + duration));
+            const h = new Date(rt.setDate(rt.getDate() + duration - 1));
             var startString = start.toISOString().slice(0, 10);
             var endString = h.toISOString().slice(0, 10);
             const lodgs = yield getHotelsData(startString, endString);
             lodgings = lodgings.concat(lodgs);
+            writeTextFile("lodgings", JSON.stringify(lodgings, null, 2));
             start.setDate(start.getDate() + 1);
         }
         const lodgingsPaths = createLodgingsArrays(createLodgings(lodgings));
@@ -238,17 +240,66 @@ function sendAllInformation(req, res) {
         var requirements = inputData;
         const flightsPaths = yield createFlightsPaths(requirements);
         const lodgingsPaths = yield createLodgingsPaths(requirements);
-        console.log(lodgingsPaths);
         const requiredInf = createRequiredInformation(requirements);
         const paths = requiredInf.concat(flightsPaths, lodgingsPaths);
         const minizincDataName = minizincDataRequirements.concat(minizincDataFlights, minizincDataLodgings);
         const minizincDataLong = minizincDataRequirementsLong.concat(minizincDataFlightsLong, minizincDataLodgingsLong);
         const minizincDataDim = minizincDataRequirementsDim.concat(minizincDataFlightsDim, minizincDataLodgingsDim);
-        createDznFile(paths, minizincDataName, minizincDataLong, minizincDataDim);
-        res.send("Ok all");
+        const dzn = createDznFile(paths, minizincDataName, minizincDataLong, minizincDataDim);
+        const modelInputData = fs.readFileSync(dzn, 'utf-8');
+        const modelResponse = yield implementModel(String(modelInputData));
+        res.send(modelResponse);
     });
 }
 exports.sendAllInformation = sendAllInformation;
+function sendTest(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const modelInputData = fs.readFileSync("./minizincModel/modelInputData.dzn", 'utf-8');
+        const modelResponse = yield implementModel(String(modelInputData));
+        let allSolutions = [];
+        for (let i = 0; i < modelResponse.solutions.length; i++) {
+            const sol = modelResponse.solutions[i].extraOutput;
+            if (sol) {
+                const fixedString = sol.replace(/'/gi, "\"");
+                console.log(fixedString);
+                const jsonSolution = JSON.parse(fixedString);
+                const posDeparture = jsonSolution.posDeparture;
+                const posAgentDeparture = jsonSolution.posAgentDeparture;
+                const posReturn = jsonSolution.posReturn;
+                const posAgentReturn = jsonSolution.posAgentReturn;
+                const posLodging = jsonSolution.posLodging;
+                allSolutions.push(getEachModelSolution(posDeparture, posAgentDeparture, posReturn, posAgentReturn, posLodging));
+            }
+        }
+        res.send(allSolutions);
+    });
+}
+exports.sendTest = sendTest;
+function getEachModelSolution(posDeparture, posAgentDeparture, posReturn, posAgentReturn, posLodging) {
+    const depFlights = fs.readFileSync("./APIsData/departureFlights.json", 'utf-8');
+    const retFlights = fs.readFileSync("./APIsData/returnFlights.json", 'utf-8');
+    const lodgs = fs.readFileSync("./APIsData/lodgings.json", 'utf-8');
+    const modelSolution = {
+        departureFlight: JSON.parse(depFlights)[posDeparture],
+        posAgentDeparture,
+        returnFlight: JSON.parse(retFlights)[posReturn],
+        posAgentReturn,
+        lodging: JSON.parse(lodgs)[posLodging]
+    };
+    return modelSolution;
+}
+function implementModel(apiData) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const myModel = {
+            model: String(minizincModel),
+            solver: "gecode",
+            all_solutions: true
+        };
+        const minizinc = new CLIMiniZinc_1.default();
+        const solution = yield minizinc.solve(myModel, apiData);
+        return solution;
+    });
+}
 function createLodgings(lodgings) {
     let lod = [];
     for (let i = 0; i < lodgings.length; i++) {
@@ -336,7 +387,7 @@ function createLodgingsArrays(lodgings) {
         }
         lodgingsFeatures.push(lodgings[i].features);
         lodgingsCancelPolicy.push(lodgings[i].cancelPolicies);
-        lodgingsPriceTotalAmount.push(lodgings[i].price);
+        lodgingsPriceTotalAmount.push(lodgings[i].price * 100);
     }
     return ([lodgingsId,
         lodgingsStartDate,
@@ -596,68 +647,37 @@ function createDznFile(paths, minizincDataName, minizincDataLong, minizincDataDi
             fileContent += `${minizincDataName[i]} = ${createDznText(paths[i], minizincDataLong[i], minizincDataDim[i])}`;
         }
     }
-    var filepath = "./minizincModel/mynewfile.dzn";
-    fs.writeFileSync(filepath, fileContent, (err) => {
+    var filePath = "./minizincModel/modelInputData.dzn";
+    fs.writeFileSync(filePath, fileContent, (err) => {
         if (err)
             throw err;
         console.log("The file was succesfully saved!");
     });
-    return filepath;
+    return filePath;
 }
 function createDznText(data, long, dim) {
-    //arreglar esta funcion para que solo haga de dos dimensiones, porque de 3 ya no existen
-    //y de 1 simplemente hay que concatenar un "[" al inicio y un "]" al final
     let dataText = "[";
-    if (dim > 1) {
-        dataText = dataText.concat("|");
+    if (dim === 1) {
+        dataText = dataText.concat(data.toString() + "];\n");
     }
-    for (let i = 1; i <= data.length; i++) {
-        if (dim > 1) {
+    else {
+        dataText = dataText.concat("|");
+        for (let i = 1; i <= data.length; i++) {
             for (let j = 0; j < data[i - 1].length; j++) {
-                if (dim === 3) {
-                    if (j === 0) {
-                        dataText = dataText.concat("|");
-                    }
-                    for (let k = 0; k < data[i - 1][j].length; k++) {
-                        if (k < data[i - 1][j].length - 1) {
-                            dataText = dataText.concat(data[i - 1][j][k].toString(), ",");
-                        }
-                        else {
-                            dataText = dataText.concat(data[i - 1][j][k].toString(), "|");
-                            if (j === data[i - 1].length - 1 && i < data.length) {
-                                dataText = dataText.concat(",");
-                            }
-                        }
-                    }
-                }
-                if (dim === 2) {
-                    if (j < data[i - 1].length - 1) {
-                        dataText = dataText.concat(data[i - 1][j].toString(), ",");
-                    }
-                    else {
-                        dataText = dataText.concat(data[i - 1][j].toString(), "|");
-                    }
-                }
-            }
-        }
-        else {
-            if (i < data.length) {
-                dataText = dataText.concat(data[i - 1].toString(), ",");
-            }
-            else {
-                dataText = dataText.concat(data[i - 1].toString());
-            }
-        }
-        if (i % long === 0 || i === data.length) {
-            if (i === data.length) {
-                if (dim > 2) {
-                    dataText = dataText.concat("|", "];");
+                dataText = dataText.concat(data[i - 1][j].toString());
+                if (j < data[i - 1].length - 1) {
+                    dataText = dataText.concat(",");
                 }
                 else {
-                    dataText = dataText.concat("];");
+                    dataText = dataText.concat("|");
                 }
             }
-            dataText = dataText.concat("\n");
+            if (i % long === 0 || i === data.length) {
+                if (i === data.length) {
+                    dataText = dataText.concat("];");
+                }
+                dataText = dataText.concat("\n");
+            }
         }
     }
     return dataText;
@@ -668,12 +688,8 @@ function getAllflights(query) {
         .catch((error) => error);
     return dataPromise;
 }
-const myModel = {
-    model: String(minizincModel),
-    solver: "gecode",
-    all_solutions: true
-};
-/* const m = new CLIMiniZinc();
-m.solve(myModel, modelInputData).then((result) => {
-  console.log(result);
-}); */
+function writeTextFile(nameFile, content) {
+    var writeStream = fs.createWriteStream("./APIsData/" + nameFile + ".json");
+    writeStream.write(content);
+    writeStream.end();
+}

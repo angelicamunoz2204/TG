@@ -1,0 +1,17 @@
+departureSegmentsDuration = departureFlightsDuration
+departureSegmentsStops = departureFlightStops
+maxAmountOfDepartureSegments = maxAmountOfDepartureLegs
+departureSegmentsDuration = departureFlightsDuration
+returnSegmentsDuration = returnFlightsDuration
+departureSegmentsStops = departureFlightsStops
+returnSegmentsStops = returnFlightsStops
+departureSegmentsPrices = departureFlightsPrices
+returnSegmentsPrices = returnFlightsPrices
+departureSegmentsPricesAgents = departureFlightsPricesAgents
+returnSegmentsPricesAgents = returnFlightsPricesAgents
+departureSegmentsPricesCarrier = departureFlightsPricesCarrier
+returnSegmentsPricesCarrier = returnFlightsPricesCarrier
+departureSegmentsAgentsScore = departureFlightsAgentsScore
+returnSegmentsAgentsScore = returnFLightsAgentsScore
+lodgingsRating = lodgingsScore
+lodgingsPriceTotalAmount = lodgingsPrice

@@ -7,5 +7,5 @@ var router = express.Router();
 var travelManagementController = require('../controllers/travelManagementController');
 router.get('/flights', travelManagementController_1.sendflightsInformation);
 router.get('/hotels', travelManagementController_1.sendLodgingsInformation);
-router.get('/all', travelManagementController_1.sendAllInformation);
+router.get('/all', travelManagementController_1.sendTest);
 module.exports = router;

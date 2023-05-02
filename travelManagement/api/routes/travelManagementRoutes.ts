@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {sendflightsInformation, sendLodgingsInformation, sendAllInformation} from '../controllers/travelManagementController'
+import {sendflightsInformation, sendLodgingsInformation, sendAllInformation, sendTest} from '../controllers/travelManagementController'
 
 var express = require('express');
 var router: Router = express.Router();
@@ -11,5 +11,5 @@ router.get('/flights', sendflightsInformation);
 
 router.get('/hotels', sendLodgingsInformation);
 
-router.get('/all', sendAllInformation);
+router.get('/all', sendTest);
 module.exports = router;

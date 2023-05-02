@@ -13,9 +13,11 @@ import { Score } from '../models/Flights/score.model';
 import { Lodging } from '../models/Lodgings/lodging.model';
 import { Policy } from '../models/Lodgings/policy.model';
 import { LodgingPrice } from '../models/Lodgings/price.lodging.model';
+import { IResult } from 'minizinc';
+import { Solution } from '../models/Solutions/solution.model';
 const fs = require("fs");
 const minizincModel = fs.readFileSync("./minizincModel/travelManagementMinizinc.mzn", 'utf-8')
-//const modelInputData = fs.readFileSync("./minizincModel/travelRequerimentsData.dzn", 'utf-8')
+//const model = fs.readFileSync("./minizincModel/mynewfile.dzn", 'utf-8')
 
 const minizincDataRequirements = Constants.minizincDataRequirements
 const minizincDataRequirementsLong = Constants.minizincDataRequirementsLong
@@ -39,15 +41,15 @@ let largestAmountOfFeatures = 0
 const inputData: Input = {
     origin: 'CLO',
     destination: 'MDE',
-    startDate: new Date(2023, 3, 1),
-    endDate: new Date(2023, 3, 5),
+    startDate: new Date(2023, 5, 30),
+    endDate: new Date(2023, 6, 2),
     startTime: [new Date(2023, 3, 1, 0, 0)],
     duration: 3,
     endTime: [new Date(2023, 3, 5, 23, 59)],
     adults: 1,
     children: 0,
     cabinClass: 1,
-    maxPrice: 2200,
+    maxPrice: 220,
     maxStops: 2,
     maxStopsDuration: 300,
     maxTotalDuration: 700,
@@ -59,7 +61,7 @@ const inputData: Input = {
     beds: 1,
     bathrooms: 1,
     isSuperHost: false,
-    features: [1, 2, 5]
+    features: []
 }
 
 async function getFlightsData(origin: string, destination: string, departureDate: string) {
@@ -171,9 +173,9 @@ async function createFlightsPaths(req: Input) {
 
     let departureSegments: any[] = []
     let returnSegments: any[] = []
-    while ((end.getTime() - durationMils) >= start.getTime()) {
+    while ((end.getTime() - durationMils + (1440 * 60000)) >= start.getTime()) {
         const rt = new Date(start)
-        const h = new Date(rt.setDate(rt.getDate() + duration))
+        const h = new Date(rt.setDate(rt.getDate() + duration - 1))
         var startString = start.toISOString().slice(0,10)
         var endString = h.toISOString().slice(0,10)
         const dep: any[] = await getFlightsData(requirements.origin, requirements.destination, startString)
@@ -182,6 +184,9 @@ async function createFlightsPaths(req: Input) {
         returnSegments = returnSegments.concat(ret)
         start.setDate(start.getDate()+1)
     }
+
+    writeTextFile("departureFlights",JSON.stringify(departureSegments, null, 2))
+    writeTextFile("returnFlights",JSON.stringify(returnSegments, null, 2))
 
     const departurePaths = createPathsArrays(createPaths(departureSegments,true),true);
     const returnPaths = createPathsArrays(createPaths(returnSegments,false),false);
@@ -198,14 +203,15 @@ async function createLodgingsPaths(req: Input) {
     const durationMils = duration*1440*60000
     let lodgings: any[] = []
 
-    while ((end.getTime() - durationMils) >= start.getTime()) {
+    while ((end.getTime() - durationMils + (1440 * 60000)) >= start.getTime()) {
         const rt = new Date(start)
-        const h = new Date(rt.setDate(rt.getDate() + duration))
+        const h = new Date(rt.setDate(rt.getDate() + duration - 1))
         var startString = start.toISOString().slice(0,10)
         var endString = h.toISOString().slice(0,10)
 
         const lodgs: any[] = await getHotelsData(startString,endString)
         lodgings = lodgings.concat(lodgs)
+        writeTextFile("lodgings",JSON.stringify(lodgings, null, 2))
 
         start.setDate(start.getDate()+1)
       }
@@ -248,8 +254,61 @@ export async function sendAllInformation(req: Request, res: Response) {
     const minizincDataName = minizincDataRequirements.concat(minizincDataFlights,minizincDataLodgings)
     const minizincDataLong = minizincDataRequirementsLong.concat(minizincDataFlightsLong,minizincDataLodgingsLong)
     const minizincDataDim = minizincDataRequirementsDim.concat(minizincDataFlightsDim,minizincDataLodgingsDim)
-    createDznFile(paths,minizincDataName,minizincDataLong,minizincDataDim)
-    res.send("Ok all")
+    const dzn = createDznFile(paths,minizincDataName,minizincDataLong,minizincDataDim)
+    const modelInputData = fs.readFileSync(dzn, 'utf-8')
+    const modelResponse = await implementModel(String(modelInputData))
+    res.send(modelResponse)
+}
+
+export async function sendTest(req: Request, res: Response) {
+    const modelInputData = fs.readFileSync("./minizincModel/modelInputData.dzn", 'utf-8')
+    const modelResponse = await implementModel(String(modelInputData))
+    let allSolutions = []
+
+    for (let i = 0; i < modelResponse.solutions.length; i++) {
+        const sol = modelResponse.solutions[i].extraOutput
+
+        if(sol) {
+            const fixedString = sol.replace(/'/gi, "\"");
+            console.log(fixedString)
+            const jsonSolution = JSON.parse(fixedString)
+            const posDeparture = jsonSolution.posDeparture
+            const posAgentDeparture = jsonSolution.posAgentDeparture
+            const posReturn = jsonSolution.posReturn
+            const posAgentReturn = jsonSolution.posAgentReturn
+            const posLodging = jsonSolution.posLodging
+            allSolutions.push(getEachModelSolution (posDeparture, posAgentDeparture,  posReturn, posAgentReturn, posLodging))
+        }
+    }
+    res.send(allSolutions)
+}
+
+function getEachModelSolution (posDeparture: number, posAgentDeparture: number, posReturn: number, posAgentReturn: number, posLodging: number) {
+    const depFlights = fs.readFileSync("./APIsData/departureFlights.json", 'utf-8')
+    const retFlights = fs.readFileSync("./APIsData/returnFlights.json", 'utf-8')
+    const lodgs = fs.readFileSync("./APIsData/lodgings.json", 'utf-8')
+
+    const modelSolution :Solution = {
+        departureFlight: JSON.parse(depFlights)[posDeparture],
+        posAgentDeparture,
+        returnFlight: JSON.parse(retFlights)[posReturn],
+        posAgentReturn,
+        lodging: JSON.parse(lodgs)[posLodging]
+    }
+
+    return modelSolution
+}
+
+async function implementModel(apiData:string) {
+    const myModel: IModelParams = {
+        model: String(minizincModel),
+        solver: "gecode",
+        all_solutions: true
+    };
+    
+    const minizinc = new CLIMiniZinc();
+    const solution: IResult = await minizinc.solve(myModel, apiData)
+    return solution
 }
 
 function createLodgings(lodgings: any[]) {
@@ -616,72 +675,42 @@ function createDznFile(paths: any[], minizincDataName: string[], minizincDataLon
         }
     }
 
-    var filepath = "./minizincModel/mynewfile.dzn";
+    var filePath = "./minizincModel/modelInputData.dzn";
 
-    fs.writeFileSync(filepath, fileContent, (err: any) => {
+    fs.writeFileSync(filePath, fileContent, (err: any) => {
         if (err) throw err;
         console.log("The file was succesfully saved!");
     });
 
-    return filepath;
+    return filePath;
 }
 
 function createDznText(data: any[], long: number, dim: number) {
-    //arreglar esta funcion para que solo haga de dos dimensiones, porque de 3 ya no existen
-    //y de 1 simplemente hay que concatenar un "[" al inicio y un "]" al final
     let dataText = "["
-    if (dim > 1) {
+
+    if (dim === 1) {
+        dataText = dataText.concat(data.toString() + "];\n" )
+    } else {
         dataText = dataText.concat("|")
-    }
-    for (let i = 1; i <= data.length; i++) {
-        if (dim > 1) {
+        for (let i = 1; i <= data.length; i++) {
             for (let j = 0; j < data[i - 1].length; j++) {
-                if (dim === 3) {
-                    if (j === 0) {
-                        dataText = dataText.concat("|")
-                    }
-                    for (let k = 0; k < data[i - 1][j].length; k++) {
-                        if (k < data[i - 1][j].length - 1) {
-                            dataText = dataText.concat(data[i - 1][j][k].toString(), ",")
-                        }
-                        else {
-                            dataText = dataText.concat(data[i - 1][j][k].toString(), "|")
-                            if (j === data[i - 1].length - 1 && i < data.length) {
-                                dataText = dataText.concat(",")
-                            }
-                        }
-                    }
-                }
-                if (dim === 2) {
-                    if (j < data[i - 1].length - 1) {
-                        dataText = dataText.concat(data[i - 1][j].toString(), ",")
-                    }
-                    else {
-                        dataText = dataText.concat(data[i - 1][j].toString(), "|")
-                    }
-                }
-            }
-        }
-        else {
-            if (i < data.length) {
-                dataText = dataText.concat(data[i - 1].toString(), ",")
-            }
-            else {
-                dataText = dataText.concat(data[i - 1].toString())
-            }
-        }
-        if (i % long === 0 || i === data.length) {
-            if (i === data.length) {
-                if (dim > 2) {
-                    dataText = dataText.concat("|", "];")
+                dataText = dataText.concat(data[i - 1][j].toString())
+                if (j < data[i - 1].length - 1) {
+                    dataText = dataText.concat(",")
                 }
                 else {
-                    dataText = dataText.concat("];")
+                    dataText = dataText.concat("|")
                 }
             }
-            dataText = dataText.concat("\n")
+            if (i % long === 0 || i === data.length) {
+                if (i === data.length) {
+                    dataText = dataText.concat("];")
+                }
+                dataText = dataText.concat("\n")
+            }
         }
     }
+
     return dataText;
 }
 
@@ -692,14 +721,8 @@ function getAllflights(query: Object): Promise<any> {
     return dataPromise;
 }
 
-
-const myModel: IModelParams = {
-    model: String(minizincModel),
-    solver: "gecode",
-    all_solutions: true
-};
-
-/* const m = new CLIMiniZinc();
-m.solve(myModel, modelInputData).then((result) => {
-  console.log(result);
-}); */
+function writeTextFile(nameFile: string, content: string) {
+    var writeStream = fs.createWriteStream("./APIsData/" + nameFile + ".json");
+    writeStream.write(content);
+    writeStream.end();
+}

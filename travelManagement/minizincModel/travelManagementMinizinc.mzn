@@ -1,6 +1,6 @@
 % Use this editor as a MiniZinc scratch bookW
 include "globals.mzn";
-include "mynewfile.dzn";
+%%include "mynewfile.dzn";
 
 %%sets
 %%Flights
@@ -176,11 +176,14 @@ constraint lodgingsBeds[posLodging] <= beds;
 constraint lodgingsIsSuperhost[posLodging] = isSuperHost;
 constraint forall([member(getRow(lodgingsFeatures,posLodging), features[i]) | i in 1..length(features)]);
 constraint lodgingPrice = lodgingsPriceTotalAmount[posLodging];
-constraint totalPrice <= maxPrice;
+constraint totalPrice <= maxPrice*100;
 constraint lodgingRat = - lodgingsRating[posLodging];
+%%para que coincidan las fechas
+constraint departureLegsDepartures[posDeparture,departurePricePos] = lodgingsStartDate[posLodging];
+constraint departureLegsArrivals[posReturn, returnPricePos] = lodgingsEndDate[posLodging];
 %%para optimizar
 var int: totalPrice = departureSegmentPrice + returnSegmentPrice + lodgingPrice;
-var int: totalRequirements = totalPrice + lodgingRat + departureDate;
+%%var float: totalRequirements = (800 * ((maxPrice - totalPrice) / maxPrice)) + (20 * (2 *lodgingRat));
 %%Minimizar totalPrice
 solve minimize totalPrice;
 %%predicados       
@@ -198,11 +201,13 @@ function array [int] of  var int: getRow(array [int, int] of int: features, var 
 
 %%Salida
 %%output[show(availableTime),"\n"];
-output[show(posDeparture),"\n"];
-output[show(posReturn),"\n"];
-output[show(posLodging),"\n"];
+output["{'posDeparture':", show(posDeparture-1), ","];
+output["'posAgentDeparture':", show(departurePricePos-1), ","];
+output["'posReturn':", show(posReturn-1), ","];
+output["'posAgentReturn':", show(returnPricePos-1), ","];
+output["'posLodging':", show(posLodging-1), "}"];
 %%output[show(departureDateLeg),"\n"];
-output[show(departureSegmentPrice),",",show(returnSegmentPrice),",",show(lodgingPrice),"\n"];
-output[show(departureDate)];
+%%output[show(departureSegmentPrice),",",show(returnSegmentPrice),",",show(lodgingPrice),"\n"];
+%%output[show(departureDate)];
 
 
