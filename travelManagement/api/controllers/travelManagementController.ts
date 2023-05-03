@@ -55,12 +55,11 @@ const inputData: Input = {
     maxTotalDuration: 700,
     allowAerolines: [1, 2, 3, 4],
     allowIntermediaries: true,
-    minScoreFlights: 40,
-    minScoreLodging: 45,
     beedrooms: 1,
     beds: 1,
     bathrooms: 1,
     isSuperHost: false,
+    allowPolicies: [1,2,3,4],
     features: []
 }
 
@@ -120,9 +119,9 @@ async function getHotelsData(checkin:string, checkout:string) {
         },
         headers: {
            //JP
-          //'X-RapidAPI-Key':'62c27ba1abmshdabf3077b3f72b1p1adddajsn9262e48ecdc2',
+          'X-RapidAPI-Key':'62c27ba1abmshdabf3077b3f72b1p1adddajsn9262e48ecdc2',
           //Yo
-          'X-RapidAPI-Key': '603e891f9emshb24af355cf30aadp13595fjsn84c2e8bb5704',
+          //'X-RapidAPI-Key': '603e891f9emshb24af355cf30aadp13595fjsn84c2e8bb5704',
           'X-RapidAPI-Host': 'airbnb13.p.rapidapi.com'
         }
       };
@@ -156,11 +155,10 @@ function createRequiredInformation(requirements: Input) {
     const availableTime = translateAvailableTime(requirements)
     const body = [amountOfDepartureFlights, amountOfReturnFlights, amountOfLodgings, largestAmountOfDeparturePrices, 
         largestAmountOfReturnPrices, maxAmountOfDepartureSegments, maxAmountOfReturnSegments, largestAmountOfFeatures,
-        requirements.maxPrice, requirements.maxStops, requirements.maxStopsDuration,
+        requirements.maxPrice * 100, requirements.maxStops, requirements.maxStopsDuration,
         requirements.maxTotalDuration, requirements.allowAerolines, requirements.allowIntermediaries,
-        availableTime[0], availableTime[1], availableTime[2], availableTime[3], requirements.minScoreFlights,
-        requirements.minScoreLodging, requirements.beedrooms, requirements.beds, requirements.bathrooms,
-        requirements.isSuperHost, requirements.features]
+        availableTime[0], availableTime[1], availableTime[2], availableTime[3], requirements.beedrooms,
+        requirements.beds, requirements.bathrooms, requirements.isSuperHost, requirements.allowPolicies, requirements.features]
 
     return body
 }
@@ -258,7 +256,25 @@ export async function sendAllInformation(req: Request, res: Response) {
     const dzn = createDznFile(paths,minizincDataName,minizincDataLong,minizincDataDim)
     const modelInputData = fs.readFileSync(dzn, 'utf-8')
     const modelResponse = await implementModel(String(modelInputData))
-    res.send(modelResponse)
+
+    let allSolutions: Solution[] = []
+    for (let i = 0; i < modelResponse.solutions.length; i++) {
+        const sol = modelResponse.solutions[i].extraOutput
+
+        if(sol) {
+            const fixedString = sol.replace(/'/gi, "\"");
+            console.log(fixedString)
+            const jsonSolution = JSON.parse(fixedString)
+            const posDeparture = jsonSolution.posDeparture
+            const posAgentDeparture = jsonSolution.posAgentDeparture
+            const posReturn = jsonSolution.posReturn
+            const posAgentReturn = jsonSolution.posAgentReturn
+            const posLodging = jsonSolution.posLodging
+            allSolutions.push(getEachModelSolution (posDeparture, posAgentDeparture,  posReturn, posAgentReturn, posLodging))
+        }
+    }
+
+    res.send(allSolutions)
 }
 
 export async function sendTest(req: Request, res: Response) {
@@ -283,6 +299,7 @@ export async function sendTest(req: Request, res: Response) {
     }
     res.send(allSolutions)
 }
+
 
 function getEachModelSolution (posDeparture: number, posAgentDeparture: number, posReturn: number, posAgentReturn: number, posLodging: number) {
     const depFlights = fs.readFileSync("./APIsData/departureFlights.json", 'utf-8')
@@ -331,7 +348,7 @@ function createLodgings(lodgings: any[]) {
             beds: lodgings[i].beds,
             isSuperhost: lodgings[i].isSuperhost,
             rating: lodgings[i].rating? Math.round(lodgings[i].rating*100) : -1,
-            features: lodgings[i].amenityIds,
+            features: lodgings[i].amenityIds.filter((feature: any) => Constants.featuresId.includes(feature)),
             cancelPolicies: createPolicies(lodgings[i].cancelPolicy),
             price: lodgings[i].price.total
         }

@@ -15,11 +15,10 @@ export interface Input {
     maxTotalDuration: number;
     allowAerolines: number[];
     allowIntermediaries: boolean;
-    minScoreFlights: number;
-    minScoreLodging: number;
     beedrooms: number;
     beds: number;
     bathrooms: number;
     isSuperHost: boolean;
+    allowPolicies: number[];
     features: number[];
 }

@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "start": "nodemon index.ts",
-    "build": "rimraf dist && tsc",
+    "build": "npx tsc",
     "ts.check": "tsc --project tsconfig.json",
     "add-build": "git add dist",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -26,5 +26,9 @@
     "minizinc": "^3.0.2",
     "ts-node": "^10.9.1",
     "unirest": "^0.6.0"
+  },
+  "nodemonConfig": {
+    "ignore": ["APIsData", "**/docs/**"],
+    "delay": 2500
   }
 }

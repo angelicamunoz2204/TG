@@ -1,8 +1,0 @@
-output ["\"output\": {","\"default\": ",showJSON(concat(((([show(posDeparture),"\n"]++[show(posReturn),"\n"])++[show(posLodging),"\n"])++[show(departureSegmentPrice),",",show(returnSegmentPrice),",",show(lodgingPrice),"\n"])++[show(departureDate)])),", \"raw\": ",showJSON(concat(((([show(posDeparture),"\n"]++[show(posReturn),"\n"])++[show(posLodging),"\n"])++[show(departureSegmentPrice),",",show(returnSegmentPrice),",",show(lodgingPrice),"\n"])++[show(departureDate)])),"}, \"sections\": [\"default\", \"raw\"]"];
-int: posDeparture;
-int: posReturn;
-int: posLodging;
-int: lodgingPrice;
-int: returnSegmentPrice;
-int: departureSegmentPrice;
-int: departureDate;

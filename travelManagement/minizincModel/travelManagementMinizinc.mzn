@@ -44,9 +44,6 @@ array [int] of hours: timeWindowStartHours;
 array [int] of minutes: timeWindowStartMinutes;
 array [int] of hours: timeWindowEndHours;
 array [int] of minutes: timeWindowEndMinutes;
-%%scores 
-int : minScoreFlights;
-int : minScoreLodging;
 %%Lodging
 int : beedrooms;
 int : beds;
@@ -216,8 +213,8 @@ function array [int] of  var int: getRow(array [int, int] of int: features, var 
 %%Input data
 
 %%Salida
-output[show(ahorro),"\n"];
-output[show(totalPrice),"\n"];
+%%output[show(ahorro),"\n"];
+%%output[show(totalPrice),"\n"];
 output["{'posDeparture':", show(posDeparture-1), ","];
 output["'posAgentDeparture':", show(departurePricePos-1), ","];
 output["'posReturn':", show(posReturn-1), ","];

@@ -11,5 +11,5 @@ router.get('/flights', sendflightsInformation);
 
 router.get('/hotels', sendLodgingsInformation);
 
-router.get('/all', sendTest);
+router.get('/all', sendAllInformation);
 module.exports = router;
