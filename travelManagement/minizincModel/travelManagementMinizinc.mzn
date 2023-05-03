@@ -53,6 +53,7 @@ int : beds;
 int : bathrooms;
 bool : isSuperHost;
 array [int] of int: features;
+array [int] of 1..5: allowPolicies;
 
 %%
 %%departure
@@ -106,8 +107,12 @@ var returnSegments: posReturn;
 var lodgings: posLodging;
 var int: departureSegmentPrice;
 var int: returnSegmentPrice;
+var int: ahorro;
 var int: lodgingPrice;
 var int: lodgingRat;
+var int: departureAgentScore;
+var int: returnAgentScore;
+var int: totalScore;
 var departurePrices: departurePricePos;
 var returnPrices: returnPricePos;
 var int: departureDate;
@@ -164,28 +169,39 @@ constraint returnSegmentPrice = returnSegmentsPrices[posReturn,returnPricePos];
 constraint returnSegmentPrice != -1;
 constraint departureDate = departureLegsDepartures[posDeparture,departureDateLeg];
 constraint departureDate != -1;
+constraint departureAgentScore = departureSegmentsAgentsScore[posDeparture,departurePricePos];
+constraint returnAgentScore = returnSegmentsAgentsScore[posReturn,returnPricePos];
 %%permite carriers
 constraint if allowIntermediaries = false
             then departureSegmentsPricesCarrier[posDeparture,departurePricePos] = 1
             /\ returnSegmentsPricesCarrier[posReturn,returnPricePos] = 1
            endif;
 %%LODGINGS
-constraint lodgingsBathrooms[posLodging] <= bathrooms;
-constraint lodgingsBedrooms[posLodging] <= beedrooms;
-constraint lodgingsBeds[posLodging] <= beds;
+%%constraint lodgingsPeople[posLodging] >= 
+constraint lodgingsBathrooms[posLodging] >= bathrooms;
+constraint lodgingsBedrooms[posLodging] >= beedrooms;
+constraint lodgingsBeds[posLodging] >= beds;
 constraint lodgingsIsSuperhost[posLodging] = isSuperHost;
+%%features
 constraint forall([member(getRow(lodgingsFeatures,posLodging), features[i]) | i in 1..length(features)]);
+%%cancel policies
+%%aerolineas permitidas                                                                                                          
+constraint member(allowPolicies, lodgingsCancelPolicy[posLodging]);
 constraint lodgingPrice = lodgingsPriceTotalAmount[posLodging];
-constraint totalPrice <= maxPrice*100;
-constraint lodgingRat = - lodgingsRating[posLodging];
+constraint lodgingRat = lodgingsRating[posLodging];
+%%total score puede ser maximo 1500 = 3 * 500
+constraint totalScore = lodgingRat + departureAgentScore + returnAgentScore;
 %%para que coincidan las fechas
 constraint departureLegsDepartures[posDeparture,departurePricePos] = lodgingsStartDate[posLodging];
 constraint departureLegsArrivals[posReturn, returnPricePos] = lodgingsEndDate[posLodging];
 %%para optimizar
 var int: totalPrice = departureSegmentPrice + returnSegmentPrice + lodgingPrice;
-%%var float: totalRequirements = (800 * ((maxPrice - totalPrice) / maxPrice)) + (20 * (2 *lodgingRat));
-%%Minimizar totalPrice
-solve minimize totalPrice;
+constraint totalPrice <= maxPrice;
+constraint ahorro = maxPrice - totalPrice;
+
+var int: ahorroScore = (ahorro * 1500 * 100) div maxPrice;
+
+solve maximize (15 * (totalScore * 100)) + (85 * ahorroScore);
 %%predicados       
                
 predicate verifyMinutes(var int:hour, array [int] of int:allowHours, var int:minute, array [int] of int:allowMinutes) =
@@ -200,14 +216,12 @@ function array [int] of  var int: getRow(array [int, int] of int: features, var 
 %%Input data
 
 %%Salida
-%%output[show(availableTime),"\n"];
+output[show(ahorro),"\n"];
+output[show(totalPrice),"\n"];
 output["{'posDeparture':", show(posDeparture-1), ","];
 output["'posAgentDeparture':", show(departurePricePos-1), ","];
 output["'posReturn':", show(posReturn-1), ","];
 output["'posAgentReturn':", show(returnPricePos-1), ","];
 output["'posLodging':", show(posLodging-1), "}"];
-%%output[show(departureDateLeg),"\n"];
-%%output[show(departureSegmentPrice),",",show(returnSegmentPrice),",",show(lodgingPrice),"\n"];
-%%output[show(departureDate)];
 
 
