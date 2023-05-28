@@ -1,5 +1,10 @@
-import { Router } from "express";
-import {sendflightsInformation, sendLodgingsInformation, sendAllInformation, sendTest} from '../controllers/travelManagementController'
+import { Router } from 'express';
+import {
+	sendflightsInformation,
+	sendLodgingsInformation,
+	sendAllInformation,
+	sendTest,
+} from '../controllers/travelManagementController';
 
 var express = require('express');
 var router: Router = express.Router();

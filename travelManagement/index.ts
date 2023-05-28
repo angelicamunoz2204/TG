@@ -2,6 +2,7 @@ var express = require('express');
 var indexRouter = require('./api/routes/travelManagementRoutes');
 const app = express();
 const port = process.env.PORT || 3000;
+app.use(express.json());
 
 app.listen(port);
 
