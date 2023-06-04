@@ -1,6 +1,6 @@
 % Use this editor as a MiniZinc scratch bookW
 include "globals.mzn";
-%%include "mynewfile.dzn";
+%%include "modelInputData.dzn";
 
 %%sets
 %%Flights
@@ -189,8 +189,12 @@ constraint lodgingRat = lodgingsRating[posLodging];
 %%total score puede ser maximo 1500 = 3 * 500
 constraint totalScore = lodgingRat + departureAgentScore + returnAgentScore;
 %%para que coincidan las fechas
-constraint departureLegsDepartures[posDeparture,departurePricePos] = lodgingsStartDate[posLodging];
-constraint departureLegsArrivals[posReturn, returnPricePos] = lodgingsEndDate[posLodging];
+%%para que coincidan las fechas
+constraint forall([departureLegsDepartures[posDeparture,j] = lodgingsStartDate[posLodging]
+          | j in departureLegs where departureLegsDepartures[posDeparture,j] != -1]);
+          
+constraint forall([returnLegsDepartures[posReturn,j] = lodgingsEndDate[posLodging]
+          | j in returnLegs where returnLegsDepartures[posReturn,j] != -1]);
 %%para optimizar
 var int: totalPrice = departureSegmentPrice + returnSegmentPrice + lodgingPrice;
 constraint totalPrice <= maxPrice;

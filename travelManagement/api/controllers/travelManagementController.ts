@@ -6,7 +6,7 @@ import { Constants } from '../constants';
 import { Aeroline } from '../models/Flights/aeroline.model';
 import { Agent } from '../models/Flights/agent.model';
 import { Flight } from '../models/Flights/flight.model';
-import { Input } from '../models/input.model';
+import { Input, defaults } from '../models/input.model';
 import { Path } from '../models/Flights/path.model';
 import { FlightPrice } from '../models/Flights/price.flights.model';
 import { Score } from '../models/Flights/score.model';
@@ -58,7 +58,7 @@ const inputData: Input = {
 	maxTotalDuration: 700,
 	allowAerolines: [1, 2, 3, 4],
 	allowIntermediaries: true,
-	beedrooms: 1,
+	bedrooms: 1,
 	beds: 1,
 	bathrooms: 1,
 	isSuperHost: false,
@@ -71,7 +71,6 @@ async function getFlightsData(
 	destination: string,
 	departureDate: string
 ) {
-	//const url = 'https://catfact.ninja/facts';
 	const url = 'https://skyscanner44.p.rapidapi.com/search-extended';
 	// Display list of all flights.
 	var flights: any[] = [];
@@ -94,7 +93,7 @@ async function getFlightsData(
 		},
 		headers: {
 			//JP
-			'X-RapidAPI-Key': '62c27ba1abmshdabf3077b3f72b1p1adddajsn9262e48ecdc2',
+			'X-RapidAPI-Key': 'bff5febd22msh6c0f166bebbc3ccp1d84b8jsnada7c2f19410',
 			//Yo
 			//'X-RapidAPI-Key': '603e891f9emshb24af355cf30aadp13595fjsn84c2e8bb5704',
 			'X-RapidAPI-Host': 'skyscanner44.p.rapidapi.com',
@@ -175,7 +174,7 @@ function createRequiredInformation(requirements: Input) {
 		availableTime[1],
 		availableTime[2],
 		availableTime[3],
-		requirements.beedrooms,
+		requirements.bedrooms,
 		requirements.beds,
 		requirements.bathrooms,
 		requirements.isSuperHost,
@@ -258,61 +257,109 @@ async function createLodgingsPaths(req: Input) {
 }
 
 export async function sendflightsInformation(req: Request, res: Response) {
-	var requirements = inputData;
-	/* const flightsPaths = await createFlightsPaths(requirements)
-    const requiredInf = createRequiredInformation(requirements)
-    const paths = requiredInf.concat(flightsPaths)
-    const minizincDataName = minizincDataRequirements.concat(minizincDataFlights)
-    const minizincDataLong = minizincDataRequirementsLong.concat(minizincDataFlightsLong)
-    const minizincDataDim = minizincDataRequirementsDim.concat(minizincDataFlightsDim)
-    createDznFile(paths,minizincDataName,minizincDataLong,minizincDataDim) */
+	var requirements = {
+		...defaults,
+		...req.body,
+	};
+	/* const flightsPaths = await createFlightsPaths(requirements);
+	const requiredInf = createRequiredInformation(requirements);
+	const paths = requiredInf.concat(flightsPaths);
+	const minizincDataName = minizincDataRequirements.concat(minizincDataFlights);
+	const minizincDataLong = minizincDataRequirementsLong.concat(
+		minizincDataFlightsLong
+	);
+	const minizincDataDim = minizincDataRequirementsDim.concat(
+		minizincDataFlightsDim
+	);
+	createDznFile(paths, minizincDataName, minizincDataLong, minizincDataDim); */
+	console.log(requirements);
 	res.send('Ok flights');
 }
 
 export async function sendLodgingsInformation(req: Request, res: Response) {
-	/* var requirements = inputData
-    const lodgingsPaths = await createLodgingsPaths(requirements)
-    const requiredInf = createRequiredInformation(requirements)
-    const paths = requiredInf.concat(lodgingsPaths)
-    const minizincDataName = minizincDataRequirements.concat(minizincDataLodgings)
-    const minizincDataLong = minizincDataRequirementsLong.concat(minizincDataLodgingsLong)
-    const minizincDataDim = minizincDataRequirementsDim.concat(minizincDataLodgingsDim)
-    createDznFile(paths,minizincDataName,minizincDataLong,minizincDataDim) */
+	var requirements = {
+		...defaults,
+		...req.body,
+	};
+	/* const lodgingsPaths = await createLodgingsPaths(requirements);
+	const requiredInf = createRequiredInformation(requirements);
+	const paths = requiredInf.concat(lodgingsPaths);
+	const minizincDataName =
+		minizincDataRequirements.concat(minizincDataLodgings);
+	const minizincDataLong = minizincDataRequirementsLong.concat(
+		minizincDataLodgingsLong
+	);
+	const minizincDataDim = minizincDataRequirementsDim.concat(
+		minizincDataLodgingsDim
+	);
+	createDznFile(paths, minizincDataName, minizincDataLong, minizincDataDim); */
+	console.log(requirements);
 	res.send('Ok lodgings');
 }
 
 export async function sendAllInformation(req: Request, res: Response) {
-	var requirements = req.params;
-	/* const flightsPaths = await createFlightsPaths(requirements)
-    const lodgingsPaths = await createLodgingsPaths(requirements)
-    const requiredInf = createRequiredInformation(requirements)
-    const paths = requiredInf.concat(flightsPaths,lodgingsPaths)
-    const minizincDataName = minizincDataRequirements.concat(minizincDataFlights,minizincDataLodgings)
-    const minizincDataLong = minizincDataRequirementsLong.concat(minizincDataFlightsLong,minizincDataLodgingsLong)
-    const minizincDataDim = minizincDataRequirementsDim.concat(minizincDataFlightsDim,minizincDataLodgingsDim)
-    const dzn = createDznFile(paths,minizincDataName,minizincDataLong,minizincDataDim)
-    const modelInputData = fs.readFileSync(dzn, 'utf-8')
-    const modelResponse = await implementModel(String(modelInputData))
+	var requirements: Input = {
+		...defaults,
+		...req.body,
+	};
 
-    let allSolutions: Solution[] = []
-    for (let i = 0; i < modelResponse.solutions.length; i++) {
-        const sol = modelResponse.solutions[i].extraOutput
+	var tempDate = new Date(req.body.endDate)
+	tempDate.setHours(23,59,0)
 
-        if(sol) {
-            const fixedString = sol.replace(/'/gi, "\"");
-            console.log(fixedString)
-            const jsonSolution = JSON.parse(fixedString)
-            const posDeparture = jsonSolution.posDeparture
-            const posAgentDeparture = jsonSolution.posAgentDeparture
-            const posReturn = jsonSolution.posReturn
-            const posAgentReturn = jsonSolution.posAgentReturn
-            const posLodging = jsonSolution.posLodging
-            allSolutions.push(getEachModelSolution (posDeparture, posAgentDeparture,  posReturn, posAgentReturn, posLodging))
-        }
-    }
- */
-	console.log();
-	res.json(req.body);
+	requirements.startDate = new Date(req.body.startDate);
+	requirements.endDate = new Date(req.body.endDate);
+	requirements.startTime = [new Date(req.body.startDate)];
+	requirements.endTime = [tempDate];
+	const flightsPaths = await createFlightsPaths(requirements);
+	const lodgingsPaths = await createLodgingsPaths(requirements);
+	const requiredInf = createRequiredInformation(requirements);
+	const paths = requiredInf.concat(flightsPaths, lodgingsPaths);
+	const minizincDataName = minizincDataRequirements.concat(
+		minizincDataFlights,
+		minizincDataLodgings
+	);
+	const minizincDataLong = minizincDataRequirementsLong.concat(
+		minizincDataFlightsLong,
+		minizincDataLodgingsLong
+	);
+	const minizincDataDim = minizincDataRequirementsDim.concat(
+		minizincDataFlightsDim,
+		minizincDataLodgingsDim
+	);
+	const dzn = createDznFile(
+		paths,
+		minizincDataName,
+		minizincDataLong,
+		minizincDataDim
+	);
+	const modelInputData = fs.readFileSync(dzn, 'utf-8');
+	const modelResponse = await implementModel(String(modelInputData));
+
+	let allSolutions: Solution[] = [];
+	for (let i = 0; i < modelResponse.solutions.length; i++) {
+		const sol = modelResponse.solutions[i].extraOutput;
+
+		if (sol) {
+			const fixedString = sol.replace(/'/gi, "\"");
+			console.log(fixedString);
+			const jsonSolution = JSON.parse(fixedString);
+			const posDeparture = jsonSolution.posDeparture;
+			const posAgentDeparture = jsonSolution.posAgentDeparture;
+			const posReturn = jsonSolution.posReturn;
+			const posAgentReturn = jsonSolution.posAgentReturn;
+			const posLodging = jsonSolution.posLodging;
+			allSolutions.push(
+				getEachModelSolution(
+					posDeparture,
+					posAgentDeparture,
+					posReturn,
+					posAgentReturn,
+					posLodging
+				)
+			);
+		}
+	}
+	res.json(allSolutions);
 }
 
 export async function sendTest(req: Request, res: Response) {
@@ -327,7 +374,7 @@ export async function sendTest(req: Request, res: Response) {
 		const sol = modelResponse.solutions[i].extraOutput;
 
 		if (sol) {
-			const fixedString = sol.replace(/'/gi, '"');
+			const fixedString = sol.replace(/'/gi, '\"');
 			console.log(fixedString);
 			const jsonSolution = JSON.parse(fixedString);
 			const posDeparture = jsonSolution.posDeparture;
@@ -388,34 +435,36 @@ async function implementModel(apiData: string) {
 
 function createLodgings(lodgings: any[]) {
 	let lod: Lodging[] = [];
-	for (let i = 0; i < lodgings.length; i++) {
-		const url = lodgings[i].url;
-		const urlLarg = url.length;
-		const deeplink = lodgings[i].deeplink;
-		const deepLarg = deeplink.length;
-		const start = deeplink.slice(urlLarg + 10, urlLarg + 20);
-		const end = deeplink.slice(urlLarg + 31, urlLarg + 41);
-		const lodging: Lodging = {
-			id: `"${lodgings[i].id}"`,
-			startDate: createDateDays(start),
-			endDate: createDateDays(end),
-			people: lodgings[i].persons,
-			bathrooms: Math.floor(lodgings[i].bathrooms),
-			bedrooms: lodgings[i].bedrooms,
-			beds: lodgings[i].beds,
-			isSuperhost: lodgings[i].isSuperhost,
-			rating: lodgings[i].rating ? Math.round(lodgings[i].rating * 100) : -1,
-			features: lodgings[i].amenityIds.filter((feature: any) =>
-				Constants.featuresId.includes(feature)
-			),
-			cancelPolicies: createPolicies(lodgings[i].cancelPolicy),
-			price: lodgings[i].price.total,
-		};
-		if (lodgings[i].amenityIds.length > largestAmountOfFeatures) {
-			largestAmountOfFeatures = lodgings[i].amenityIds.length;
+	lodgings.filter((lodge) => lodge !== undefined).forEach(
+		(lodge) => {
+			const url = lodge.url;
+			const urlLarg = url.length;
+			const deeplink = lodge.deeplink;
+			const deepLarg = deeplink.length;
+			const start = deeplink.slice(urlLarg + 10, urlLarg + 20);
+			const end = deeplink.slice(urlLarg + 31, urlLarg + 41);
+			const lodging: Lodging = {
+				id: `"${lodge.id}"`,
+				startDate: createDateDays(start),
+				endDate: createDateDays(end),
+				people: lodge.persons,
+				bathrooms: Math.floor(lodge.bathrooms),
+				bedrooms: lodge.bedrooms,
+				beds: lodge.beds,
+				isSuperhost: lodge.isSuperhost,
+				rating: lodge.rating ? Math.round(lodge.rating * 100) : -1,
+				features: lodge.amenityIds.filter((feature: any) =>
+					Constants.featuresId.includes(feature)
+				),
+				cancelPolicies: createPolicies(lodge.cancelPolicy),
+				price: lodge.price.total,
+			};
+			if (lodge.amenityIds.length > largestAmountOfFeatures) {
+				largestAmountOfFeatures = lodge.amenityIds.length;
+			}
+			lod.push(lodging);
 		}
-		lod.push(lodging);
-	}
+	)
 	return lod;
 }
 
