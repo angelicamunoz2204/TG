@@ -1,8 +1,7 @@
+import { Basic } from '../basic.model'
 import { Score } from "./score.model";
 
-export interface Agent {
-    id: number;
-    name: string;
+export interface Agent extends Basic {
     isCarrier: boolean;
     score: Score;
 }

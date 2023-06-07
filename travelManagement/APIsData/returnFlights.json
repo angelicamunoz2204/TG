@@ -1,45 +1,45 @@
 [
   {
-    "id": "10772-2308101433--32115-0-10597-2308101607",
+    "id": "16807-2307021830--32357-0-10597-2307021935",
     "legs": [
       {
-        "id": "10772-2308101433--32115-0-10597-2308101607",
+        "id": "16807-2307021830--32357-0-10597-2307021935",
         "origin": {
-          "id": 10772,
-          "name": "Cartagena",
-          "displayCode": "CTG"
+          "id": 16807,
+          "name": "Tumaco",
+          "displayCode": "TCO"
         },
         "destination": {
           "id": 10597,
           "name": "Cali",
           "displayCode": "CLO"
         },
-        "durationInMinutes": 94,
+        "durationInMinutes": 65,
         "stopCount": 0,
         "isSmallestStops": true,
-        "departure": "2023-08-10T14:33:00",
-        "arrival": "2023-08-10T16:07:00",
+        "departure": "2023-07-02T18:30:00",
+        "arrival": "2023-07-02T19:35:00",
         "timeDeltaInDays": 0,
         "carriers": {
           "marketing": [
             {
-              "id": -32115,
-              "name": "LATAM Airlines"
+              "id": -32357,
+              "name": "EasyFly"
             }
           ],
           "operationType": "fully_operated"
         },
         "segments": [
           {
-            "id": "10772-10597-2308101433-2308101607--32115",
+            "id": "16807-10597-2307021830-2307021935--32357",
             "origin": {
-              "flightPlaceId": "CTG",
+              "flightPlaceId": "TCO",
               "parent": {
-                "flightPlaceId": "CTG",
-                "name": "Cartagena",
+                "flightPlaceId": "TCO",
+                "name": "Tumaco",
                 "type": "City"
               },
-              "name": "Cartagena",
+              "name": "Tumaco",
               "type": "Airport"
             },
             "destination": {
@@ -52,19 +52,19 @@
               "name": "Cali",
               "type": "Airport"
             },
-            "departure": "2023-08-10T14:33:00",
-            "arrival": "2023-08-10T16:07:00",
-            "durationInMinutes": 94,
-            "flightNumber": "4241",
+            "departure": "2023-07-02T18:30:00",
+            "arrival": "2023-07-02T19:35:00",
+            "durationInMinutes": 65,
+            "flightNumber": "7799",
             "marketingCarrier": {
-              "id": -32115,
-              "name": "LATAM Airlines",
-              "alternate_di": "LA"
+              "id": -32357,
+              "name": "EasyFly",
+              "alternate_di": "28"
             },
             "operatingCarrier": {
-              "id": -32113,
-              "name": "LATAM Airlines Colombia",
-              "alternate_di": "4C"
+              "id": -32357,
+              "name": "EasyFly",
+              "alternate_di": "28"
             }
           }
         ]
@@ -74,76 +74,93 @@
       {
         "agents": [
           {
-            "id": "lan_",
-            "name": "LATAM Airlines",
+            "id": "skyp",
+            "name": "Kiwi.com",
+            "is_carrier": false,
+            "update_status": "current",
+            "optimised_for_mobile": true,
+            "live_update_allowed": true,
+            "rating_status": "available",
+            "rating": 2.98,
+            "feedback_count": 21889,
+            "rating_breakdown": {
+              "reliable_prices": 3.38192,
+              "clear_extra_fees": 3.822664,
+              "customer_service": 4.951708,
+              "ease_of_booking": 2.627508,
+              "other": 2.126644
+            }
+          }
+        ],
+        "price": {
+          "amount": 259,
+          "update_status": "current",
+          "last_updated": "2023-06-07T17:28:18",
+          "quote_age": 20
+        },
+        "url": "https://www.skyscanner.net/transport_deeplink/4.0/UK/en-GB/USD/skyp/1/16807.10597.2023-07-02/air/trava/flights?itinerary=flight%7C-32357%7C7799%7C16807%7C2023-07-02T18%3A30%7C10597%7C2023-07-02T19%3A35%7C65%7C-%7CG%7C-&carriers=-32357&operators=-32357&passengers=2%3B10&channel=website&cabin_class=economy&ticket_price=259.00&is_npt=false&is_multipart=false&client_id=skyscanner_website&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2023-06-07T17%3A28%3A18&pqid=true"
+      },
+      {
+        "agents": [
+          {
+            "id": "efly",
+            "name": "EasyFly",
             "is_carrier": true,
             "update_status": "current",
-            "optimised_for_mobile": false,
-            "live_update_allowed": true,
-            "rating_status": "available",
-            "rating": 2.63,
-            "feedback_count": 630,
-            "rating_breakdown": {
-              "reliable_prices": 3.394148,
-              "clear_extra_fees": 3.478664,
-              "customer_service": 5,
-              "ease_of_booking": 2.041848,
-              "other": 1.619252
-            }
+            "optimised_for_mobile": true,
+            "live_update_allowed": false
           }
         ],
         "price": {
-          "amount": 55.1,
           "update_status": "current",
-          "last_updated": "2023-05-31T22:20:46",
-          "quote_age": 18
+          "last_updated": ""
         },
-        "url": "https://www.skyscanner.net/transport_deeplink/4.0/UK/en-GB/USD/lan_/1/10772.10597.2023-08-10/air/airli/flights?itinerary=flight%7C-32115%7C4241%7C10772%7C2023-08-10T14%3A33%7C10597%7C2023-08-10T16%3A07%7C94%7CO04QPGZT%7CO%7C-&carriers=-32115&operators=-32113&passengers=1&channel=website&cabin_class=economy&ticket_price=55.10&is_npt=false&is_multipart=false&client_id=skyscanner_website&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2023-05-31T22%3A20%3A46&pqid=false"
+        "url": "https://www.skyscanner.net/transport_deeplink/4.0/UK/en-GB/USD/efly/1/16807.10597.2023-07-02/air/airli/flights_np?itinerary=flight%7C-32357%7C7799%7C16807%7C2023-07-02T18%3A30%7C10597%7C2023-07-02T19%3A35%7C65%7C-%7C-%7C-&carriers=-32357&operators=-32357&passengers=2%3B10&channel=website&cabin_class=economy&is_npt=false&is_multipart=false&client_id=skyscanner_website&pqid=false"
       }
     ],
-    "deeplink": "https://www.skyscanner.net/transport/flights/ctg/clo/230810/config/10772-2308101433--32115-0-10597-2308101607?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27539833&originentityid=27540568&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
+    "deeplink": "https://www.skyscanner.net/transport/flights/tco/clo/230702/config/16807-2307021830--32357-0-10597-2307021935?adults=2&adultsv2=2&cabinclass=economy&children=2&childrenv2=1|10&destinationentityid=27539833&originentityid=27548440&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
   },
   {
-    "id": "10772-2308102206--32540-0-10597-2308102341",
+    "id": "16807-2307021155--31897-0-10597-2307021256",
     "legs": [
       {
-        "id": "10772-2308102206--32540-0-10597-2308102341",
+        "id": "16807-2307021155--31897-0-10597-2307021256",
         "origin": {
-          "id": 10772,
-          "name": "Cartagena",
-          "displayCode": "CTG"
+          "id": 16807,
+          "name": "Tumaco",
+          "displayCode": "TCO"
         },
         "destination": {
           "id": 10597,
           "name": "Cali",
           "displayCode": "CLO"
         },
-        "durationInMinutes": 95,
+        "durationInMinutes": 61,
         "stopCount": 0,
         "isSmallestStops": true,
-        "departure": "2023-08-10T22:06:00",
-        "arrival": "2023-08-10T23:41:00",
+        "departure": "2023-07-02T11:55:00",
+        "arrival": "2023-07-02T12:56:00",
         "timeDeltaInDays": 0,
         "carriers": {
           "marketing": [
             {
-              "id": -32540,
-              "name": "Avianca"
+              "id": -31897,
+              "name": "Satena"
             }
           ],
           "operationType": "fully_operated"
         },
         "segments": [
           {
-            "id": "10772-10597-2308102206-2308102341--32540",
+            "id": "16807-10597-2307021155-2307021256--31897",
             "origin": {
-              "flightPlaceId": "CTG",
+              "flightPlaceId": "TCO",
               "parent": {
-                "flightPlaceId": "CTG",
-                "name": "Cartagena",
+                "flightPlaceId": "TCO",
+                "name": "Tumaco",
                 "type": "City"
               },
-              "name": "Cartagena",
+              "name": "Tumaco",
               "type": "Airport"
             },
             "destination": {
@@ -156,21 +173,19 @@
               "name": "Cali",
               "type": "Airport"
             },
-            "departure": "2023-08-10T22:06:00",
-            "arrival": "2023-08-10T23:41:00",
-            "durationInMinutes": 95,
-            "flightNumber": "8474",
+            "departure": "2023-07-02T11:55:00",
+            "arrival": "2023-07-02T12:56:00",
+            "durationInMinutes": 61,
+            "flightNumber": "8688",
             "marketingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
+              "id": -31897,
+              "name": "Satena",
+              "alternate_di": "9N"
             },
             "operatingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
+              "id": -31897,
+              "name": "Satena",
+              "alternate_di": "9N"
             }
           }
         ]
@@ -180,486 +195,55 @@
       {
         "agents": [
           {
-            "id": "bcuk",
-            "name": "Booking.com",
+            "id": "skyp",
+            "name": "Kiwi.com",
             "is_carrier": false,
             "update_status": "current",
             "optimised_for_mobile": true,
             "live_update_allowed": true,
             "rating_status": "available",
-            "rating": 3.57,
-            "feedback_count": 28888,
+            "rating": 2.98,
+            "feedback_count": 21889,
             "rating_breakdown": {
-              "reliable_prices": 3.573256,
-              "clear_extra_fees": 4.018704,
-              "customer_service": 4.988532,
-              "ease_of_booking": 3.788864,
-              "other": 2.92526
+              "reliable_prices": 3.38192,
+              "clear_extra_fees": 3.822664,
+              "customer_service": 4.951708,
+              "ease_of_booking": 2.627508,
+              "other": 2.126644
             }
           }
         ],
         "price": {
-          "amount": 50.8,
+          "amount": 310,
           "update_status": "current",
-          "last_updated": "2023-05-31T22:20:43",
-          "quote_age": 18
+          "last_updated": "2023-06-07T17:28:18",
+          "quote_age": 20
         },
-        "url": "https://www.skyscanner.net/transport_deeplink/4.0/UK/en-GB/USD/bcuk/1/10772.10597.2023-08-10/air/trava/flights?itinerary=flight%7C-32540%7C8474%7C10772%7C2023-08-10T22%3A06%7C10597%7C2023-08-10T23%3A41%7C95%7C-%7C-%7C-&carriers=-32540&operators=-32540&passengers=1&channel=website&cabin_class=economy&ticket_price=50.80&is_npt=false&is_multipart=false&client_id=skyscanner_website&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2023-05-31T22%3A20%3A43&pqid=true"
+        "url": "https://www.skyscanner.net/transport_deeplink/4.0/UK/en-GB/USD/skyp/1/16807.10597.2023-07-02/air/trava/flights?itinerary=flight%7C-31897%7C8688%7C16807%7C2023-07-02T11%3A55%7C10597%7C2023-07-02T12%3A56%7C61%7C-%7CL%7C-&carriers=-31897&operators=-31897&passengers=2%3B10&channel=website&cabin_class=economy&ticket_price=310.00&is_npt=false&is_multipart=false&client_id=skyscanner_website&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2023-06-07T17%3A28%3A18&pqid=true"
       }
     ],
-    "deeplink": "https://www.skyscanner.net/transport/flights/ctg/clo/230810/config/10772-2308102206--32540-0-10597-2308102341?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27539833&originentityid=27540568&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
+    "deeplink": "https://www.skyscanner.net/transport/flights/tco/clo/230702/config/16807-2307021155--31897-0-10597-2307021256?adults=2&adultsv2=2&cabinclass=economy&children=2&childrenv2=1|10&destinationentityid=27539833&originentityid=27548440&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
   },
   {
-    "id": "10772-2308100600--32540-1-10597-2308100947",
+    "id": "16807-2307021830--32540-0-10597-2307021935",
     "legs": [
       {
-        "id": "10772-2308100600--32540-1-10597-2308100947",
+        "id": "16807-2307021830--32540-0-10597-2307021935",
         "origin": {
-          "id": 10772,
-          "name": "Cartagena",
-          "displayCode": "CTG"
+          "id": 16807,
+          "name": "Tumaco",
+          "displayCode": "TCO"
         },
         "destination": {
           "id": 10597,
           "name": "Cali",
           "displayCode": "CLO"
         },
-        "durationInMinutes": 227,
-        "stopCount": 1,
-        "isSmallestStops": true,
-        "departure": "2023-08-10T06:00:00",
-        "arrival": "2023-08-10T09:47:00",
-        "timeDeltaInDays": 0,
-        "carriers": {
-          "marketing": [
-            {
-              "id": -32540,
-              "name": "Avianca"
-            }
-          ],
-          "operationType": "fully_operated"
-        },
-        "segments": [
-          {
-            "id": "10772-10069-2308100600-2308100729--32540",
-            "origin": {
-              "flightPlaceId": "CTG",
-              "parent": {
-                "flightPlaceId": "CTG",
-                "name": "Cartagena",
-                "type": "City"
-              },
-              "name": "Cartagena",
-              "type": "Airport"
-            },
-            "destination": {
-              "flightPlaceId": "BOG",
-              "parent": {
-                "flightPlaceId": "BOG",
-                "name": "Bogota",
-                "type": "City"
-              },
-              "name": "Bogota",
-              "type": "Airport"
-            },
-            "departure": "2023-08-10T06:00:00",
-            "arrival": "2023-08-10T07:29:00",
-            "durationInMinutes": 89,
-            "flightNumber": "8537",
-            "marketingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            },
-            "operatingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            }
-          },
-          {
-            "id": "10069-10597-2308100838-2308100947--32540",
-            "origin": {
-              "flightPlaceId": "BOG",
-              "parent": {
-                "flightPlaceId": "BOG",
-                "name": "Bogota",
-                "type": "City"
-              },
-              "name": "Bogota",
-              "type": "Airport"
-            },
-            "destination": {
-              "flightPlaceId": "CLO",
-              "parent": {
-                "flightPlaceId": "CLO",
-                "name": "Cali",
-                "type": "City"
-              },
-              "name": "Cali",
-              "type": "Airport"
-            },
-            "departure": "2023-08-10T08:38:00",
-            "arrival": "2023-08-10T09:47:00",
-            "durationInMinutes": 69,
-            "flightNumber": "9694",
-            "marketingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            },
-            "operatingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            }
-          }
-        ]
-      }
-    ],
-    "pricing_options": [
-      {
-        "agents": [
-          {
-            "id": "bcuk",
-            "name": "Booking.com",
-            "is_carrier": false,
-            "update_status": "current",
-            "optimised_for_mobile": true,
-            "live_update_allowed": true,
-            "rating_status": "available",
-            "rating": 3.57,
-            "feedback_count": 28888,
-            "rating_breakdown": {
-              "reliable_prices": 3.573256,
-              "clear_extra_fees": 4.018704,
-              "customer_service": 4.988532,
-              "ease_of_booking": 3.788864,
-              "other": 2.92526
-            }
-          }
-        ],
-        "price": {
-          "amount": 50.8,
-          "update_status": "current",
-          "last_updated": "2023-05-31T22:20:43",
-          "quote_age": 18
-        },
-        "url": "https://www.skyscanner.net/transport_deeplink/4.0/UK/en-GB/USD/bcuk/1/10772.10597.2023-08-10/air/trava/flights?itinerary=flight%7C-32540%7C8537%7C10772%7C2023-08-10T06%3A00%7C10069%7C2023-08-10T07%3A29%7C89%7C-%7C-%7C-%3Bflight%7C-32540%7C9694%7C10069%7C2023-08-10T08%3A38%7C10597%7C2023-08-10T09%3A47%7C69%7C-%7C-%7C-&carriers=-32540&operators=-32540%3B-32540&passengers=1&channel=website&cabin_class=economy&ticket_price=50.80&is_npt=false&is_multipart=false&client_id=skyscanner_website&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2023-05-31T22%3A20%3A43&pqid=true"
-      }
-    ],
-    "deeplink": "https://www.skyscanner.net/transport/flights/ctg/clo/230810/config/10772-2308100600--32540-1-10597-2308100947?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27539833&originentityid=27540568&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
-  },
-  {
-    "id": "10772-2308100903--32115-1-10597-2308101218",
-    "legs": [
-      {
-        "id": "10772-2308100903--32115-1-10597-2308101218",
-        "origin": {
-          "id": 10772,
-          "name": "Cartagena",
-          "displayCode": "CTG"
-        },
-        "destination": {
-          "id": 10597,
-          "name": "Cali",
-          "displayCode": "CLO"
-        },
-        "durationInMinutes": 195,
-        "stopCount": 1,
-        "isSmallestStops": true,
-        "departure": "2023-08-10T09:03:00",
-        "arrival": "2023-08-10T12:18:00",
-        "timeDeltaInDays": 0,
-        "carriers": {
-          "marketing": [
-            {
-              "id": -32115,
-              "name": "LATAM Airlines"
-            }
-          ],
-          "operationType": "fully_operated"
-        },
-        "segments": [
-          {
-            "id": "10772-10069-2308100903-2308101030--32115",
-            "origin": {
-              "flightPlaceId": "CTG",
-              "parent": {
-                "flightPlaceId": "CTG",
-                "name": "Cartagena",
-                "type": "City"
-              },
-              "name": "Cartagena",
-              "type": "Airport"
-            },
-            "destination": {
-              "flightPlaceId": "BOG",
-              "parent": {
-                "flightPlaceId": "BOG",
-                "name": "Bogota",
-                "type": "City"
-              },
-              "name": "Bogota",
-              "type": "Airport"
-            },
-            "departure": "2023-08-10T09:03:00",
-            "arrival": "2023-08-10T10:30:00",
-            "durationInMinutes": 87,
-            "flightNumber": "4097",
-            "marketingCarrier": {
-              "id": -32115,
-              "name": "LATAM Airlines",
-              "alternate_di": "LA"
-            },
-            "operatingCarrier": {
-              "id": -32113,
-              "name": "LATAM Airlines Colombia",
-              "alternate_di": "4C"
-            }
-          },
-          {
-            "id": "10069-10597-2308101114-2308101218--32115",
-            "origin": {
-              "flightPlaceId": "BOG",
-              "parent": {
-                "flightPlaceId": "BOG",
-                "name": "Bogota",
-                "type": "City"
-              },
-              "name": "Bogota",
-              "type": "Airport"
-            },
-            "destination": {
-              "flightPlaceId": "CLO",
-              "parent": {
-                "flightPlaceId": "CLO",
-                "name": "Cali",
-                "type": "City"
-              },
-              "name": "Cali",
-              "type": "Airport"
-            },
-            "departure": "2023-08-10T11:14:00",
-            "arrival": "2023-08-10T12:18:00",
-            "durationInMinutes": 64,
-            "flightNumber": "4065",
-            "marketingCarrier": {
-              "id": -32115,
-              "name": "LATAM Airlines",
-              "alternate_di": "LA"
-            },
-            "operatingCarrier": {
-              "id": -32113,
-              "name": "LATAM Airlines Colombia",
-              "alternate_di": "4C"
-            }
-          }
-        ]
-      }
-    ],
-    "pricing_options": [
-      {
-        "agents": [
-          {
-            "id": "mtuk",
-            "name": "Mytrip",
-            "is_carrier": false,
-            "update_status": "current",
-            "optimised_for_mobile": true,
-            "live_update_allowed": true,
-            "rating_status": "available",
-            "rating": 3.07,
-            "feedback_count": 28132,
-            "rating_breakdown": {
-              "reliable_prices": 3.728012,
-              "clear_extra_fees": 3.776656,
-              "customer_service": 4.849896,
-              "ease_of_booking": 3.19206,
-              "other": 1.734036
-            }
-          }
-        ],
-        "price": {
-          "amount": 81.79,
-          "update_status": "current",
-          "last_updated": "2023-05-31T22:20:43",
-          "quote_age": 18
-        },
-        "url": "https://www.skyscanner.net/transport_deeplink/4.0/UK/en-GB/USD/mtuk/1/10772.10597.2023-08-10/air/trava/flights?itinerary=flight%7C-32115%7C4097%7C10772%7C2023-08-10T09%3A03%7C10069%7C2023-08-10T10%3A30%7C87%7C-%7C-%7C-%3Bflight%7C-32115%7C4065%7C10069%7C2023-08-10T11%3A14%7C10597%7C2023-08-10T12%3A18%7C64%7C-%7C-%7C-&carriers=-32115&operators=-32113%3B-32113&passengers=1&channel=website&cabin_class=economy&ticket_price=81.79&is_npt=false&is_multipart=false&client_id=skyscanner_website&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2023-05-31T22%3A20%3A43&pqid=true"
-      }
-    ],
-    "deeplink": "https://www.skyscanner.net/transport/flights/ctg/clo/230810/config/10772-2308100903--32115-1-10597-2308101218?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27539833&originentityid=27540568&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
-  },
-  {
-    "id": "10772-2308101344--32540-1-10597-2308101815",
-    "legs": [
-      {
-        "id": "10772-2308101344--32540-1-10597-2308101815",
-        "origin": {
-          "id": 10772,
-          "name": "Cartagena",
-          "displayCode": "CTG"
-        },
-        "destination": {
-          "id": 10597,
-          "name": "Cali",
-          "displayCode": "CLO"
-        },
-        "durationInMinutes": 271,
-        "stopCount": 1,
-        "isSmallestStops": true,
-        "departure": "2023-08-10T13:44:00",
-        "arrival": "2023-08-10T18:15:00",
-        "timeDeltaInDays": 0,
-        "carriers": {
-          "marketing": [
-            {
-              "id": -32540,
-              "name": "Avianca"
-            }
-          ],
-          "operationType": "fully_operated"
-        },
-        "segments": [
-          {
-            "id": "10772-10069-2308101344-2308101514--32540",
-            "origin": {
-              "flightPlaceId": "CTG",
-              "parent": {
-                "flightPlaceId": "CTG",
-                "name": "Cartagena",
-                "type": "City"
-              },
-              "name": "Cartagena",
-              "type": "Airport"
-            },
-            "destination": {
-              "flightPlaceId": "BOG",
-              "parent": {
-                "flightPlaceId": "BOG",
-                "name": "Bogota",
-                "type": "City"
-              },
-              "name": "Bogota",
-              "type": "Airport"
-            },
-            "departure": "2023-08-10T13:44:00",
-            "arrival": "2023-08-10T15:14:00",
-            "durationInMinutes": 90,
-            "flightNumber": "8559",
-            "marketingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            },
-            "operatingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            }
-          },
-          {
-            "id": "10069-10597-2308101706-2308101815--32540",
-            "origin": {
-              "flightPlaceId": "BOG",
-              "parent": {
-                "flightPlaceId": "BOG",
-                "name": "Bogota",
-                "type": "City"
-              },
-              "name": "Bogota",
-              "type": "Airport"
-            },
-            "destination": {
-              "flightPlaceId": "CLO",
-              "parent": {
-                "flightPlaceId": "CLO",
-                "name": "Cali",
-                "type": "City"
-              },
-              "name": "Cali",
-              "type": "Airport"
-            },
-            "departure": "2023-08-10T17:06:00",
-            "arrival": "2023-08-10T18:15:00",
-            "durationInMinutes": 69,
-            "flightNumber": "9223",
-            "marketingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            },
-            "operatingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            }
-          }
-        ]
-      }
-    ],
-    "pricing_options": [
-      {
-        "agents": [
-          {
-            "id": "bcuk",
-            "name": "Booking.com",
-            "is_carrier": false,
-            "update_status": "current",
-            "optimised_for_mobile": true,
-            "live_update_allowed": true,
-            "rating_status": "available",
-            "rating": 3.57,
-            "feedback_count": 28888,
-            "rating_breakdown": {
-              "reliable_prices": 3.573256,
-              "clear_extra_fees": 4.018704,
-              "customer_service": 4.988532,
-              "ease_of_booking": 3.788864,
-              "other": 2.92526
-            }
-          }
-        ],
-        "price": {
-          "amount": 50.8,
-          "update_status": "current",
-          "last_updated": "2023-05-31T22:20:43",
-          "quote_age": 18
-        },
-        "url": "https://www.skyscanner.net/transport_deeplink/4.0/UK/en-GB/USD/bcuk/1/10772.10597.2023-08-10/air/trava/flights?itinerary=flight%7C-32540%7C8559%7C10772%7C2023-08-10T13%3A44%7C10069%7C2023-08-10T15%3A14%7C90%7C-%7C-%7C-%3Bflight%7C-32540%7C9223%7C10069%7C2023-08-10T17%3A06%7C10597%7C2023-08-10T18%3A15%7C69%7C-%7C-%7C-&carriers=-32540&operators=-32540%3B-32540&passengers=1&channel=website&cabin_class=economy&ticket_price=50.80&is_npt=false&is_multipart=false&client_id=skyscanner_website&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2023-05-31T22%3A20%3A43&pqid=true"
-      }
-    ],
-    "deeplink": "https://www.skyscanner.net/transport/flights/ctg/clo/230810/config/10772-2308101344--32540-1-10597-2308101815?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27539833&originentityid=27540568&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
-  },
-  {
-    "id": "10772-2308101257--32540-0-10597-2308101432",
-    "legs": [
-      {
-        "id": "10772-2308101257--32540-0-10597-2308101432",
-        "origin": {
-          "id": 10772,
-          "name": "Cartagena",
-          "displayCode": "CTG"
-        },
-        "destination": {
-          "id": 10597,
-          "name": "Cali",
-          "displayCode": "CLO"
-        },
-        "durationInMinutes": 95,
+        "durationInMinutes": 65,
         "stopCount": 0,
         "isSmallestStops": true,
-        "departure": "2023-08-10T12:57:00",
-        "arrival": "2023-08-10T14:32:00",
+        "departure": "2023-07-02T18:30:00",
+        "arrival": "2023-07-02T19:35:00",
         "timeDeltaInDays": 0,
         "carriers": {
           "marketing": [
@@ -672,15 +256,15 @@
         },
         "segments": [
           {
-            "id": "10772-10597-2308101257-2308101432--32540",
+            "id": "16807-10597-2307021830-2307021935--32540",
             "origin": {
-              "flightPlaceId": "CTG",
+              "flightPlaceId": "TCO",
               "parent": {
-                "flightPlaceId": "CTG",
-                "name": "Cartagena",
+                "flightPlaceId": "TCO",
+                "name": "Tumaco",
                 "type": "City"
               },
-              "name": "Cartagena",
+              "name": "Tumaco",
               "type": "Airport"
             },
             "destination": {
@@ -693,10 +277,10 @@
               "name": "Cali",
               "type": "Airport"
             },
-            "departure": "2023-08-10T12:57:00",
-            "arrival": "2023-08-10T14:32:00",
-            "durationInMinutes": 95,
-            "flightNumber": "9365",
+            "departure": "2023-07-02T18:30:00",
+            "arrival": "2023-07-02T19:35:00",
+            "durationInMinutes": 65,
+            "flightNumber": "2917",
             "marketingCarrier": {
               "id": -32540,
               "name": "Avianca",
@@ -704,10 +288,9 @@
               "allianceId": -31999
             },
             "operatingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
+              "id": -32357,
+              "name": "EasyFly",
+              "alternate_di": "28"
             }
           }
         ]
@@ -717,1858 +300,33 @@
       {
         "agents": [
           {
-            "id": "bcuk",
-            "name": "Booking.com",
+            "id": "skyp",
+            "name": "Kiwi.com",
             "is_carrier": false,
             "update_status": "current",
             "optimised_for_mobile": true,
             "live_update_allowed": true,
             "rating_status": "available",
-            "rating": 3.57,
-            "feedback_count": 28888,
+            "rating": 2.98,
+            "feedback_count": 21889,
             "rating_breakdown": {
-              "reliable_prices": 3.573256,
-              "clear_extra_fees": 4.018704,
-              "customer_service": 4.988532,
-              "ease_of_booking": 3.788864,
-              "other": 2.92526
+              "reliable_prices": 3.38192,
+              "clear_extra_fees": 3.822664,
+              "customer_service": 4.951708,
+              "ease_of_booking": 2.627508,
+              "other": 2.126644
             }
           }
         ],
         "price": {
-          "amount": 50.8,
+          "amount": 259,
           "update_status": "current",
-          "last_updated": "2023-05-31T22:20:43",
-          "quote_age": 18
+          "last_updated": "2023-06-07T17:28:18",
+          "quote_age": 20
         },
-        "url": "https://www.skyscanner.net/transport_deeplink/4.0/UK/en-GB/USD/bcuk/1/10772.10597.2023-08-10/air/trava/flights?itinerary=flight%7C-32540%7C9365%7C10772%7C2023-08-10T12%3A57%7C10597%7C2023-08-10T14%3A32%7C95%7C-%7C-%7C-&carriers=-32540&operators=-32540&passengers=1&channel=website&cabin_class=economy&ticket_price=50.80&is_npt=false&is_multipart=false&client_id=skyscanner_website&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2023-05-31T22%3A20%3A43&pqid=true"
+        "url": "https://www.skyscanner.net/transport_deeplink/4.0/UK/en-GB/USD/skyp/1/16807.10597.2023-07-02/air/trava/flights?itinerary=flight%7C-32540%7C2917%7C16807%7C2023-07-02T18%3A30%7C10597%7C2023-07-02T19%3A35%7C65%7CZEWB2BRK%7CZ%7C-&carriers=-32540&operators=-32357&passengers=2%3B10&channel=website&cabin_class=economy&ticket_price=259.00&is_npt=false&is_multipart=false&client_id=skyscanner_website&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2023-06-07T17%3A28%3A18&pqid=true"
       }
     ],
-    "deeplink": "https://www.skyscanner.net/transport/flights/ctg/clo/230810/config/10772-2308101257--32540-0-10597-2308101432?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27539833&originentityid=27540568&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
-  },
-  {
-    "id": "10772-2308100531--32540-1-10597-2308100915",
-    "legs": [
-      {
-        "id": "10772-2308100531--32540-1-10597-2308100915",
-        "origin": {
-          "id": 10772,
-          "name": "Cartagena",
-          "displayCode": "CTG"
-        },
-        "destination": {
-          "id": 10597,
-          "name": "Cali",
-          "displayCode": "CLO"
-        },
-        "durationInMinutes": 224,
-        "stopCount": 1,
-        "isSmallestStops": true,
-        "departure": "2023-08-10T05:31:00",
-        "arrival": "2023-08-10T09:15:00",
-        "timeDeltaInDays": 0,
-        "carriers": {
-          "marketing": [
-            {
-              "id": -32540,
-              "name": "Avianca"
-            }
-          ],
-          "operationType": "fully_operated"
-        },
-        "segments": [
-          {
-            "id": "10772-10069-2308100531-2308100700--32540",
-            "origin": {
-              "flightPlaceId": "CTG",
-              "parent": {
-                "flightPlaceId": "CTG",
-                "name": "Cartagena",
-                "type": "City"
-              },
-              "name": "Cartagena",
-              "type": "Airport"
-            },
-            "destination": {
-              "flightPlaceId": "BOG",
-              "parent": {
-                "flightPlaceId": "BOG",
-                "name": "Bogota",
-                "type": "City"
-              },
-              "name": "Bogota",
-              "type": "Airport"
-            },
-            "departure": "2023-08-10T05:31:00",
-            "arrival": "2023-08-10T07:00:00",
-            "durationInMinutes": 89,
-            "flightNumber": "9755",
-            "marketingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            },
-            "operatingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            }
-          },
-          {
-            "id": "10069-10597-2308100806-2308100915--32540",
-            "origin": {
-              "flightPlaceId": "BOG",
-              "parent": {
-                "flightPlaceId": "BOG",
-                "name": "Bogota",
-                "type": "City"
-              },
-              "name": "Bogota",
-              "type": "Airport"
-            },
-            "destination": {
-              "flightPlaceId": "CLO",
-              "parent": {
-                "flightPlaceId": "CLO",
-                "name": "Cali",
-                "type": "City"
-              },
-              "name": "Cali",
-              "type": "Airport"
-            },
-            "departure": "2023-08-10T08:06:00",
-            "arrival": "2023-08-10T09:15:00",
-            "durationInMinutes": 69,
-            "flightNumber": "8417",
-            "marketingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            },
-            "operatingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            }
-          }
-        ]
-      }
-    ],
-    "pricing_options": [
-      {
-        "agents": [
-          {
-            "id": "bcuk",
-            "name": "Booking.com",
-            "is_carrier": false,
-            "update_status": "current",
-            "optimised_for_mobile": true,
-            "live_update_allowed": true,
-            "rating_status": "available",
-            "rating": 3.57,
-            "feedback_count": 28888,
-            "rating_breakdown": {
-              "reliable_prices": 3.573256,
-              "clear_extra_fees": 4.018704,
-              "customer_service": 4.988532,
-              "ease_of_booking": 3.788864,
-              "other": 2.92526
-            }
-          }
-        ],
-        "price": {
-          "amount": 50.8,
-          "update_status": "current",
-          "last_updated": "2023-05-31T22:20:43",
-          "quote_age": 18
-        },
-        "url": "https://www.skyscanner.net/transport_deeplink/4.0/UK/en-GB/USD/bcuk/1/10772.10597.2023-08-10/air/trava/flights?itinerary=flight%7C-32540%7C9755%7C10772%7C2023-08-10T05%3A31%7C10069%7C2023-08-10T07%3A00%7C89%7C-%7C-%7C-%3Bflight%7C-32540%7C8417%7C10069%7C2023-08-10T08%3A06%7C10597%7C2023-08-10T09%3A15%7C69%7C-%7C-%7C-&carriers=-32540&operators=-32540%3B-32540&passengers=1&channel=website&cabin_class=economy&ticket_price=50.80&is_npt=false&is_multipart=false&client_id=skyscanner_website&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2023-05-31T22%3A20%3A43&pqid=true"
-      }
-    ],
-    "deeplink": "https://www.skyscanner.net/transport/flights/ctg/clo/230810/config/10772-2308100531--32540-1-10597-2308100915?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27539833&originentityid=27540568&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
-  },
-  {
-    "id": "10772-2308101117--32540-0-10597-2308101251",
-    "legs": [
-      {
-        "id": "10772-2308101117--32540-0-10597-2308101251",
-        "origin": {
-          "id": 10772,
-          "name": "Cartagena",
-          "displayCode": "CTG"
-        },
-        "destination": {
-          "id": 10597,
-          "name": "Cali",
-          "displayCode": "CLO"
-        },
-        "durationInMinutes": 94,
-        "stopCount": 0,
-        "isSmallestStops": true,
-        "departure": "2023-08-10T11:17:00",
-        "arrival": "2023-08-10T12:51:00",
-        "timeDeltaInDays": 0,
-        "carriers": {
-          "marketing": [
-            {
-              "id": -32540,
-              "name": "Avianca"
-            }
-          ],
-          "operationType": "fully_operated"
-        },
-        "segments": [
-          {
-            "id": "10772-10597-2308101117-2308101251--32540",
-            "origin": {
-              "flightPlaceId": "CTG",
-              "parent": {
-                "flightPlaceId": "CTG",
-                "name": "Cartagena",
-                "type": "City"
-              },
-              "name": "Cartagena",
-              "type": "Airport"
-            },
-            "destination": {
-              "flightPlaceId": "CLO",
-              "parent": {
-                "flightPlaceId": "CLO",
-                "name": "Cali",
-                "type": "City"
-              },
-              "name": "Cali",
-              "type": "Airport"
-            },
-            "departure": "2023-08-10T11:17:00",
-            "arrival": "2023-08-10T12:51:00",
-            "durationInMinutes": 94,
-            "flightNumber": "8569",
-            "marketingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            },
-            "operatingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            }
-          }
-        ]
-      }
-    ],
-    "pricing_options": [
-      {
-        "agents": [
-          {
-            "id": "bcuk",
-            "name": "Booking.com",
-            "is_carrier": false,
-            "update_status": "current",
-            "optimised_for_mobile": true,
-            "live_update_allowed": true,
-            "rating_status": "available",
-            "rating": 3.57,
-            "feedback_count": 28888,
-            "rating_breakdown": {
-              "reliable_prices": 3.573256,
-              "clear_extra_fees": 4.018704,
-              "customer_service": 4.988532,
-              "ease_of_booking": 3.788864,
-              "other": 2.92526
-            }
-          }
-        ],
-        "price": {
-          "amount": 50.8,
-          "update_status": "current",
-          "last_updated": "2023-05-31T22:20:43",
-          "quote_age": 18
-        },
-        "url": "https://www.skyscanner.net/transport_deeplink/4.0/UK/en-GB/USD/bcuk/1/10772.10597.2023-08-10/air/trava/flights?itinerary=flight%7C-32540%7C8569%7C10772%7C2023-08-10T11%3A17%7C10597%7C2023-08-10T12%3A51%7C94%7C-%7C-%7C-&carriers=-32540&operators=-32540&passengers=1&channel=website&cabin_class=economy&ticket_price=50.80&is_npt=false&is_multipart=false&client_id=skyscanner_website&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2023-05-31T22%3A20%3A43&pqid=true"
-      }
-    ],
-    "deeplink": "https://www.skyscanner.net/transport/flights/ctg/clo/230810/config/10772-2308101117--32540-0-10597-2308101251?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27539833&originentityid=27540568&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
-  },
-  {
-    "id": "10772-2308100824--32540-1-10597-2308101139",
-    "legs": [
-      {
-        "id": "10772-2308100824--32540-1-10597-2308101139",
-        "origin": {
-          "id": 10772,
-          "name": "Cartagena",
-          "displayCode": "CTG"
-        },
-        "destination": {
-          "id": 10597,
-          "name": "Cali",
-          "displayCode": "CLO"
-        },
-        "durationInMinutes": 195,
-        "stopCount": 1,
-        "isSmallestStops": true,
-        "departure": "2023-08-10T08:24:00",
-        "arrival": "2023-08-10T11:39:00",
-        "timeDeltaInDays": 0,
-        "carriers": {
-          "marketing": [
-            {
-              "id": -32540,
-              "name": "Avianca"
-            }
-          ],
-          "operationType": "fully_operated"
-        },
-        "segments": [
-          {
-            "id": "10772-13949-2308100824-2308100938--32540",
-            "origin": {
-              "flightPlaceId": "CTG",
-              "parent": {
-                "flightPlaceId": "CTG",
-                "name": "Cartagena",
-                "type": "City"
-              },
-              "name": "Cartagena",
-              "type": "Airport"
-            },
-            "destination": {
-              "flightPlaceId": "MDE",
-              "parent": {
-                "flightPlaceId": "MDE",
-                "name": "Medellin",
-                "type": "City"
-              },
-              "name": "Medellin Jose Maria Cordova",
-              "type": "Airport"
-            },
-            "departure": "2023-08-10T08:24:00",
-            "arrival": "2023-08-10T09:38:00",
-            "durationInMinutes": 74,
-            "flightNumber": "9495",
-            "marketingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            },
-            "operatingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            }
-          },
-          {
-            "id": "13949-10597-2308101032-2308101139--32540",
-            "origin": {
-              "flightPlaceId": "MDE",
-              "parent": {
-                "flightPlaceId": "MDE",
-                "name": "Medellin",
-                "type": "City"
-              },
-              "name": "Medellin Jose Maria Cordova",
-              "type": "Airport"
-            },
-            "destination": {
-              "flightPlaceId": "CLO",
-              "parent": {
-                "flightPlaceId": "CLO",
-                "name": "Cali",
-                "type": "City"
-              },
-              "name": "Cali",
-              "type": "Airport"
-            },
-            "departure": "2023-08-10T10:32:00",
-            "arrival": "2023-08-10T11:39:00",
-            "durationInMinutes": 67,
-            "flightNumber": "9431",
-            "marketingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            },
-            "operatingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            }
-          }
-        ]
-      }
-    ],
-    "pricing_options": [
-      {
-        "agents": [
-          {
-            "id": "bcuk",
-            "name": "Booking.com",
-            "is_carrier": false,
-            "update_status": "current",
-            "optimised_for_mobile": true,
-            "live_update_allowed": true,
-            "rating_status": "available",
-            "rating": 3.57,
-            "feedback_count": 28888,
-            "rating_breakdown": {
-              "reliable_prices": 3.573256,
-              "clear_extra_fees": 4.018704,
-              "customer_service": 4.988532,
-              "ease_of_booking": 3.788864,
-              "other": 2.92526
-            }
-          }
-        ],
-        "price": {
-          "amount": 50.8,
-          "update_status": "current",
-          "last_updated": "2023-05-31T22:20:43",
-          "quote_age": 18
-        },
-        "url": "https://www.skyscanner.net/transport_deeplink/4.0/UK/en-GB/USD/bcuk/1/10772.10597.2023-08-10/air/trava/flights?itinerary=flight%7C-32540%7C9495%7C10772%7C2023-08-10T08%3A24%7C13949%7C2023-08-10T09%3A38%7C74%7C-%7C-%7C-%3Bflight%7C-32540%7C9431%7C13949%7C2023-08-10T10%3A32%7C10597%7C2023-08-10T11%3A39%7C67%7C-%7C-%7C-&carriers=-32540&operators=-32540%3B-32540&passengers=1&channel=website&cabin_class=economy&ticket_price=50.80&is_npt=false&is_multipart=false&client_id=skyscanner_website&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2023-05-31T22%3A20%3A43&pqid=true"
-      }
-    ],
-    "deeplink": "https://www.skyscanner.net/transport/flights/ctg/clo/230810/config/10772-2308100824--32540-1-10597-2308101139?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27539833&originentityid=27540568&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
-  },
-  {
-    "id": "10772-2308101936--32540-1-10597-2308102316",
-    "legs": [
-      {
-        "id": "10772-2308101936--32540-1-10597-2308102316",
-        "origin": {
-          "id": 10772,
-          "name": "Cartagena",
-          "displayCode": "CTG"
-        },
-        "destination": {
-          "id": 10597,
-          "name": "Cali",
-          "displayCode": "CLO"
-        },
-        "durationInMinutes": 220,
-        "stopCount": 1,
-        "isSmallestStops": true,
-        "departure": "2023-08-10T19:36:00",
-        "arrival": "2023-08-10T23:16:00",
-        "timeDeltaInDays": 0,
-        "carriers": {
-          "marketing": [
-            {
-              "id": -32540,
-              "name": "Avianca"
-            }
-          ],
-          "operationType": "fully_operated"
-        },
-        "segments": [
-          {
-            "id": "10772-10069-2308101936-2308102106--32540",
-            "origin": {
-              "flightPlaceId": "CTG",
-              "parent": {
-                "flightPlaceId": "CTG",
-                "name": "Cartagena",
-                "type": "City"
-              },
-              "name": "Cartagena",
-              "type": "Airport"
-            },
-            "destination": {
-              "flightPlaceId": "BOG",
-              "parent": {
-                "flightPlaceId": "BOG",
-                "name": "Bogota",
-                "type": "City"
-              },
-              "name": "Bogota",
-              "type": "Airport"
-            },
-            "departure": "2023-08-10T19:36:00",
-            "arrival": "2023-08-10T21:06:00",
-            "durationInMinutes": 90,
-            "flightNumber": "9743",
-            "marketingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            },
-            "operatingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            }
-          },
-          {
-            "id": "10069-10597-2308102207-2308102316--32540",
-            "origin": {
-              "flightPlaceId": "BOG",
-              "parent": {
-                "flightPlaceId": "BOG",
-                "name": "Bogota",
-                "type": "City"
-              },
-              "name": "Bogota",
-              "type": "Airport"
-            },
-            "destination": {
-              "flightPlaceId": "CLO",
-              "parent": {
-                "flightPlaceId": "CLO",
-                "name": "Cali",
-                "type": "City"
-              },
-              "name": "Cali",
-              "type": "Airport"
-            },
-            "departure": "2023-08-10T22:07:00",
-            "arrival": "2023-08-10T23:16:00",
-            "durationInMinutes": 69,
-            "flightNumber": "9533",
-            "marketingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            },
-            "operatingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            }
-          }
-        ]
-      }
-    ],
-    "pricing_options": [
-      {
-        "agents": [
-          {
-            "id": "bcuk",
-            "name": "Booking.com",
-            "is_carrier": false,
-            "update_status": "current",
-            "optimised_for_mobile": true,
-            "live_update_allowed": true,
-            "rating_status": "available",
-            "rating": 3.57,
-            "feedback_count": 28888,
-            "rating_breakdown": {
-              "reliable_prices": 3.573256,
-              "clear_extra_fees": 4.018704,
-              "customer_service": 4.988532,
-              "ease_of_booking": 3.788864,
-              "other": 2.92526
-            }
-          }
-        ],
-        "price": {
-          "amount": 50.8,
-          "update_status": "current",
-          "last_updated": "2023-05-31T22:20:43",
-          "quote_age": 18
-        },
-        "url": "https://www.skyscanner.net/transport_deeplink/4.0/UK/en-GB/USD/bcuk/1/10772.10597.2023-08-10/air/trava/flights?itinerary=flight%7C-32540%7C9743%7C10772%7C2023-08-10T19%3A36%7C10069%7C2023-08-10T21%3A06%7C90%7C-%7C-%7C-%3Bflight%7C-32540%7C9533%7C10069%7C2023-08-10T22%3A07%7C10597%7C2023-08-10T23%3A16%7C69%7C-%7C-%7C-&carriers=-32540&operators=-32540%3B-32540&passengers=1&channel=website&cabin_class=economy&ticket_price=50.80&is_npt=false&is_multipart=false&client_id=skyscanner_website&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2023-05-31T22%3A20%3A43&pqid=true"
-      }
-    ],
-    "deeplink": "https://www.skyscanner.net/transport/flights/ctg/clo/230810/config/10772-2308101936--32540-1-10597-2308102316?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27539833&originentityid=27540568&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
-  },
-  {
-    "id": "10772-2308110603--32115-1-10597-2308110949",
-    "legs": [
-      {
-        "id": "10772-2308110603--32115-1-10597-2308110949",
-        "origin": {
-          "id": 10772,
-          "name": "Cartagena",
-          "displayCode": "CTG"
-        },
-        "destination": {
-          "id": 10597,
-          "name": "Cali",
-          "displayCode": "CLO"
-        },
-        "durationInMinutes": 226,
-        "stopCount": 1,
-        "isSmallestStops": true,
-        "departure": "2023-08-11T06:03:00",
-        "arrival": "2023-08-11T09:49:00",
-        "timeDeltaInDays": 0,
-        "carriers": {
-          "marketing": [
-            {
-              "id": -32115,
-              "name": "LATAM Airlines"
-            }
-          ],
-          "operationType": "fully_operated"
-        },
-        "segments": [
-          {
-            "id": "10772-10069-2308110603-2308110730--32115",
-            "origin": {
-              "flightPlaceId": "CTG",
-              "parent": {
-                "flightPlaceId": "CTG",
-                "name": "Cartagena",
-                "type": "City"
-              },
-              "name": "Cartagena",
-              "type": "Airport"
-            },
-            "destination": {
-              "flightPlaceId": "BOG",
-              "parent": {
-                "flightPlaceId": "BOG",
-                "name": "Bogota",
-                "type": "City"
-              },
-              "name": "Bogota",
-              "type": "Airport"
-            },
-            "departure": "2023-08-11T06:03:00",
-            "arrival": "2023-08-11T07:30:00",
-            "durationInMinutes": 87,
-            "flightNumber": "4093",
-            "marketingCarrier": {
-              "id": -32115,
-              "name": "LATAM Airlines",
-              "alternate_di": "LA"
-            },
-            "operatingCarrier": {
-              "id": -32113,
-              "name": "LATAM Airlines Colombia",
-              "alternate_di": "4C"
-            }
-          },
-          {
-            "id": "10069-10597-2308110842-2308110949--32115",
-            "origin": {
-              "flightPlaceId": "BOG",
-              "parent": {
-                "flightPlaceId": "BOG",
-                "name": "Bogota",
-                "type": "City"
-              },
-              "name": "Bogota",
-              "type": "Airport"
-            },
-            "destination": {
-              "flightPlaceId": "CLO",
-              "parent": {
-                "flightPlaceId": "CLO",
-                "name": "Cali",
-                "type": "City"
-              },
-              "name": "Cali",
-              "type": "Airport"
-            },
-            "departure": "2023-08-11T08:42:00",
-            "arrival": "2023-08-11T09:49:00",
-            "durationInMinutes": 67,
-            "flightNumber": "4059",
-            "marketingCarrier": {
-              "id": -32115,
-              "name": "LATAM Airlines",
-              "alternate_di": "LA"
-            },
-            "operatingCarrier": {
-              "id": -32113,
-              "name": "LATAM Airlines Colombia",
-              "alternate_di": "4C"
-            }
-          }
-        ]
-      }
-    ],
-    "pricing_options": [
-      {
-        "agents": [
-          {
-            "id": "mtuk",
-            "name": "Mytrip",
-            "is_carrier": false,
-            "update_status": "current",
-            "optimised_for_mobile": true,
-            "live_update_allowed": true,
-            "rating_status": "available",
-            "rating": 3.07,
-            "feedback_count": 28132,
-            "rating_breakdown": {
-              "reliable_prices": 3.728012,
-              "clear_extra_fees": 3.776656,
-              "customer_service": 4.849896,
-              "ease_of_booking": 3.19206,
-              "other": 1.734036
-            }
-          }
-        ],
-        "price": {
-          "amount": 81.79,
-          "update_status": "current",
-          "last_updated": "2023-05-31T22:20:50",
-          "quote_age": 18
-        },
-        "url": "https://www.skyscanner.net/transport_deeplink/4.0/UK/en-GB/USD/mtuk/1/10772.10597.2023-08-11/air/trava/flights?itinerary=flight%7C-32115%7C4093%7C10772%7C2023-08-11T06%3A03%7C10069%7C2023-08-11T07%3A30%7C87%7C-%7C-%7C-%3Bflight%7C-32115%7C4059%7C10069%7C2023-08-11T08%3A42%7C10597%7C2023-08-11T09%3A49%7C67%7C-%7C-%7C-&carriers=-32115&operators=-32113%3B-32113&passengers=1&channel=website&cabin_class=economy&ticket_price=81.79&is_npt=false&is_multipart=false&client_id=skyscanner_website&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2023-05-31T22%3A20%3A50&pqid=true"
-      }
-    ],
-    "deeplink": "https://www.skyscanner.net/transport/flights/ctg/clo/230811/config/10772-2308110603--32115-1-10597-2308110949?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27539833&originentityid=27540568&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
-  },
-  {
-    "id": "10772-2308111058--32540-0-10597-2308111232",
-    "legs": [
-      {
-        "id": "10772-2308111058--32540-0-10597-2308111232",
-        "origin": {
-          "id": 10772,
-          "name": "Cartagena",
-          "displayCode": "CTG"
-        },
-        "destination": {
-          "id": 10597,
-          "name": "Cali",
-          "displayCode": "CLO"
-        },
-        "durationInMinutes": 94,
-        "stopCount": 0,
-        "isSmallestStops": true,
-        "departure": "2023-08-11T10:58:00",
-        "arrival": "2023-08-11T12:32:00",
-        "timeDeltaInDays": 0,
-        "carriers": {
-          "marketing": [
-            {
-              "id": -32540,
-              "name": "Avianca"
-            }
-          ],
-          "operationType": "fully_operated"
-        },
-        "segments": [
-          {
-            "id": "10772-10597-2308111058-2308111232--32540",
-            "origin": {
-              "flightPlaceId": "CTG",
-              "parent": {
-                "flightPlaceId": "CTG",
-                "name": "Cartagena",
-                "type": "City"
-              },
-              "name": "Cartagena",
-              "type": "Airport"
-            },
-            "destination": {
-              "flightPlaceId": "CLO",
-              "parent": {
-                "flightPlaceId": "CLO",
-                "name": "Cali",
-                "type": "City"
-              },
-              "name": "Cali",
-              "type": "Airport"
-            },
-            "departure": "2023-08-11T10:58:00",
-            "arrival": "2023-08-11T12:32:00",
-            "durationInMinutes": 94,
-            "flightNumber": "8569",
-            "marketingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            },
-            "operatingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            }
-          }
-        ]
-      }
-    ],
-    "pricing_options": [
-      {
-        "agents": [
-          {
-            "id": "bcuk",
-            "name": "Booking.com",
-            "is_carrier": false,
-            "update_status": "current",
-            "optimised_for_mobile": true,
-            "live_update_allowed": true,
-            "rating_status": "available",
-            "rating": 3.57,
-            "feedback_count": 28888,
-            "rating_breakdown": {
-              "reliable_prices": 3.573256,
-              "clear_extra_fees": 4.018704,
-              "customer_service": 4.988532,
-              "ease_of_booking": 3.788864,
-              "other": 2.92526
-            }
-          }
-        ],
-        "price": {
-          "amount": 50.8,
-          "update_status": "current",
-          "last_updated": "2023-05-31T22:20:46",
-          "quote_age": 18
-        },
-        "url": "https://www.skyscanner.net/transport_deeplink/4.0/UK/en-GB/USD/bcuk/1/10772.10597.2023-08-11/air/trava/flights?itinerary=flight%7C-32540%7C8569%7C10772%7C2023-08-11T10%3A58%7C10597%7C2023-08-11T12%3A32%7C94%7C-%7C-%7C-&carriers=-32540&operators=-32540&passengers=1&channel=website&cabin_class=economy&ticket_price=50.80&is_npt=false&is_multipart=false&client_id=skyscanner_website&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2023-05-31T22%3A20%3A46&pqid=true"
-      }
-    ],
-    "deeplink": "https://www.skyscanner.net/transport/flights/ctg/clo/230811/config/10772-2308111058--32540-0-10597-2308111232?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27539833&originentityid=27540568&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
-  },
-  {
-    "id": "10772-2308111952--32540-1-10597-2308112306",
-    "legs": [
-      {
-        "id": "10772-2308111952--32540-1-10597-2308112306",
-        "origin": {
-          "id": 10772,
-          "name": "Cartagena",
-          "displayCode": "CTG"
-        },
-        "destination": {
-          "id": 10597,
-          "name": "Cali",
-          "displayCode": "CLO"
-        },
-        "durationInMinutes": 194,
-        "stopCount": 1,
-        "isSmallestStops": true,
-        "departure": "2023-08-11T19:52:00",
-        "arrival": "2023-08-11T23:06:00",
-        "timeDeltaInDays": 0,
-        "carriers": {
-          "marketing": [
-            {
-              "id": -32540,
-              "name": "Avianca"
-            }
-          ],
-          "operationType": "fully_operated"
-        },
-        "segments": [
-          {
-            "id": "10772-13949-2308111952-2308112107--32540",
-            "origin": {
-              "flightPlaceId": "CTG",
-              "parent": {
-                "flightPlaceId": "CTG",
-                "name": "Cartagena",
-                "type": "City"
-              },
-              "name": "Cartagena",
-              "type": "Airport"
-            },
-            "destination": {
-              "flightPlaceId": "MDE",
-              "parent": {
-                "flightPlaceId": "MDE",
-                "name": "Medellin",
-                "type": "City"
-              },
-              "name": "Medellin Jose Maria Cordova",
-              "type": "Airport"
-            },
-            "departure": "2023-08-11T19:52:00",
-            "arrival": "2023-08-11T21:07:00",
-            "durationInMinutes": 75,
-            "flightNumber": "9559",
-            "marketingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            },
-            "operatingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            }
-          },
-          {
-            "id": "13949-10597-2308112159-2308112306--32540",
-            "origin": {
-              "flightPlaceId": "MDE",
-              "parent": {
-                "flightPlaceId": "MDE",
-                "name": "Medellin",
-                "type": "City"
-              },
-              "name": "Medellin Jose Maria Cordova",
-              "type": "Airport"
-            },
-            "destination": {
-              "flightPlaceId": "CLO",
-              "parent": {
-                "flightPlaceId": "CLO",
-                "name": "Cali",
-                "type": "City"
-              },
-              "name": "Cali",
-              "type": "Airport"
-            },
-            "departure": "2023-08-11T21:59:00",
-            "arrival": "2023-08-11T23:06:00",
-            "durationInMinutes": 67,
-            "flightNumber": "9433",
-            "marketingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            },
-            "operatingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            }
-          }
-        ]
-      }
-    ],
-    "pricing_options": [
-      {
-        "agents": [
-          {
-            "id": "bcuk",
-            "name": "Booking.com",
-            "is_carrier": false,
-            "update_status": "current",
-            "optimised_for_mobile": true,
-            "live_update_allowed": true,
-            "rating_status": "available",
-            "rating": 3.57,
-            "feedback_count": 28888,
-            "rating_breakdown": {
-              "reliable_prices": 3.573256,
-              "clear_extra_fees": 4.018704,
-              "customer_service": 4.988532,
-              "ease_of_booking": 3.788864,
-              "other": 2.92526
-            }
-          }
-        ],
-        "price": {
-          "amount": 50.8,
-          "update_status": "current",
-          "last_updated": "2023-05-31T22:20:46",
-          "quote_age": 18
-        },
-        "url": "https://www.skyscanner.net/transport_deeplink/4.0/UK/en-GB/USD/bcuk/1/10772.10597.2023-08-11/air/trava/flights?itinerary=flight%7C-32540%7C9559%7C10772%7C2023-08-11T19%3A52%7C13949%7C2023-08-11T21%3A07%7C75%7C-%7C-%7C-%3Bflight%7C-32540%7C9433%7C13949%7C2023-08-11T21%3A59%7C10597%7C2023-08-11T23%3A06%7C67%7C-%7C-%7C-&carriers=-32540&operators=-32540%3B-32540&passengers=1&channel=website&cabin_class=economy&ticket_price=50.80&is_npt=false&is_multipart=false&client_id=skyscanner_website&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2023-05-31T22%3A20%3A46&pqid=true"
-      }
-    ],
-    "deeplink": "https://www.skyscanner.net/transport/flights/ctg/clo/230811/config/10772-2308111952--32540-1-10597-2308112306?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27539833&originentityid=27540568&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
-  },
-  {
-    "id": "10772-2308111755--32540-0-10597-2308111930",
-    "legs": [
-      {
-        "id": "10772-2308111755--32540-0-10597-2308111930",
-        "origin": {
-          "id": 10772,
-          "name": "Cartagena",
-          "displayCode": "CTG"
-        },
-        "destination": {
-          "id": 10597,
-          "name": "Cali",
-          "displayCode": "CLO"
-        },
-        "durationInMinutes": 95,
-        "stopCount": 0,
-        "isSmallestStops": true,
-        "departure": "2023-08-11T17:55:00",
-        "arrival": "2023-08-11T19:30:00",
-        "timeDeltaInDays": 0,
-        "carriers": {
-          "marketing": [
-            {
-              "id": -32540,
-              "name": "Avianca"
-            }
-          ],
-          "operationType": "fully_operated"
-        },
-        "segments": [
-          {
-            "id": "10772-10597-2308111755-2308111930--32540",
-            "origin": {
-              "flightPlaceId": "CTG",
-              "parent": {
-                "flightPlaceId": "CTG",
-                "name": "Cartagena",
-                "type": "City"
-              },
-              "name": "Cartagena",
-              "type": "Airport"
-            },
-            "destination": {
-              "flightPlaceId": "CLO",
-              "parent": {
-                "flightPlaceId": "CLO",
-                "name": "Cali",
-                "type": "City"
-              },
-              "name": "Cali",
-              "type": "Airport"
-            },
-            "departure": "2023-08-11T17:55:00",
-            "arrival": "2023-08-11T19:30:00",
-            "durationInMinutes": 95,
-            "flightNumber": "9568",
-            "marketingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            },
-            "operatingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            }
-          }
-        ]
-      }
-    ],
-    "pricing_options": [
-      {
-        "agents": [
-          {
-            "id": "bcuk",
-            "name": "Booking.com",
-            "is_carrier": false,
-            "update_status": "current",
-            "optimised_for_mobile": true,
-            "live_update_allowed": true,
-            "rating_status": "available",
-            "rating": 3.57,
-            "feedback_count": 28888,
-            "rating_breakdown": {
-              "reliable_prices": 3.573256,
-              "clear_extra_fees": 4.018704,
-              "customer_service": 4.988532,
-              "ease_of_booking": 3.788864,
-              "other": 2.92526
-            }
-          }
-        ],
-        "price": {
-          "amount": 50.8,
-          "update_status": "current",
-          "last_updated": "2023-05-31T22:20:46",
-          "quote_age": 18
-        },
-        "url": "https://www.skyscanner.net/transport_deeplink/4.0/UK/en-GB/USD/bcuk/1/10772.10597.2023-08-11/air/trava/flights?itinerary=flight%7C-32540%7C9568%7C10772%7C2023-08-11T17%3A55%7C10597%7C2023-08-11T19%3A30%7C95%7C-%7C-%7C-&carriers=-32540&operators=-32540&passengers=1&channel=website&cabin_class=economy&ticket_price=50.80&is_npt=false&is_multipart=false&client_id=skyscanner_website&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2023-05-31T22%3A20%3A46&pqid=true"
-      }
-    ],
-    "deeplink": "https://www.skyscanner.net/transport/flights/ctg/clo/230811/config/10772-2308111755--32540-0-10597-2308111930?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27539833&originentityid=27540568&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
-  },
-  {
-    "id": "10772-2308110500--32540-1-10597-2308110820",
-    "legs": [
-      {
-        "id": "10772-2308110500--32540-1-10597-2308110820",
-        "origin": {
-          "id": 10772,
-          "name": "Cartagena",
-          "displayCode": "CTG"
-        },
-        "destination": {
-          "id": 10597,
-          "name": "Cali",
-          "displayCode": "CLO"
-        },
-        "durationInMinutes": 200,
-        "stopCount": 1,
-        "isSmallestStops": true,
-        "departure": "2023-08-11T05:00:00",
-        "arrival": "2023-08-11T08:20:00",
-        "timeDeltaInDays": 0,
-        "carriers": {
-          "marketing": [
-            {
-              "id": -32540,
-              "name": "Avianca"
-            }
-          ],
-          "operationType": "fully_operated"
-        },
-        "segments": [
-          {
-            "id": "10772-13949-2308110500-2308110614--32540",
-            "origin": {
-              "flightPlaceId": "CTG",
-              "parent": {
-                "flightPlaceId": "CTG",
-                "name": "Cartagena",
-                "type": "City"
-              },
-              "name": "Cartagena",
-              "type": "Airport"
-            },
-            "destination": {
-              "flightPlaceId": "MDE",
-              "parent": {
-                "flightPlaceId": "MDE",
-                "name": "Medellin",
-                "type": "City"
-              },
-              "name": "Medellin Jose Maria Cordova",
-              "type": "Airport"
-            },
-            "departure": "2023-08-11T05:00:00",
-            "arrival": "2023-08-11T06:14:00",
-            "durationInMinutes": 74,
-            "flightNumber": "9373",
-            "marketingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            },
-            "operatingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            }
-          },
-          {
-            "id": "13949-10597-2308110713-2308110820--32540",
-            "origin": {
-              "flightPlaceId": "MDE",
-              "parent": {
-                "flightPlaceId": "MDE",
-                "name": "Medellin",
-                "type": "City"
-              },
-              "name": "Medellin Jose Maria Cordova",
-              "type": "Airport"
-            },
-            "destination": {
-              "flightPlaceId": "CLO",
-              "parent": {
-                "flightPlaceId": "CLO",
-                "name": "Cali",
-                "type": "City"
-              },
-              "name": "Cali",
-              "type": "Airport"
-            },
-            "departure": "2023-08-11T07:13:00",
-            "arrival": "2023-08-11T08:20:00",
-            "durationInMinutes": 67,
-            "flightNumber": "235",
-            "marketingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            },
-            "operatingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            }
-          }
-        ]
-      }
-    ],
-    "pricing_options": [
-      {
-        "agents": [
-          {
-            "id": "bcuk",
-            "name": "Booking.com",
-            "is_carrier": false,
-            "update_status": "current",
-            "optimised_for_mobile": true,
-            "live_update_allowed": true,
-            "rating_status": "available",
-            "rating": 3.57,
-            "feedback_count": 28888,
-            "rating_breakdown": {
-              "reliable_prices": 3.573256,
-              "clear_extra_fees": 4.018704,
-              "customer_service": 4.988532,
-              "ease_of_booking": 3.788864,
-              "other": 2.92526
-            }
-          }
-        ],
-        "price": {
-          "amount": 50.8,
-          "update_status": "current",
-          "last_updated": "2023-05-31T22:20:46",
-          "quote_age": 18
-        },
-        "url": "https://www.skyscanner.net/transport_deeplink/4.0/UK/en-GB/USD/bcuk/1/10772.10597.2023-08-11/air/trava/flights?itinerary=flight%7C-32540%7C9373%7C10772%7C2023-08-11T05%3A00%7C13949%7C2023-08-11T06%3A14%7C74%7C-%7C-%7C-%3Bflight%7C-32540%7C235%7C13949%7C2023-08-11T07%3A13%7C10597%7C2023-08-11T08%3A20%7C67%7C-%7C-%7C-&carriers=-32540&operators=-32540%3B-32540&passengers=1&channel=website&cabin_class=economy&ticket_price=50.80&is_npt=false&is_multipart=false&client_id=skyscanner_website&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2023-05-31T22%3A20%3A46&pqid=true"
-      }
-    ],
-    "deeplink": "https://www.skyscanner.net/transport/flights/ctg/clo/230811/config/10772-2308110500--32540-1-10597-2308110820?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27539833&originentityid=27540568&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
-  },
-  {
-    "id": "10772-2308111949--32540-0-10597-2308112124",
-    "legs": [
-      {
-        "id": "10772-2308111949--32540-0-10597-2308112124",
-        "origin": {
-          "id": 10772,
-          "name": "Cartagena",
-          "displayCode": "CTG"
-        },
-        "destination": {
-          "id": 10597,
-          "name": "Cali",
-          "displayCode": "CLO"
-        },
-        "durationInMinutes": 95,
-        "stopCount": 0,
-        "isSmallestStops": true,
-        "departure": "2023-08-11T19:49:00",
-        "arrival": "2023-08-11T21:24:00",
-        "timeDeltaInDays": 0,
-        "carriers": {
-          "marketing": [
-            {
-              "id": -32540,
-              "name": "Avianca"
-            }
-          ],
-          "operationType": "fully_operated"
-        },
-        "segments": [
-          {
-            "id": "10772-10597-2308111949-2308112124--32540",
-            "origin": {
-              "flightPlaceId": "CTG",
-              "parent": {
-                "flightPlaceId": "CTG",
-                "name": "Cartagena",
-                "type": "City"
-              },
-              "name": "Cartagena",
-              "type": "Airport"
-            },
-            "destination": {
-              "flightPlaceId": "CLO",
-              "parent": {
-                "flightPlaceId": "CLO",
-                "name": "Cali",
-                "type": "City"
-              },
-              "name": "Cali",
-              "type": "Airport"
-            },
-            "departure": "2023-08-11T19:49:00",
-            "arrival": "2023-08-11T21:24:00",
-            "durationInMinutes": 95,
-            "flightNumber": "9501",
-            "marketingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            },
-            "operatingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            }
-          }
-        ]
-      }
-    ],
-    "pricing_options": [
-      {
-        "agents": [
-          {
-            "id": "bcuk",
-            "name": "Booking.com",
-            "is_carrier": false,
-            "update_status": "current",
-            "optimised_for_mobile": true,
-            "live_update_allowed": true,
-            "rating_status": "available",
-            "rating": 3.57,
-            "feedback_count": 28888,
-            "rating_breakdown": {
-              "reliable_prices": 3.573256,
-              "clear_extra_fees": 4.018704,
-              "customer_service": 4.988532,
-              "ease_of_booking": 3.788864,
-              "other": 2.92526
-            }
-          }
-        ],
-        "price": {
-          "amount": 50.8,
-          "update_status": "current",
-          "last_updated": "2023-05-31T22:20:46",
-          "quote_age": 18
-        },
-        "url": "https://www.skyscanner.net/transport_deeplink/4.0/UK/en-GB/USD/bcuk/1/10772.10597.2023-08-11/air/trava/flights?itinerary=flight%7C-32540%7C9501%7C10772%7C2023-08-11T19%3A49%7C10597%7C2023-08-11T21%3A24%7C95%7C-%7C-%7C-&carriers=-32540&operators=-32540&passengers=1&channel=website&cabin_class=economy&ticket_price=50.80&is_npt=false&is_multipart=false&client_id=skyscanner_website&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2023-05-31T22%3A20%3A46&pqid=true"
-      }
-    ],
-    "deeplink": "https://www.skyscanner.net/transport/flights/ctg/clo/230811/config/10772-2308111949--32540-0-10597-2308112124?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27539833&originentityid=27540568&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
-  },
-  {
-    "id": "10772-2308111513--32540-1-10597-2308111939",
-    "legs": [
-      {
-        "id": "10772-2308111513--32540-1-10597-2308111939",
-        "origin": {
-          "id": 10772,
-          "name": "Cartagena",
-          "displayCode": "CTG"
-        },
-        "destination": {
-          "id": 10597,
-          "name": "Cali",
-          "displayCode": "CLO"
-        },
-        "durationInMinutes": 266,
-        "stopCount": 1,
-        "isSmallestStops": true,
-        "departure": "2023-08-11T15:13:00",
-        "arrival": "2023-08-11T19:39:00",
-        "timeDeltaInDays": 0,
-        "carriers": {
-          "marketing": [
-            {
-              "id": -32540,
-              "name": "Avianca"
-            }
-          ],
-          "operationType": "fully_operated"
-        },
-        "segments": [
-          {
-            "id": "10772-13949-2308111513-2308111628--32540",
-            "origin": {
-              "flightPlaceId": "CTG",
-              "parent": {
-                "flightPlaceId": "CTG",
-                "name": "Cartagena",
-                "type": "City"
-              },
-              "name": "Cartagena",
-              "type": "Airport"
-            },
-            "destination": {
-              "flightPlaceId": "MDE",
-              "parent": {
-                "flightPlaceId": "MDE",
-                "name": "Medellin",
-                "type": "City"
-              },
-              "name": "Medellin Jose Maria Cordova",
-              "type": "Airport"
-            },
-            "departure": "2023-08-11T15:13:00",
-            "arrival": "2023-08-11T16:28:00",
-            "durationInMinutes": 75,
-            "flightNumber": "8519",
-            "marketingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            },
-            "operatingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            }
-          },
-          {
-            "id": "13949-10597-2308111833-2308111939--32540",
-            "origin": {
-              "flightPlaceId": "MDE",
-              "parent": {
-                "flightPlaceId": "MDE",
-                "name": "Medellin",
-                "type": "City"
-              },
-              "name": "Medellin Jose Maria Cordova",
-              "type": "Airport"
-            },
-            "destination": {
-              "flightPlaceId": "CLO",
-              "parent": {
-                "flightPlaceId": "CLO",
-                "name": "Cali",
-                "type": "City"
-              },
-              "name": "Cali",
-              "type": "Airport"
-            },
-            "departure": "2023-08-11T18:33:00",
-            "arrival": "2023-08-11T19:39:00",
-            "durationInMinutes": 66,
-            "flightNumber": "9439",
-            "marketingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            },
-            "operatingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            }
-          }
-        ]
-      }
-    ],
-    "pricing_options": [
-      {
-        "agents": [
-          {
-            "id": "bcuk",
-            "name": "Booking.com",
-            "is_carrier": false,
-            "update_status": "current",
-            "optimised_for_mobile": true,
-            "live_update_allowed": true,
-            "rating_status": "available",
-            "rating": 3.57,
-            "feedback_count": 28888,
-            "rating_breakdown": {
-              "reliable_prices": 3.573256,
-              "clear_extra_fees": 4.018704,
-              "customer_service": 4.988532,
-              "ease_of_booking": 3.788864,
-              "other": 2.92526
-            }
-          }
-        ],
-        "price": {
-          "amount": 58.24,
-          "update_status": "current",
-          "last_updated": "2023-05-31T22:20:46",
-          "quote_age": 18
-        },
-        "url": "https://www.skyscanner.net/transport_deeplink/4.0/UK/en-GB/USD/bcuk/1/10772.10597.2023-08-11/air/trava/flights?itinerary=flight%7C-32540%7C8519%7C10772%7C2023-08-11T15%3A13%7C13949%7C2023-08-11T16%3A28%7C75%7C-%7C-%7C-%3Bflight%7C-32540%7C9439%7C13949%7C2023-08-11T18%3A33%7C10597%7C2023-08-11T19%3A39%7C66%7C-%7C-%7C-&carriers=-32540&operators=-32540%3B-32540&passengers=1&channel=website&cabin_class=economy&ticket_price=58.24&is_npt=false&is_multipart=false&client_id=skyscanner_website&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2023-05-31T22%3A20%3A46&pqid=true"
-      }
-    ],
-    "deeplink": "https://www.skyscanner.net/transport/flights/ctg/clo/230811/config/10772-2308111513--32540-1-10597-2308111939?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27539833&originentityid=27540568&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
-  },
-  {
-    "id": "10772-2308112328--32115-0-10597-2308120102",
-    "legs": [
-      {
-        "id": "10772-2308112328--32115-0-10597-2308120102",
-        "origin": {
-          "id": 10772,
-          "name": "Cartagena",
-          "displayCode": "CTG"
-        },
-        "destination": {
-          "id": 10597,
-          "name": "Cali",
-          "displayCode": "CLO"
-        },
-        "durationInMinutes": 94,
-        "stopCount": 0,
-        "isSmallestStops": true,
-        "departure": "2023-08-11T23:28:00",
-        "arrival": "2023-08-12T01:02:00",
-        "timeDeltaInDays": 0,
-        "carriers": {
-          "marketing": [
-            {
-              "id": -32115,
-              "name": "LATAM Airlines"
-            }
-          ],
-          "operationType": "fully_operated"
-        },
-        "segments": [
-          {
-            "id": "10772-10597-2308112328-2308120102--32115",
-            "origin": {
-              "flightPlaceId": "CTG",
-              "parent": {
-                "flightPlaceId": "CTG",
-                "name": "Cartagena",
-                "type": "City"
-              },
-              "name": "Cartagena",
-              "type": "Airport"
-            },
-            "destination": {
-              "flightPlaceId": "CLO",
-              "parent": {
-                "flightPlaceId": "CLO",
-                "name": "Cali",
-                "type": "City"
-              },
-              "name": "Cali",
-              "type": "Airport"
-            },
-            "departure": "2023-08-11T23:28:00",
-            "arrival": "2023-08-12T01:02:00",
-            "durationInMinutes": 94,
-            "flightNumber": "4243",
-            "marketingCarrier": {
-              "id": -32115,
-              "name": "LATAM Airlines",
-              "alternate_di": "LA"
-            },
-            "operatingCarrier": {
-              "id": -32113,
-              "name": "LATAM Airlines Colombia",
-              "alternate_di": "4C"
-            }
-          }
-        ]
-      }
-    ],
-    "pricing_options": [
-      {
-        "agents": [
-          {
-            "id": "lan_",
-            "name": "LATAM Airlines",
-            "is_carrier": true,
-            "update_status": "current",
-            "optimised_for_mobile": false,
-            "live_update_allowed": true,
-            "rating_status": "available",
-            "rating": 2.63,
-            "feedback_count": 630,
-            "rating_breakdown": {
-              "reliable_prices": 3.394148,
-              "clear_extra_fees": 3.478664,
-              "customer_service": 5,
-              "ease_of_booking": 2.041848,
-              "other": 1.619252
-            }
-          }
-        ],
-        "price": {
-          "amount": 55.1,
-          "update_status": "current",
-          "last_updated": "2023-05-31T22:20:46",
-          "quote_age": 18
-        },
-        "url": "https://www.skyscanner.net/transport_deeplink/4.0/UK/en-GB/USD/lan_/1/10772.10597.2023-08-11/air/airli/flights?itinerary=flight%7C-32115%7C4243%7C10772%7C2023-08-11T23%3A28%7C10597%7C2023-08-12T01%3A02%7C94%7CO04QPGZT%7CO%7C-&carriers=-32115&operators=-32113&passengers=1&channel=website&cabin_class=economy&ticket_price=55.10&is_npt=false&is_multipart=false&client_id=skyscanner_website&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2023-05-31T22%3A20%3A46&pqid=false"
-      }
-    ],
-    "deeplink": "https://www.skyscanner.net/transport/flights/ctg/clo/230811/config/10772-2308112328--32115-0-10597-2308120102?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27539833&originentityid=27540568&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
-  },
-  {
-    "id": "10772-2308112003--32540-1-10597-2308112344",
-    "legs": [
-      {
-        "id": "10772-2308112003--32540-1-10597-2308112344",
-        "origin": {
-          "id": 10772,
-          "name": "Cartagena",
-          "displayCode": "CTG"
-        },
-        "destination": {
-          "id": 10597,
-          "name": "Cali",
-          "displayCode": "CLO"
-        },
-        "durationInMinutes": 221,
-        "stopCount": 1,
-        "isSmallestStops": true,
-        "departure": "2023-08-11T20:03:00",
-        "arrival": "2023-08-11T23:44:00",
-        "timeDeltaInDays": 0,
-        "carriers": {
-          "marketing": [
-            {
-              "id": -32540,
-              "name": "Avianca"
-            }
-          ],
-          "operationType": "fully_operated"
-        },
-        "segments": [
-          {
-            "id": "10772-13949-2308112003-2308112118--32540",
-            "origin": {
-              "flightPlaceId": "CTG",
-              "parent": {
-                "flightPlaceId": "CTG",
-                "name": "Cartagena",
-                "type": "City"
-              },
-              "name": "Cartagena",
-              "type": "Airport"
-            },
-            "destination": {
-              "flightPlaceId": "MDE",
-              "parent": {
-                "flightPlaceId": "MDE",
-                "name": "Medellin",
-                "type": "City"
-              },
-              "name": "Medellin Jose Maria Cordova",
-              "type": "Airport"
-            },
-            "departure": "2023-08-11T20:03:00",
-            "arrival": "2023-08-11T21:18:00",
-            "durationInMinutes": 75,
-            "flightNumber": "9561",
-            "marketingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            },
-            "operatingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            }
-          },
-          {
-            "id": "13949-10597-2308112237-2308112344--32540",
-            "origin": {
-              "flightPlaceId": "MDE",
-              "parent": {
-                "flightPlaceId": "MDE",
-                "name": "Medellin",
-                "type": "City"
-              },
-              "name": "Medellin Jose Maria Cordova",
-              "type": "Airport"
-            },
-            "destination": {
-              "flightPlaceId": "CLO",
-              "parent": {
-                "flightPlaceId": "CLO",
-                "name": "Cali",
-                "type": "City"
-              },
-              "name": "Cali",
-              "type": "Airport"
-            },
-            "departure": "2023-08-11T22:37:00",
-            "arrival": "2023-08-11T23:44:00",
-            "durationInMinutes": 67,
-            "flightNumber": "9435",
-            "marketingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            },
-            "operatingCarrier": {
-              "id": -32540,
-              "name": "Avianca",
-              "alternate_di": "AV",
-              "allianceId": -31999
-            }
-          }
-        ]
-      }
-    ],
-    "pricing_options": [
-      {
-        "agents": [
-          {
-            "id": "bcuk",
-            "name": "Booking.com",
-            "is_carrier": false,
-            "update_status": "current",
-            "optimised_for_mobile": true,
-            "live_update_allowed": true,
-            "rating_status": "available",
-            "rating": 3.57,
-            "feedback_count": 28888,
-            "rating_breakdown": {
-              "reliable_prices": 3.573256,
-              "clear_extra_fees": 4.018704,
-              "customer_service": 4.988532,
-              "ease_of_booking": 3.788864,
-              "other": 2.92526
-            }
-          }
-        ],
-        "price": {
-          "amount": 50.8,
-          "update_status": "current",
-          "last_updated": "2023-05-31T22:20:46",
-          "quote_age": 18
-        },
-        "url": "https://www.skyscanner.net/transport_deeplink/4.0/UK/en-GB/USD/bcuk/1/10772.10597.2023-08-11/air/trava/flights?itinerary=flight%7C-32540%7C9561%7C10772%7C2023-08-11T20%3A03%7C13949%7C2023-08-11T21%3A18%7C75%7C-%7C-%7C-%3Bflight%7C-32540%7C9435%7C13949%7C2023-08-11T22%3A37%7C10597%7C2023-08-11T23%3A44%7C67%7C-%7C-%7C-&carriers=-32540&operators=-32540%3B-32540&passengers=1&channel=website&cabin_class=economy&ticket_price=50.80&is_npt=false&is_multipart=false&client_id=skyscanner_website&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2023-05-31T22%3A20%3A46&pqid=true"
-      }
-    ],
-    "deeplink": "https://www.skyscanner.net/transport/flights/ctg/clo/230811/config/10772-2308112003--32540-1-10597-2308112344?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27539833&originentityid=27540568&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
-  },
-  {
-    "id": "10772-2308111639--32115-1-10597-2308111954",
-    "legs": [
-      {
-        "id": "10772-2308111639--32115-1-10597-2308111954",
-        "origin": {
-          "id": 10772,
-          "name": "Cartagena",
-          "displayCode": "CTG"
-        },
-        "destination": {
-          "id": 10597,
-          "name": "Cali",
-          "displayCode": "CLO"
-        },
-        "durationInMinutes": 195,
-        "stopCount": 1,
-        "isSmallestStops": true,
-        "departure": "2023-08-11T16:39:00",
-        "arrival": "2023-08-11T19:54:00",
-        "timeDeltaInDays": 0,
-        "carriers": {
-          "marketing": [
-            {
-              "id": -32115,
-              "name": "LATAM Airlines"
-            }
-          ],
-          "operationType": "fully_operated"
-        },
-        "segments": [
-          {
-            "id": "10772-10069-2308111639-2308111807--32115",
-            "origin": {
-              "flightPlaceId": "CTG",
-              "parent": {
-                "flightPlaceId": "CTG",
-                "name": "Cartagena",
-                "type": "City"
-              },
-              "name": "Cartagena",
-              "type": "Airport"
-            },
-            "destination": {
-              "flightPlaceId": "BOG",
-              "parent": {
-                "flightPlaceId": "BOG",
-                "name": "Bogota",
-                "type": "City"
-              },
-              "name": "Bogota",
-              "type": "Airport"
-            },
-            "departure": "2023-08-11T16:39:00",
-            "arrival": "2023-08-11T18:07:00",
-            "durationInMinutes": 88,
-            "flightNumber": "4375",
-            "marketingCarrier": {
-              "id": -32115,
-              "name": "LATAM Airlines",
-              "alternate_di": "LA"
-            },
-            "operatingCarrier": {
-              "id": -32113,
-              "name": "LATAM Airlines Colombia",
-              "alternate_di": "4C"
-            }
-          },
-          {
-            "id": "10069-10597-2308111850-2308111954--32115",
-            "origin": {
-              "flightPlaceId": "BOG",
-              "parent": {
-                "flightPlaceId": "BOG",
-                "name": "Bogota",
-                "type": "City"
-              },
-              "name": "Bogota",
-              "type": "Airport"
-            },
-            "destination": {
-              "flightPlaceId": "CLO",
-              "parent": {
-                "flightPlaceId": "CLO",
-                "name": "Cali",
-                "type": "City"
-              },
-              "name": "Cali",
-              "type": "Airport"
-            },
-            "departure": "2023-08-11T18:50:00",
-            "arrival": "2023-08-11T19:54:00",
-            "durationInMinutes": 64,
-            "flightNumber": "4343",
-            "marketingCarrier": {
-              "id": -32115,
-              "name": "LATAM Airlines",
-              "alternate_di": "LA"
-            },
-            "operatingCarrier": {
-              "id": -32113,
-              "name": "LATAM Airlines Colombia",
-              "alternate_di": "4C"
-            }
-          }
-        ]
-      }
-    ],
-    "pricing_options": [
-      {
-        "agents": [
-          {
-            "id": "mtuk",
-            "name": "Mytrip",
-            "is_carrier": false,
-            "update_status": "current",
-            "optimised_for_mobile": true,
-            "live_update_allowed": true,
-            "rating_status": "available",
-            "rating": 3.07,
-            "feedback_count": 28132,
-            "rating_breakdown": {
-              "reliable_prices": 3.728012,
-              "clear_extra_fees": 3.776656,
-              "customer_service": 4.849896,
-              "ease_of_booking": 3.19206,
-              "other": 1.734036
-            }
-          }
-        ],
-        "price": {
-          "amount": 81.79,
-          "update_status": "current",
-          "last_updated": "2023-05-31T22:20:50",
-          "quote_age": 18
-        },
-        "url": "https://www.skyscanner.net/transport_deeplink/4.0/UK/en-GB/USD/mtuk/1/10772.10597.2023-08-11/air/trava/flights?itinerary=flight%7C-32115%7C4375%7C10772%7C2023-08-11T16%3A39%7C10069%7C2023-08-11T18%3A07%7C88%7C-%7C-%7C-%3Bflight%7C-32115%7C4343%7C10069%7C2023-08-11T18%3A50%7C10597%7C2023-08-11T19%3A54%7C64%7C-%7C-%7C-&carriers=-32115&operators=-32113%3B-32113&passengers=1&channel=website&cabin_class=economy&ticket_price=81.79&is_npt=false&is_multipart=false&client_id=skyscanner_website&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2023-05-31T22%3A20%3A50&pqid=true"
-      }
-    ],
-    "deeplink": "https://www.skyscanner.net/transport/flights/ctg/clo/230811/config/10772-2308111639--32115-1-10597-2308111954?adults=1&adultsv2=1&cabinclass=economy&children=0&childrenv2=&destinationentityid=27539833&originentityid=27540568&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
+    "deeplink": "https://www.skyscanner.net/transport/flights/tco/clo/230702/config/16807-2307021830--32540-0-10597-2307021935?adults=2&adultsv2=2&cabinclass=economy&children=2&childrenv2=1|10&destinationentityid=27539833&originentityid=27548440&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&preferdirects=false&ref=home&rtn=0"
   }
 ]

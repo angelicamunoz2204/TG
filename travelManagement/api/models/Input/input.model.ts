@@ -1,6 +1,7 @@
+import { Place } from "./place.model";
 export interface Input {
-	origin: string;
-	destination: string;
+	origin: Place;
+	destination: Place;
 	startDate: Date;
 	endDate: Date;
 	duration: number;
@@ -8,7 +9,7 @@ export interface Input {
 	endTime: Date[];
 	adults: number;
 	children: number;
-	cabinClass: number;
+	infants: number;
 	maxPrice: number;
 	maxStops: number;
 	maxStopsDuration: number;
@@ -32,7 +33,7 @@ export const defaults: Pick<
 	| 'allowIntermediaries'
 	| 'maxStops'
 	| 'children'
-	| 'cabinClass'
+	|  'infants'
 	| 'duration'
 	| 'maxStops'
 	| 'maxStopsDuration'
@@ -44,7 +45,7 @@ export const defaults: Pick<
 > = {
 	maxStops: 3,
 	children: 0,
-	cabinClass: 1,
+	infants: 0,
 	duration: 3,
 	maxStopsDuration: 300,
 	maxTotalDuration: 700,

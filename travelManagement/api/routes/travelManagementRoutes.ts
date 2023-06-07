@@ -1,18 +1,12 @@
 import { Router } from 'express';
-import {
-	sendflightsInformation,
-	sendLodgingsInformation,
-	sendAllInformation,
-	sendTest,
-} from '../controllers/travelManagementController';
+import { sendFlightsInformation } from '../controllers/flightsController';
+import { sendLodgingsInformation } from '../controllers/lodgingsController';
+import { sendAllInformation } from '../controllers/allController';
 
 var express = require('express');
 var router: Router = express.Router();
 
-// Require controller modules.
-var travelManagementController = require('../controllers/travelManagementController');
-
-router.get('/flights', sendflightsInformation);
+router.get('/flights', sendFlightsInformation);
 
 router.get('/hotels', sendLodgingsInformation);
 

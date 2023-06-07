@@ -1,7 +1,8 @@
+import { flightSolutionModel } from "./flightSolution.model";
+import { lodgingSolutionModel } from "./lodgingSolution.model";
+
 export interface Solution {
-    departureFlight: any;
-    posAgentDeparture: number;
-    returnFlight: any;
-    posAgentReturn: number;
-    lodging: any;
+    departure: flightSolutionModel;
+    return: flightSolutionModel;
+    lodging: lodgingSolutionModel;
 }

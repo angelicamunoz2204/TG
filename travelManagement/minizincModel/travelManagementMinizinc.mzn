@@ -38,7 +38,7 @@ int : maxPrice;
 int : maxStops;
 int : maxStopsDuration;
 int : maxTotalDuration;
-array [int] of int: allowAerolines;
+array [int] of 0..7: allowAerolines;
 bool: allowIntermediaries;
 array [int] of hours: timeWindowStartHours;
 array [int] of minutes: timeWindowStartMinutes;
@@ -50,7 +50,7 @@ int : beds;
 int : bathrooms;
 bool : isSuperHost;
 array [int] of int: features;
-array [int] of 1..5: allowPolicies;
+array [int] of 0..4: allowPolicies;
 
 %%
 %%departure
@@ -64,10 +64,10 @@ array [departureSegments,departureLegs] of  hoursN : departureLegsDeparturesHour
 array [departureSegments,departureLegs] of  minutesN : departureLegsDeparturesMinutes;
 array [departureSegments,departureLegs] of  hoursN : departureLegsArrivalsHours;
 array [departureSegments,departureLegs] of  minutesN : departureLegsArrivalsMinutes;
-array [departureSegments,departureLegs] of  -1..8 : departureLegsAeroline;
+array [departureSegments,departureLegs] of  -1..7 : departureLegsAeroline;
 array [departureSegments,departurePrices] of  int : departureSegmentsPrices; 
 array [departureSegments,departurePrices] of  int : departureSegmentsPricesAgents;
-array [departureSegments,departurePrices] of  int : departureSegmentsPricesCarrier;
+array [departureSegments,departurePrices] of  int : departureSegmentsPricesIsCarrier;
 array [departureSegments,departurePrices] of  int : departureSegmentsAgentsScore;
 %%return
 array [returnSegments] of string: returnSegmentsId;
@@ -80,23 +80,23 @@ array [returnSegments,returnLegs] of  hoursN : returnLegsDeparturesHours;
 array [returnSegments,returnLegs] of  minutesN : returnLegsDeparturesMinutes;
 array [returnSegments,returnLegs] of  hoursN : returnLegsArrivalsHours;
 array [returnSegments,returnLegs] of  minutesN : returnLegsArrivalsMinutes;
-array [returnSegments,returnLegs] of  -1..8 : returnLegsAeroline;
+array [returnSegments,returnLegs] of  -1..7 : returnLegsAeroline;
 array [returnSegments,returnPrices] of  int : returnSegmentsPrices; 
 array [returnSegments,returnPrices] of  int : returnSegmentsPricesAgents;
-array [returnSegments,returnPrices] of  int : returnSegmentsPricesCarrier;
+array [returnSegments,returnPrices] of  int : returnSegmentsPricesIsCarrier;
 array [returnSegments,returnPrices] of  int : returnSegmentsAgentsScore;
 %%lodging
 array [lodgings] of string: lodgingsId;
 array [lodgings] of int: lodgingsStartDate;
 array [lodgings] of int: lodgingsEndDate;
 array [lodgings] of int: lodgingsPeople;
-array [lodgings] of int: lodgingsBathrooms; %%a veces llegan decimales xd
+array [lodgings] of int: lodgingsBathrooms;
 array [lodgings] of int: lodgingsBedrooms;
 array [lodgings] of int: lodgingsBeds;
 array [lodgings] of bool: lodgingsIsSuperhost;
 array [lodgings] of int: lodgingsRating;
 array [lodgings,lodgingFeatures] of int : lodgingsFeatures;
-array [lodgings] of int: lodgingsCancelPolicy;
+array [lodgings] of 0..4: lodgingsCancelPolicy;
 array [lodgings] of int: lodgingsPriceTotalAmount;
 %%variables
 var departureSegments: posDeparture;
@@ -160,29 +160,29 @@ constraint forall([
            | j in returnLegs where returnLegsArrivalsHours[posReturn,j] != -1]);
            
 %%costos vuelos
-constraint departureSegmentPrice = departureSegmentsPrices[posDeparture,departurePricePos];
-constraint departureSegmentPrice != -1;
-constraint returnSegmentPrice = returnSegmentsPrices[posReturn,returnPricePos];
-constraint returnSegmentPrice != -1;
-constraint departureDate = departureLegsDepartures[posDeparture,departureDateLeg];
-constraint departureDate != -1;
-constraint departureAgentScore = departureSegmentsAgentsScore[posDeparture,departurePricePos];
-constraint returnAgentScore = returnSegmentsAgentsScore[posReturn,returnPricePos];
+ constraint departureSegmentPrice = departureSegmentsPrices[posDeparture,departurePricePos];
+ constraint departureSegmentPrice != -1;
+ constraint returnSegmentPrice = returnSegmentsPrices[posReturn,returnPricePos];
+ constraint returnSegmentPrice != -1;
+ constraint departureDate = departureLegsDepartures[posDeparture,departureDateLeg];
+ constraint departureDate != -1;
+ constraint departureAgentScore = departureSegmentsAgentsScore[posDeparture,departurePricePos];
+ constraint returnAgentScore = returnSegmentsAgentsScore[posReturn,returnPricePos];
 %%permite carriers
 constraint if allowIntermediaries = false
-            then departureSegmentsPricesCarrier[posDeparture,departurePricePos] = 1
-            /\ returnSegmentsPricesCarrier[posReturn,returnPricePos] = 1
+            then departureSegmentsPricesIsCarrier[posDeparture,departurePricePos] = 1
+            /\ returnSegmentsPricesIsCarrier[posReturn,returnPricePos] = 1
            endif;
 %%LODGINGS
-%%constraint lodgingsPeople[posLodging] >= 
 constraint lodgingsBathrooms[posLodging] >= bathrooms;
 constraint lodgingsBedrooms[posLodging] >= beedrooms;
 constraint lodgingsBeds[posLodging] >= beds;
-constraint lodgingsIsSuperhost[posLodging] = isSuperHost;
+constraint if isSuperHost = true
+            then lodgingsIsSuperhost[posLodging] = true
+           endif;
 %%features
 constraint forall([member(getRow(lodgingsFeatures,posLodging), features[i]) | i in 1..length(features)]);
 %%cancel policies
-%%aerolineas permitidas                                                                                                          
 constraint member(allowPolicies, lodgingsCancelPolicy[posLodging]);
 constraint lodgingPrice = lodgingsPriceTotalAmount[posLodging];
 constraint lodgingRat = lodgingsRating[posLodging];
@@ -217,12 +217,20 @@ function array [int] of  var int: getRow(array [int, int] of int: features, var 
 %%Input data
 
 %%Salida
-%%output[show(ahorro),"\n"];
-%%output[show(totalPrice),"\n"];
-output["{'posDeparture':", show(posDeparture-1), ","];
-output["'posAgentDeparture':", show(departurePricePos-1), ","];
-output["'posReturn':", show(posReturn-1), ","];
-output["'posAgentReturn':", show(returnPricePos-1), ","];
-output["'posLodging':", show(posLodging-1), "}"];
+% output["{'posDeparture':", show(posDeparture-1), ","];
+% output["'posAgentDeparture':", show(departurePricePos-1), ","];
+% output["'posReturn':", show(posReturn-1), ","];
+% output["'posAgentReturn':", show(returnPricePos-1), ","];
+% output["'posLodging':", show(posLodging-1), "}"];
+%%
+output["{'Departure': { 'pos': ", show(posDeparture-1), ","];
+output["'posAgent': ", show(departurePricePos-1), ","];
+output["'id': ", show(departureSegmentsId[fix(posDeparture)]), "},"];
+output["'Return': { 'pos': ", show(posReturn-1), ","];
+output["'posAgent': ", show(returnPricePos-1), ","];
+output["'id': ", show(returnSegmentsId[fix(posReturn)]), "},"];
+output["'Lodging' : {'pos':", show(posLodging-1), ","];
+output["'id' : ", show(lodgingsId[fix(posLodging)]), "} }"];
+% output[show(totalPrice)];
 
 

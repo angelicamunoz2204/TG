@@ -1,4 +1,4 @@
-export interface Policy {
-    id: number;
-    name: string;
+import { Basic } from '../basic.model'
+export interface Policy extends Basic {
+
 }

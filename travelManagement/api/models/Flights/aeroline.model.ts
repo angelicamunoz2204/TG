@@ -1,4 +1,4 @@
-export interface Aeroline {
-    id: number;
-    name: string;
+import { Basic } from '../basic.model'
+export interface Aeroline extends Basic {
+
 }
