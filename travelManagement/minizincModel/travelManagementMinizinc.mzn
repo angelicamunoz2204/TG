@@ -83,8 +83,8 @@ array [returnSegments,returnLegs] of  minutesN : returnLegsArrivalsMinutes;
 array [returnSegments,returnLegs] of  -1..7 : returnLegsAeroline;
 array [returnSegments,returnPrices] of  int : returnSegmentsPrices; 
 array [returnSegments,returnPrices] of  int : returnSegmentsPricesAgents;
-array [returnSegments,returnPrices] of  int : returnSegmentsPricesIsCarrier;
-array [returnSegments,returnPrices] of  int : returnSegmentsAgentsScore;
+array [returnSegments,returnPrices] of  -1..1 : returnSegmentsPricesIsCarrier;
+array [returnSegments,returnPrices] of  -1..500 : returnSegmentsAgentsScore;
 %%lodging
 array [lodgings] of string: lodgingsId;
 array [lodgings] of int: lodgingsStartDate;
@@ -94,7 +94,7 @@ array [lodgings] of int: lodgingsBathrooms;
 array [lodgings] of int: lodgingsBedrooms;
 array [lodgings] of int: lodgingsBeds;
 array [lodgings] of bool: lodgingsIsSuperhost;
-array [lodgings] of int: lodgingsRating;
+array [lodgings] of -1..500: lodgingsRating;
 array [lodgings,lodgingFeatures] of int : lodgingsFeatures;
 array [lodgings] of 0..4: lodgingsCancelPolicy;
 array [lodgings] of int: lodgingsPriceTotalAmount;
@@ -106,10 +106,10 @@ var int: departureSegmentPrice;
 var int: returnSegmentPrice;
 var int: ahorro;
 var int: lodgingPrice;
-var int: lodgingRat;
-var int: departureAgentScore;
-var int: returnAgentScore;
-var int: totalScore;
+var -1..500: lodgingRat;
+var -1..500: departureAgentScore;
+var -1..500: returnAgentScore;
+var -3..1500: totalScore;
 var departurePrices: departurePricePos;
 var returnPrices: returnPricePos;
 var int: departureDate;
@@ -202,27 +202,22 @@ constraint ahorro = maxPrice - totalPrice;
 
 var int: ahorroScore = (ahorro * 1500 * 100) div maxPrice;
 
+%%Funcion objetivo
 solve maximize (15 * (totalScore * 100)) + (85 * ahorroScore);
-%%predicados       
-               
+
+%%predicados                      
 predicate verifyMinutes(var int:hour, array [int] of int:allowHours, var int:minute, array [int] of int:allowMinutes) =
                forall([
                   if hour = allowHours[k]
                     then allowMinutes[k] >= minute
                   endif
                |k in 1..length(allowHours)]);
-               
+
+%%funciones               
 function array [int] of  var int: getRow(array [int, int] of int: features, var int: row) = 
-  [features[row,i] | i in index_set_1of2(features)];
-%%Input data
+  [features[row,i] | i in lodgingFeatures];
 
 %%Salida
-% output["{'posDeparture':", show(posDeparture-1), ","];
-% output["'posAgentDeparture':", show(departurePricePos-1), ","];
-% output["'posReturn':", show(posReturn-1), ","];
-% output["'posAgentReturn':", show(returnPricePos-1), ","];
-% output["'posLodging':", show(posLodging-1), "}"];
-%%
 output["{'Departure': { 'pos': ", show(posDeparture-1), ","];
 output["'posAgent': ", show(departurePricePos-1), ","];
 output["'id': ", show(departureSegmentsId[fix(posDeparture)]), "},"];
@@ -231,6 +226,6 @@ output["'posAgent': ", show(returnPricePos-1), ","];
 output["'id': ", show(returnSegmentsId[fix(posReturn)]), "},"];
 output["'Lodging' : {'pos':", show(posLodging-1), ","];
 output["'id' : ", show(lodgingsId[fix(posLodging)]), "} }"];
-% output[show(totalPrice)];
+%%output[show(totalPrice)];
 
 
