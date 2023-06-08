@@ -10,7 +10,7 @@ export class FlightsService {
 
     async getFLights(requirements: Input) {
         const flightsFromAPI = await this.externalFlightsAPIService.getFlightsBetweenDates(requirements);
-        this.flightsDatabase.saveData(flightsFromAPI[0],flightsFromAPI[1]);
+        await this.flightsDatabase.createFlights(flightsFromAPI[0],flightsFromAPI[1]);
         const flightsPaths = await this.flightsDataHelper.createFlightsPaths(flightsFromAPI[0],flightsFromAPI[1]);
         console.log(flightsFromAPI.length)
         

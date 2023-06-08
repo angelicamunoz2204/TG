@@ -71,24 +71,24 @@ export class ExternalFlightsAPIService {
             let dep: any;
             let d = 0;
 
-            while (statusDep != "complete") {
+            //while (statusDep != "complete") {
                 console.log("dep", d++);
-                await setTimeout(20000);
+                //await setTimeout(20000);
                 dep = await this.getFlightsFromExternalAPI(departureParams);
                 statusDep = dep.context.status;
-            }
+            //}
 
             departureSegments = departureSegments.concat(dep.itineraries.results);
             returnParams.departureDate = endString
             let statusRet = "incomplete"
             let ret: any;
             let c = 0;
-            while (statusRet != "complete") {
+            //while (statusRet != "complete") {
                 console.log("ret", c++ )
-                await setTimeout(20000);
+            //    await setTimeout(20000);
                 ret = await this.getFlightsFromExternalAPI(returnParams);
                 statusRet = ret.context.status;
-            }
+            //}
 
             returnSegments = returnSegments.concat(ret.itineraries.results);
             start.setDate(start.getDate() + 1);

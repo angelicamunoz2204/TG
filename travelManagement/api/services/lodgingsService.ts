@@ -10,7 +10,7 @@ export class LodgingsService {
 
     async getLodgings(requirements: Input) {
         const lodgingsFromAPI = await this.externalLodgingsAPIService.getLodgingsBetweenDates(requirements);
-        this.lodgingsDatabase.saveData(lodgingsFromAPI);
+        await this.lodgingsDatabase.createLodgings(lodgingsFromAPI);
         const lodgingsPaths = await this.lodgingsDataHelper.createLodgingsPaths(lodgingsFromAPI);
         
         console.log(lodgingsFromAPI.length)

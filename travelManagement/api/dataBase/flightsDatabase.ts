@@ -1,16 +1,19 @@
-const fs = require('fs');
-const path = require('path')
+import { Database } from "./database";
 
 export class FlightsDatabase {
 
-    saveData(departureSegments:any[], returnSegments: any[]) {
-        this.writeTextFile('departureFlights', JSON.stringify(departureSegments, null, 2));
-        this.writeTextFile('returnFlights', JSON.stringify(returnSegments, null, 2));
+    db = new Database("travelManagementDB");
+
+    async createFlights(departureSegments:any[], returnSegments: any[]) {
+        await this.db.connect();
+        await this.db.insertDocuments("departureFlights",departureSegments);
+        await this.db.insertDocuments("returnFlights",returnSegments);
     }
 
-    writeTextFile(nameFile: string, content: string) {
-        var writeStream = fs.createWriteStream(path.resolve(__dirname,'../../APIsData/' + nameFile + '.json'));
-        writeStream.write(content);
-        writeStream.end();
+    async getFlightById(collectionName: string, id: string) {
+        await this.db.connect();
+        console.log(id);
+        const flight = await this.db.findDocumentById(collectionName, id);
+        return flight;
     }
 }

@@ -4,6 +4,8 @@ import { MinizincInputDataConstants } from "../../constants/minizinc/MinizincInp
 import { flightSolutionModel } from "../../models/Solutions/flightSolution.model";
 import { lodgingSolutionModel } from "../../models/Solutions/lodgingSolution.model";
 import { Solution } from "../../models/Solutions/solution.model";
+import { FlightsDatabase } from "../../dataBase/flightsDatabase";
+import { LodgingsDatabase } from "../../dataBase/lodgingsDatabase";
 const fs = require('fs');
 const path = require('path')
 const minizincModel = fs.readFileSync(
@@ -12,7 +14,8 @@ const minizincModel = fs.readFileSync(
 );
 
 export class MinizincHelper {
-    
+    flightsDB = new FlightsDatabase();
+    lodgingsDB = new LodgingsDatabase();
     minizincDataRequirements = MinizincInputDataConstants.minizincDataRequirements;
     minizincDataRequirementsLong = MinizincInputDataConstants.minizincDataRequirementsLong;
     minizincDataRequirementsDim = MinizincInputDataConstants.minizincDataRequirementsDim;
@@ -62,13 +65,8 @@ export class MinizincHelper {
                     const departure = jsonSolution.Departure;
                     const ret = jsonSolution.Return;
                     const lodging = jsonSolution.Lodging;
-                    allSolutions.push(
-                       this.getEachModelSolution(
-                            departure,
-                            ret,
-                            lodging
-                        )
-                    );
+                    const resp = await this.getEachModelSolution(departure, ret, lodging)
+                    allSolutions.push(resp);
                 }
             }
         }
@@ -76,25 +74,23 @@ export class MinizincHelper {
         return allSolutions;
     }
 
-    getEachModelSolution(
+    async getEachModelSolution(
         departure: flightSolutionModel,
         ret: flightSolutionModel,
         lodging: lodgingSolutionModel
     ) {
-        const depFlights = fs.readFileSync(path.resolve(__dirname, '../../../APIsData/departureFlights.json'), 'utf-8');
-        const retFlights = fs.readFileSync(path.resolve(__dirname, '../../../APIsData/returnFlights.json'), 'utf-8');
-        const lodgs = fs.readFileSync(path.resolve(__dirname, '../../../APIsData/lodgings.json'), 'utf-8');
-    
         const modelSolution: Solution = {
             departure: departure,
             return: ret,
             lodging: lodging,
         };
-    
+        const depa = await this.flightsDB.getFlightById("departureFlights",departure.id);
+        const retu = await this.flightsDB.getFlightById("returnFlights", ret.id);
+        const lod = await this.lodgingsDB.getLodgingById(lodging.id.toString());
         return {
-            departure: JSON.parse(depFlights)[departure.pos],
-            return: JSON.parse(retFlights)[ret.pos],
-            lodging: JSON.parse(lodgs)[lodging.pos]
+            departure: depa,
+            return: retu,
+            lodging: lod
         };
     }
     

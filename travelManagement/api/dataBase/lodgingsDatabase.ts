@@ -1,15 +1,16 @@
-const fs = require('fs');
-const path = require('path')
-
+import { Database } from "./database";
 export class LodgingsDatabase {
 
-    saveData(lodgings: any[]) {
-        this.writeTextFile('lodgings', JSON.stringify(lodgings, null, 2));
+    db = new Database("travelManagementDB");
+
+    async createLodgings(lodgings: any[]) {
+        await this.db.connect();
+        await this.db.insertDocuments("lodgings",lodgings);
     }
 
-    writeTextFile(nameFile: string, content: string) {
-        var writeStream = fs.createWriteStream(path.resolve(__dirname,'../../APIsData/' + nameFile + '.json'));
-        writeStream.write(content);
-        writeStream.end();
+    async getLodgingById(id: string) {
+        await this.db.connect();
+        const lod = await this.db.findDocumentById("lodgings", id);
+        return lod;
     }
 }
