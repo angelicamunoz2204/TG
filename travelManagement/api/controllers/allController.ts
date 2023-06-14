@@ -41,8 +41,8 @@ const inputData: Input = {
 
 export async function sendAllInformation(req: Request, res: Response) {
 	var requirements: Input = {
-		...req.body,
 		...defaults,
+		...req.body,
 	};
 
 	var tempDate = new Date(req.body.endDate);
