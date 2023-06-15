@@ -66,7 +66,11 @@ export class MinizincHelper {
 				const sol = modelResponse.solutions[i].extraOutput;
 
 				if (sol) {
-					const fixedString = sol.replace(/'/gi, '"');
+					const trimmedString = sol
+						.replace('%%%mzn-stat: openNodes=-1\n', '')
+						.replace('%%%mzn-stat: openNodes=-1', '');
+					if (trimmedString === '') continue;
+					const fixedString = trimmedString.replace(/'/gi, '"');
 					console.log(fixedString);
 					const jsonSolution = JSON.parse(fixedString);
 					const departure = jsonSolution.Departure;
@@ -108,7 +112,10 @@ export class MinizincHelper {
 			departure.id
 		);
 		const retu = await this.flightsDB.getFlightById('returnFlights', ret.id);
-		const lod = await this.lodgingsDB.getLodgingById(lodging.id.toString());
+		const lod = await this.lodgingsDB.getLodgingById(
+			lodging.id.toString(),
+			lodging.pos
+		);
 		return {
 			departure: depa,
 			return: retu,
@@ -121,7 +128,7 @@ export class MinizincHelper {
 	async implementModel(apiData: string) {
 		const myModel: IModelParams = {
 			model: String(minizincModel),
-			solver: 'gecode',
+			solver: 'COIN-BC',
 			all_solutions: true,
 		};
 

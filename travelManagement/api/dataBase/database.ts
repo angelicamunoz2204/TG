@@ -22,7 +22,6 @@ export class Database {
 	public async connect(): Promise<MongoClient> {
 		try {
 			this.client = await this.databaseConnection.connect();
-			console.log('Conectado a la base de datos');
 		} catch (error) {
 			console.error('Error al conectar a la base de datos', error);
 		}
@@ -61,12 +60,12 @@ export class Database {
 		return await collection.updateOne(filter, { $set: update });
 	}
 
-	public async deleteDocument<T extends Document>(
+	public async deleteDocuments<T extends Document>(
 		collectionName: string,
 		filter: object
 	): Promise<DeleteResult> {
 		const collection: Collection<T> = this.getCollection<T>(collectionName);
-		return await collection.deleteOne(filter);
+		return await collection.deleteMany(filter);
 	}
 
 	public async findDocuments<T extends Document>(
@@ -88,6 +87,5 @@ export class Database {
 
 	public async close(): Promise<void> {
 		await this.client!.close();
-		console.log('Conexión cerrada');
 	}
 }
