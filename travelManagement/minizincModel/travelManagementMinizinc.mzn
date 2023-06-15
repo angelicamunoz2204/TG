@@ -200,8 +200,7 @@ var int: totalPrice = departureSegmentPrice + returnSegmentPrice + lodgingPrice;
 constraint totalPrice <= maxPrice;
 constraint ahorro = maxPrice - totalPrice;
 
-var float: tempAhorroScore = (ahorro * 1500 * 100) / maxPrice;
-var float: ahorroScore = float(int(tempAhorroScore * 100)) / 100;
+var float: ahorroScore = (ahorro * 1500 * 100) / maxPrice;
 %%Funcion objetivo
 solve maximize (15 * (totalScore * 100)) + (85 * ahorroScore);
 
