@@ -114,7 +114,8 @@ export class MinizincHelper {
 		const retu = await this.flightsDB.getFlightById('returnFlights', ret.id);
 		const lod = await this.lodgingsDB.getLodgingById(
 			lodging.id.toString(),
-			lodging.pos
+			lodging.checkInDays,
+			lodging.checkOutDays
 		);
 		return {
 			departure: depa,

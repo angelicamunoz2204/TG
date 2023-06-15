@@ -9,15 +9,11 @@ export class LodgingsDatabase {
 		await this.db.close();
 	}
 
-	async getLodgingById(id: string, pos: number) {
-		const realPos = (pos + 1) % 300;
-		const group = Math.floor((pos + 1) / 300);
+	async getLodgingById(id: string, checkIn: number, checkOut: number) {
 		await this.db.connect();
 		const lod = await this.db.findDocuments('lodgings', {
-			$and: [{ id: id }, { position: realPos }],
+			$and: [{ id: id }, { checkInDays: checkIn }, { checkOutDays: checkOut }],
 		});
-		if (lod.length === 1) return lod[0];
-		// if (lod.length === 3) return lod[group];
 
 		await this.db.close();
 		return lod[0];

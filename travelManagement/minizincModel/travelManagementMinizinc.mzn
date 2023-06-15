@@ -224,7 +224,9 @@ output["'Return': { 'pos': ", show(posReturn-1), ","];
 output["'posAgent': ", show(returnPricePos-1), ","];
 output["'id': ", show(returnSegmentsId[fix(posReturn)]), "},"];
 output["'Lodging' : {'pos':", show(posLodging-1), ","];
-output["'id' : ", show(lodgingsId[fix(posLodging)]), "} }"];
+output["'id' : ", show(lodgingsId[fix(posLodging)]), ","];
+output["'checkInDays' : ", show(lodgingsStartDate[posLodging]), ","];
+output["'checkOutDays' : ", show(lodgingsEndDate[posLodging]), "} }"];
 %%output[show(totalPrice)];
 
 
