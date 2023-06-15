@@ -16,6 +16,7 @@ tmp
 
 # Build
 public/css/main.css
+travelManagement/dist/
 
 # Coverage reports
 coverage

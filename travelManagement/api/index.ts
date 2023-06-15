@@ -1,5 +1,5 @@
 var express = require('express');
-var indexRouter = require('./api/routes/travelManagementRoutes');
+var indexRouter = require('./routes/travelManagementRoutes');
 var cors = require('cors');
 
 const app = express();
