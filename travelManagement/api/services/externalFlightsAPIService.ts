@@ -13,8 +13,7 @@ export class ExternalFlightsAPIService {
 			headers: ExternalAPIsConnectionConstants.flightsExternalAPI.headers,
 		};
 
-		var result = await this.getExternalApiInformation(options);
-		console.log(result);
+		const result = await this.getExternalApiInformation(options);
 		//result.itineraries.results
 		return result;
 	}
@@ -63,40 +62,90 @@ export class ExternalFlightsAPIService {
 
 		let departureSegments: any[] = [];
 		let returnSegments: any[] = [];
+		let startTimes: any[] = [];
+		let endTimes: any[] = [];
+
 		while (end.getTime() - durationMils + 1440 * 60000 >= start.getTime()) {
 			const rt = new Date(start);
 			const h = new Date(rt.setDate(rt.getDate() + duration - 1));
 			var startString = start.toISOString().slice(0, 10);
 			var endString = h.toISOString().slice(0, 10);
 
-			departureParams.departureDate = startString;
-			let statusDep = 'incomplete';
-			let dep: any;
-			let d = 0;
+			startTimes.push(startString);
+			endTimes.push(endString);
 
-			//while (statusDep != "complete") {
-			console.log('dep', d++);
-			//await setTimeout(20000);
-			dep = await this.getFlightsFromExternalAPI(departureParams);
-			statusDep = dep.context.status;
-			//}
-
-			departureSegments = departureSegments.concat(dep.itineraries.results);
-			returnParams.departureDate = endString;
-			let statusRet = 'incomplete';
-			let ret: any;
-			let c = 0;
-			//while (statusRet != "complete") {
-			console.log('ret', c++);
-			//    await setTimeout(20000);
-			ret = await this.getFlightsFromExternalAPI(returnParams);
-			statusRet = ret.context.status;
-			//}
-
-			returnSegments = returnSegments.concat(ret.itineraries.results);
 			start.setDate(start.getDate() + 1);
 		}
 
+		if (startTimes.length + endTimes.length <= 30) {
+			let statusDep = 'incomplete';
+			let dep: any[] = [];
+			let flag = false;
+			let startTimePromises: Promise<any>[] = [];
+
+			while (statusDep !== 'complete') {
+				startTimePromises = [];
+				startTimes.forEach((startTime) => {
+					departureParams.departureDate = startTime;
+					startTimePromises.push(
+						this.getFlightsFromExternalAPI(departureParams)
+					);
+				});
+				dep = await Promise.all(startTimePromises);
+				statusDep = dep[0].context.status;
+				if (statusDep === 'complete') break;
+				await setTimeout(flag ? 10000 : 180000);
+				flag = true;
+			}
+			departureSegments = dep.flatMap((obj: any) => obj.itineraries.results);
+			console.log('Departure segments', departureSegments.length);
+			let statusRet = 'incomplete';
+			let ret: any[] = [];
+			let flagRet = false;
+			let endTimePromises: Promise<any>[] = [];
+			while (statusRet !== 'complete') {
+				endTimePromises = [];
+				endTimes.forEach((endTime) => {
+					returnParams.departureDate = endTime;
+					endTimePromises.push(this.getFlightsFromExternalAPI(returnParams));
+				});
+				ret = await Promise.all(endTimePromises);
+				statusRet = ret[0].context.status;
+				if (statusRet === 'complete') break;
+				await setTimeout(flagRet ? 10000 : 180000);
+				flagRet = true;
+			}
+			returnSegments = ret.flatMap((obj: any) => obj.itineraries.results);
+		}
+
+		/* const MAX_ALLOWED_FLIGHTS = 30;
+		if (startTimes.length + endTimes.length <= MAX_ALLOWED_FLIGHTS) {
+			departureSegments = await getDataFromAPI(departureParams, startTimes);
+			console.log('Departure segments', departureSegments.length);
+			returnSegments = await getDataFromAPI(returnParams, endTimes);
+		}
+
+		async function getDataFromAPI(
+			params: ExternalFlightsAPIParametersModel,
+			dates: string[]
+		): Promise<any> {
+			let segments: any[] = [];
+			let status = 'incomplete';
+			let shouldWait = false;
+			while (status !== 'complete') {
+				let promises: Promise<any>[] = [];
+				dates.forEach((date) => {
+					params.departureDate = date;
+					promises.push(this.getFlightsFromExternalAPI(params));
+				});
+				segments = await Promise.all(promises);
+				status = segments[0].context.status;
+				if (status === 'complete') break;
+				await setTimeout(shouldWait ? 10000 : 180000);
+				shouldWait = true;
+			}
+			return segments.flatMap((obj: any) => obj.itineraries.results);
+		} */
 		return [departureSegments, returnSegments];
 	}
 
@@ -114,10 +163,12 @@ export class ExternalFlightsAPIService {
 	}
 
 	getExternalApiInformation(query: Object): Promise<any> {
-		const promise = axios.request(query);
-		const dataPromise = promise
+		return axios
+			.request(query)
 			.then((response: any) => response.data)
-			.catch((error: Error) => error);
-		return dataPromise;
+			.catch((error: Error) => {
+				console.log('Error occurred while making API call:', error);
+				throw error;
+			});
 	}
 }

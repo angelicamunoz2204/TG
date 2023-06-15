@@ -11,21 +11,21 @@ const orig: Place = {
 };
 
 const dest: Place = {
-	IATA: 'TCO',
-	name: 'Tumaco',
+	IATA: 'BOG',
+	name: 'Bogota',
 };
 const inputData: Input = {
 	origin: orig,
 	destination: dest,
-	startDate: new Date(2023, 6, 1),
-	endDate: new Date(2023, 6, 2),
-	startTime: [new Date(2023, 6, 1, 0, 0)],
+	startDate: new Date(2023, 7, 1),
+	endDate: new Date(2023, 7, 5),
+	startTime: [new Date(2023, 7, 1, 0, 0)],
 	duration: 2,
-	endTime: [new Date(2023, 6, 5, 23, 59)],
+	endTime: [new Date(2023, 7, 5, 23, 59)],
 	adults: 2,
-	children: 1,
-	infants: 1,
-	maxPrice: 1000,
+	children: 0,
+	infants: 0,
+	maxPrice: 2000,
 	maxStops: 2,
 	maxStopsDuration: 700,
 	maxTotalDuration: 1000,
