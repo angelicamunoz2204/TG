@@ -92,7 +92,7 @@ export class ExternalFlightsAPIService {
 					);
 				});
 				dep = await Promise.all(startTimePromises);
-				statusDep = dep[0].context.status;
+				statusDep = dep[0]?.context.status;
 				if (statusDep === 'complete') break;
 				await setTimeout(flag ? 10000 : 180000);
 				flag = true;
@@ -110,7 +110,7 @@ export class ExternalFlightsAPIService {
 					endTimePromises.push(this.getFlightsFromExternalAPI(returnParams));
 				});
 				ret = await Promise.all(endTimePromises);
-				statusRet = ret[0].context.status;
+				statusRet = ret[0]?.context.status;
 				if (statusRet === 'complete') break;
 				await setTimeout(flagRet ? 10000 : 180000);
 				flagRet = true;
