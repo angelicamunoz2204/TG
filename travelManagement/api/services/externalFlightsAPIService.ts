@@ -92,7 +92,6 @@ export class ExternalFlightsAPIService {
 					);
 				});
 				dep = await Promise.all(startTimePromises);
-				console.log('TETICA TETATETATETATETATETATETATETA', dep[0]);
 				statusDep = dep[0]?.context.status;
 				if (statusDep === 'complete') break;
 				await setTimeout(flag ? 10000 : 180000);

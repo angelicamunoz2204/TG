@@ -19,7 +19,6 @@ export class FlightsService {
 			flightsFromAPI[0],
 			flightsFromAPI[1]
 		);
-		console.log(flightsFromAPI.length);
 
 		return flightsPaths;
 	}

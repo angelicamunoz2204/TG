@@ -33,7 +33,7 @@ export class MinizincHelper {
 	minizincDataLodgingsLong =
 		MinizincInputDataConstants.minizincDataLodgingsLong;
 
-	async getSolutions(paths: any[]) {
+	async getSolutions(paths: any[]): Promise<Solution[] | any> {
 		const minizincDataName = this.minizincDataRequirements.concat(
 			this.minizincDataFlights,
 			this.minizincDataLodgings
@@ -71,7 +71,6 @@ export class MinizincHelper {
 						.replace('%%%mzn-stat: openNodes=-1', '');
 					if (trimmedString === '') continue;
 					const fixedString = trimmedString.replace(/'/gi, '"');
-					console.log(fixedString);
 					const jsonSolution = JSON.parse(fixedString);
 					const departure = jsonSolution.Departure;
 					const ret = jsonSolution.Return;
@@ -86,11 +85,12 @@ export class MinizincHelper {
 						posPriceRet
 					);
 					allSolutions.push(resp);
+					return allSolutions;
 				}
 			}
 		}
 
-		return allSolutions;
+		return { solution: 'Unsatisfiable' };
 	}
 
 	async getEachModelSolution(
