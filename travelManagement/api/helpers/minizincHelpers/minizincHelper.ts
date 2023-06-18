@@ -85,9 +85,9 @@ export class MinizincHelper {
 						posPriceRet
 					);
 					allSolutions.push(resp);
-					return allSolutions;
 				}
 			}
+			return allSolutions;
 		}
 
 		return { solution: 'Unsatisfiable' };
