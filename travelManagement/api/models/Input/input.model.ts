@@ -57,5 +57,5 @@ export const defaults: Pick<
 	isSuperHost: false,
 	allowPolicies: [0, 1, 2, 3],
 	features: [],
-	maxPrice: 220,
+	maxPrice: 2000,
 };
