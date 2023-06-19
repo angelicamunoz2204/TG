@@ -77,7 +77,7 @@ export class ExternalFlightsAPIService {
 			start.setDate(start.getDate() + 1);
 		}
 
-		if (startTimes.length + endTimes.length <= 30) {
+		if (startTimes.length + endTimes.length <= 60) {
 			let statusDep = 'incomplete';
 			let dep: any[] = [];
 			let flag = false;
