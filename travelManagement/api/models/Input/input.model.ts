@@ -1,4 +1,4 @@
-import { Place } from "./place.model";
+import { Place } from './place.model';
 export interface Input {
 	origin: Place;
 	destination: Place;
@@ -33,7 +33,7 @@ export const defaults: Pick<
 	| 'allowIntermediaries'
 	| 'maxStops'
 	| 'children'
-	|  'infants'
+	| 'infants'
 	| 'duration'
 	| 'maxStops'
 	| 'maxStopsDuration'
@@ -49,13 +49,13 @@ export const defaults: Pick<
 	duration: 3,
 	maxStopsDuration: 300,
 	maxTotalDuration: 700,
-	allowAerolines: [1, 2, 3, 4, 5, 6, 7, 8],
+	allowAerolines: [0, 1, 2, 3, 4, 5, 6, 7],
 	allowIntermediaries: true,
 	bedrooms: 1,
 	beds: 1,
 	bathrooms: 1,
 	isSuperHost: false,
-	allowPolicies: [1, 2, 3, 4],
+	allowPolicies: [0, 1, 2, 3],
 	features: [],
-	maxPrice: 220,
+	maxPrice: 2000,
 };
