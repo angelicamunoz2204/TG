@@ -55,5 +55,7 @@ export async function sendAllInformation(req: Request, res: Response) {
 	requirements.endTime = [tempDate];
 	const allSolutions = await allService.getAllSolutions(requirements);
 
-	res.send(allSolutions);
+	if (allSolutions.solution === 'Unsatisfiable') res.send(allSolutions);
+
+	res.send(allSolutions.reverse());
 }

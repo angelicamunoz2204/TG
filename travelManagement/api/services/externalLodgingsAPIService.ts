@@ -48,12 +48,13 @@ export class ExternalLodgingsAPIService {
 
 			while (amountPage == 40 && pagination <= 8) {
 				const lo = await this.getLodgingsFromExternalAPI(lodgingParams);
-				if (lo === undefined) break;
+				if (lo.length === 0) break;
+
 				amountPage = lo.length;
 				lodgs = lodgs.concat(lo);
 				pagination++;
 				lodgingParams.page = pagination;
-				//await setTimeout(15000);
+				// await setTimeout(2000);
 			}
 
 			lodgings = lodgings.concat(lodgs);

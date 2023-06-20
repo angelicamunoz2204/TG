@@ -16,7 +16,7 @@ tmp
 
 # Build
 public/css/main.css
-travelManagement/dist/
+travelManagement/dist/**
 
 # Coverage reports
 coverage
@@ -41,3 +41,5 @@ dist/**/*
 
 # ignore yarn.lock
 yarn.lock
+travelManagement/dist/index.js
+travelManagement/dist/index.js.map
