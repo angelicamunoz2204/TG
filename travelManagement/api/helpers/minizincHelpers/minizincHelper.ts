@@ -129,7 +129,7 @@ export class MinizincHelper {
 	async implementModel(apiData: string) {
 		const myModel: IModelParams = {
 			model: String(minizincModel),
-			solver: 'COIN-BC',
+			solver: 'Gecode',
 			all_solutions: true,
 		};
 

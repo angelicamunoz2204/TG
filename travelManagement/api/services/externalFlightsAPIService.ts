@@ -82,7 +82,7 @@ export class ExternalFlightsAPIService {
 			let dep: any[] = [];
 			let flag = false;
 			let startTimePromises: Promise<any>[] = [];
-
+			console.log('Starting departure flights');
 			while (statusDep !== 'complete') {
 				startTimePromises = [];
 				startTimes.forEach((startTime) => {
@@ -103,6 +103,7 @@ export class ExternalFlightsAPIService {
 			let ret: any[] = [];
 			let flagRet = false;
 			let endTimePromises: Promise<any>[] = [];
+			console.log('Starting return flights');
 			while (statusRet !== 'complete') {
 				endTimePromises = [];
 				endTimes.forEach((endTime) => {
@@ -116,6 +117,7 @@ export class ExternalFlightsAPIService {
 				flagRet = true;
 			}
 			returnSegments = ret.flatMap((obj: any) => obj.itineraries.results);
+			console.log('Return segments', returnSegments.length);
 		}
 
 		/* const MAX_ALLOWED_FLIGHTS = 30;
@@ -123,8 +125,8 @@ export class ExternalFlightsAPIService {
 			departureSegments = await getDataFromAPI(departureParams, startTimes);
 			console.log('Departure segments', departureSegments.length);
 			returnSegments = await getDataFromAPI(returnParams, endTimes);
+			
 		}
-
 		async function getDataFromAPI(
 			params: ExternalFlightsAPIParametersModel,
 			dates: string[]

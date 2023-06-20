@@ -10,8 +10,15 @@ export class AllService {
 	minizincHelper = new MinizincHelper();
 
 	async getAllSolutions(requirements: Input) {
-		const flightsPaths = await this.flightsService.getFLights(requirements);
-		const lodgingsPaths = await this.lodgingsService.getLodgings(requirements);
+		const promises: Promise<any>[] = [];
+
+		promises.push(this.flightsService.getFLights(requirements));
+		promises.push(this.lodgingsService.getLodgings(requirements));
+
+		const results = await Promise.all(promises);
+
+		const flightsPaths = results[0];
+		const lodgingsPaths = results[1];
 
 		const requirementsAmount = this.flightsService
 			.getFlightsSizes()
