@@ -29,7 +29,6 @@ export class AllService {
 		);
 		const paths = requiredInf.concat(flightsPaths, lodgingsPaths);
 		const allSolutions = await this.minizincHelper.getSolutions(paths);
-
 		/* if(allSolutions.length > 0) {
             if (allSolutions.length > 3)
             return allSolutions.slice(0,3)

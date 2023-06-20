@@ -238,7 +238,7 @@ predicate verifyMinutesArr(var int:hour, array [int] of int:allowHours, var int:
 function array [int] of  var int: getRow(array [int, int] of int: features, var int: row) = 
   [features[row,i] | i in lodgingFeatures];
 
-%Salida
+%%Salida
 output["{'Departure': { 'pos': ", show(posDeparture-1), ","];
 output["'posAgent': ", show(departurePricePos-1), ","];
 output["'id': ", show(departureSegmentsId[fix(posDeparture)]), "},"];
@@ -246,7 +246,9 @@ output["'Return': { 'pos': ", show(posReturn-1), ","];
 output["'posAgent': ", show(returnPricePos-1), ","];
 output["'id': ", show(returnSegmentsId[fix(posReturn)]), "},"];
 output["'Lodging' : {'pos':", show(posLodging-1), ","];
-output["'id' : ", show(lodgingsId[fix(posLodging)]), "} }"];
-%output[show(totalPrice)];
+output["'id' : ", show(lodgingsId[fix(posLodging)]), ","];
+output["'checkInDays' : ", show(lodgingsStartDate[posLodging]), ","];
+output["'checkOutDays' : ", show(lodgingsEndDate[posLodging]), "} }"];
+%%output[show(totalPrice)];
 
 
