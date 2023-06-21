@@ -4,15 +4,22 @@ import { LodgingsDataHelper } from '../helpers/dataHelpers/lodgingsDataHelper';
 import { LodgingsDatabase } from '../dataBase/lodgingsDatabase';
 
 export class LodgingsService {
+	timeToGetLodgings = 0;
 	externalLodgingsAPIService = new ExternalLodgingsAPIService();
 	lodgingsDataHelper = new LodgingsDataHelper();
 	lodgingsDatabase = new LodgingsDatabase();
 
 	async getLodgings(requirements: Input) {
+		const startTime = performance.now()
 		const lodgingsFromAPI =
 			await this.externalLodgingsAPIService.getLodgingsBetweenDates(
 				requirements
 			);
+			
+		const endTime = performance.now()
+		const elapsedTime = endTime - startTime;
+		this.timeToGetLodgings = elapsedTime;
+
 		const lodgingsWithDates = this.setDays(lodgingsFromAPI);
 		await this.lodgingsDatabase.createLodgings(lodgingsWithDates);
 		const lodgingsPaths = await this.lodgingsDataHelper.createLodgingsPaths(

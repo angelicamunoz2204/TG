@@ -238,17 +238,32 @@ predicate verifyMinutesArr(var int:hour, array [int] of int:allowHours, var int:
 function array [int] of  var int: getRow(array [int, int] of int: features, var int: row) = 
   [features[row,i] | i in lodgingFeatures];
 
-%%Salida
-output["{'Departure': { 'pos': ", show(posDeparture-1), ","];
+%Salida
+output["{'maxBudget' : ", show(maxPrice), ","];
+output["'amountSpent' : ", show(totalPrice), ","]; 
+output["'amountSaved' : ", show(ahorro), ","]; 
+output["'totalScore' : ", show(totalScore), ","];
+output["'departureFlightsAmount' : ", show(amountOfDepartureSegments), ","];
+output["'returnFlightsAmount' : ", show(amountOfReturnSegments), ","];
+output["'lodgingsAmount' : ", show(amountOfLodgings), ","];
+output["'departure': {"];
+output["'id': ", show(departureSegmentsId[fix(posDeparture)]), ","];
+output["'pos': ", show(posDeparture-1), ","];
 output["'posAgent': ", show(departurePricePos-1), ","];
-output["'id': ", show(departureSegmentsId[fix(posDeparture)]), "},"];
-output["'Return': { 'pos': ", show(posReturn-1), ","];
+output["'price': ", show(departureSegmentsPrices[posDeparture, departurePricePos]), ","];
+output["'score': ", show(departureSegmentsAgentsScore[posDeparture, departurePricePos]), "},"];
+output["'return': {"];
+output["'id': ", show(returnSegmentsId[fix(posReturn)]), ","];
+output["'pos': ", show(posReturn-1), ","];
 output["'posAgent': ", show(returnPricePos-1), ","];
-output["'id': ", show(returnSegmentsId[fix(posReturn)]), "},"];
-output["'Lodging' : {'pos':", show(posLodging-1), ","];
+output["'price': ", show(returnSegmentsPrices[posReturn, returnPricePos]), ","];
+output["'score': ", show(returnSegmentsAgentsScore[posReturn, returnPricePos]), "},"];
+output["'lodging' : {"];
 output["'id' : ", show(lodgingsId[fix(posLodging)]), ","];
+output["'pos':", show(posLodging-1), ","];
+output["'price' : ", show(lodgingsPriceTotalAmount[posLodging]), ","];
+output["'score' : ", show(lodgingsRating[posLodging]), ","];
 output["'checkInDays' : ", show(lodgingsStartDate[posLodging]), ","];
-output["'checkOutDays' : ", show(lodgingsEndDate[posLodging]), "} }"];
-%%output[show(totalPrice)];
+output["'checkOutDays' : ", show(lodgingsEndDate[posLodging]), "}}"];
 
 

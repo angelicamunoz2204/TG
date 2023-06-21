@@ -1,11 +1,13 @@
-import { IModelParams, IResult } from 'minizinc';
+import { IModelParams, IResult, IMiniZincSolveRawOptions } from 'minizinc';
 import CLIMiniZinc from 'minizinc/build/CLIMiniZinc';
 import { MinizincInputDataConstants } from '../../constants/minizinc/MinizincInputDataConstants';
-import { flightSolutionModel } from '../../models/Solutions/flightSolution.model';
-import { lodgingSolutionModel } from '../../models/Solutions/lodgingSolution.model';
+import { FlightSolutionModel } from '../../models/Solutions/flightSolution.model';
+import { LodgingSolutionModel } from '../../models/Solutions/lodgingSolution.model';
 import { Solution } from '../../models/Solutions/solution.model';
 import { FlightsDatabase } from '../../dataBase/flightsDatabase';
 import { LodgingsDatabase } from '../../dataBase/lodgingsDatabase';
+import { SolverSolution } from 'models/Solutions/solverSolution.model';
+import { ResolveData } from 'webpack';
 const fs = require('fs');
 const path = require('path');
 const minizincModel = fs.readFileSync(
@@ -33,7 +35,7 @@ export class MinizincHelper {
 	minizincDataLodgingsLong =
 		MinizincInputDataConstants.minizincDataLodgingsLong;
 
-	async getSolutions(paths: any[]): Promise<Solution[] | any> {
+	async getSolutions(paths: any[], timeFlights: number, timeLodgings: number): Promise<Solution[] | any> {
 		const minizincDataName = this.minizincDataRequirements.concat(
 			this.minizincDataFlights,
 			this.minizincDataLodgings
@@ -54,59 +56,45 @@ export class MinizincHelper {
 			minizincDataDim
 		);
 		const modelInputData = fs.readFileSync(dzn, 'utf-8');
-		const modelResponse = await this.implementModel(String(modelInputData));
-		console.log('modelResponse', modelResponse);
+		/*const modelInputData = fs.readFileSync(
+			path.resolve(
+				__dirname,
+				'../../../minizincModel/modelInputData4.dzn'
+			),
+			'utf-8'
+		);*/
 
-		let allSolutions: Solution[] = [];
-		const status = modelResponse.status;
+		const modelsResponses = await this.implementModel(String(modelInputData), timeFlights, timeLodgings);
+		console.log('modelsResponses', modelsResponses);
+		//return modelsResponses;
+		for (let i = 0; i < modelsResponses.length; i++) {
+			const resp: SolverSolution = modelsResponses[i];
+			const status = resp.status;
 
-		if (status == 'OPTIMAL_SOLUTION') {
-			//'UNSATISFIABLE'
-			for (let i = 0; i < modelResponse.solutions.length; i++) {
-				const sol = modelResponse.solutions[i].extraOutput;
+			if (status == 'OPTIMAL_SOLUTION') {
+				const dep: FlightSolutionModel = resp.solution.departure;
+				const ret: FlightSolutionModel = resp.solution.return;
+				const lodg: LodgingSolutionModel = resp.solution.lodging;
 
-				if (sol) {
-					const trimmedString = sol
-						.replace('%%%mzn-stat: openNodes=-1\n', '')
-						.replace('%%%mzn-stat: openNodes=-1', '');
-					if (trimmedString === '') continue;
-					const fixedString = trimmedString.replace(/'/gi, '"');
-					const jsonSolution = JSON.parse(fixedString);
-					const departure = jsonSolution.Departure;
-					const ret = jsonSolution.Return;
-					const lodging = jsonSolution.Lodging;
-					const posPriceDep = jsonSolution.Departure.posAgent;
-					const posPriceRet = jsonSolution.Return.posAgent;
-					const resp = await this.getEachModelSolution(
-						departure,
-						ret,
-						lodging,
-						posPriceDep,
-						posPriceRet
-					);
-					allSolutions.push(resp);
-				}
+				const sol = await this.getEachModelSolution(
+					dep,
+					ret,
+					lodg
+				);
+				dep.result = sol.departure;
+				ret. result = sol.return;
+				lodg.result = sol.lodging;
 			}
-			return allSolutions;
 		}
-
-		return { solution: 'Unsatisfiable' };
+		return modelsResponses;
 	}
 
 	async getEachModelSolution(
-		departure: flightSolutionModel,
-		ret: flightSolutionModel,
-		lodging: lodgingSolutionModel,
-		posPriceDep: number,
-		posPriceRet: number
-	): Promise<Solution> {
-		const modelSolution: Solution = {
-			departure: departure,
-			return: ret,
-			lodging: lodging,
-			posPriceDeparture: posPriceDep,
-			posPriceReturn: posPriceRet,
-		};
+		departure: FlightSolutionModel,
+		ret: FlightSolutionModel,
+		lodging: LodgingSolutionModel
+	): Promise<any> {
+
 		const depa = await this.flightsDB.getFlightById(
 			'departureFlights',
 			departure.id
@@ -120,22 +108,80 @@ export class MinizincHelper {
 		return {
 			departure: depa,
 			return: retu,
-			lodging: lod,
-			posPriceDeparture: posPriceDep,
-			posPriceReturn: posPriceRet,
+			lodging: lod
 		};
 	}
 
-	async implementModel(apiData: string) {
-		const myModel: IModelParams = {
-			model: String(minizincModel),
-			solver: 'Gecode',
-			all_solutions: true,
-		};
+	async implementModel(apiData: string, timeFlights: number, timeLodgings: number) {
+		const solvers = ["Gecode", "Chuffed", "OR-tools", "COIN-BC"];
+		let allSolutions: any[] = []
 
-		const minizinc = new CLIMiniZinc();
-		const solution: IResult = await minizinc.solve(myModel, apiData);
-		return solution;
+		for (let i = 0; i < solvers.length; i++) {
+			const myModel: IModelParams = {
+				model: String(minizincModel),
+				solver: solvers[i],
+				all_solutions: false
+			};
+			
+			const minizinc = new CLIMiniZinc();
+			const startTime = performance.now();
+			const timeoutAfter = () => {
+				return new Promise((resolve: any, reject: any) => {
+					setTimeout(() => reject(new Error("Time limit exceeded")), 120000)
+				})
+			}
+			//const mznResponse: IResult = await minizinc.solve(myModel, apiData);
+			let solverSolution: SolverSolution;
+			const mznPromise: Promise<IResult> = minizinc.solve(myModel, apiData);
+			try {
+				const mznResponse = await Promise.race([mznPromise, timeoutAfter()]);
+
+				const endTime = performance.now();
+				const elapsedTime = endTime - startTime;
+				solverSolution = this.createSolverSolution(mznResponse, solvers[i], elapsedTime, timeFlights, timeLodgings);
+				//console.log(solvers[i], solverSolution);
+			} catch(error) {
+				const endTime = performance.now();
+				const elapsedTime = endTime - startTime;
+				solverSolution = {
+					solver: solvers[i],
+					status: error.message,
+					solveTimeMzn: 120000,
+					solveTimeSystem: Number(elapsedTime.toFixed(3)),
+					skyscannerTime: timeFlights,
+					airbnbTime: timeLodgings
+				}
+			}
+
+			allSolutions = allSolutions.concat(solverSolution)
+		}
+		return allSolutions;
+	}
+
+	createSolverSolution(mznResponse: any, solverName: string, solveTimeSys: number, timeFlights: number, timeLodgings: number) {
+		const respString = mznResponse.solutions[0].extraOutput;
+		const status = mznResponse.status;
+
+		let solverSolution: SolverSolution = {
+			solver: solverName,
+			status: status,
+			solveTimeMzn: mznResponse.statistics ? Number((mznResponse.statistics.solveTime * 1000).toFixed(3)) : null,
+			solveTimeSystem: Number(solveTimeSys.toFixed(3)),
+			skyscannerTime: timeFlights,
+			airbnbTime: timeLodgings
+		}
+
+		if (status === "OPTIMAL_SOLUTION") {
+			const jsonStartResp = respString.indexOf("{");
+			const trimmedString = respString.substring(jsonStartResp);
+			const fixedString = trimmedString.replace(/'/gi, '"');
+			const jsonSolution = JSON.parse(fixedString);
+			const sol: Solution = jsonSolution;
+
+			solverSolution.solution = sol
+		}
+
+		return solverSolution
 	}
 
 	createDznFile(

@@ -1,6 +1,9 @@
-export interface lodgingSolutionModel {
-	checkOutDays: number;
-	checkInDays: number;
-	pos: number;
-	id: number;
+export interface LodgingSolutionModel {
+	id: string,
+    pos: number,
+    price: number, 
+    score: number,
+	checkOutDays: number,
+	checkInDays: number,
+    result?: any
 }

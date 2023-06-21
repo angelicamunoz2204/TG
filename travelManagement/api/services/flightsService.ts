@@ -4,13 +4,21 @@ import { FlightsDataHelper } from '../helpers/dataHelpers/flightsDataHelper';
 import { Input } from '../models/Input/input.model';
 
 export class FlightsService {
+	timeToGetFlights = 0;
 	externalFlightsAPIService = new ExternalFlightsAPIService();
 	flightsDatabase = new FlightsDatabase();
 	flightsDataHelper = new FlightsDataHelper();
 
 	async getFLights(requirements: Input) {
+		const startTime = performance.now()
+		
 		const flightsFromAPI =
 			await this.externalFlightsAPIService.getFlightsBetweenDates(requirements);
+
+		const endTime = performance.now()
+		const elapsedTime = endTime - startTime;
+		this.timeToGetFlights = elapsedTime;
+
 		await this.flightsDatabase.createFlights(
 			flightsFromAPI[0],
 			flightsFromAPI[1]

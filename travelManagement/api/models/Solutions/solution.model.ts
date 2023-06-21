@@ -1,10 +1,15 @@
-import { flightSolutionModel } from './flightSolution.model';
-import { lodgingSolutionModel } from './lodgingSolution.model';
+import { FlightSolutionModel } from './flightSolution.model';
+import { LodgingSolutionModel } from './lodgingSolution.model';
 
 export interface Solution {
-	departure: flightSolutionModel;
-	posPriceDeparture: number;
-	return: flightSolutionModel;
-	posPriceReturn: number;
-	lodging: lodgingSolutionModel;
+	maxBudget: number,
+	amountSpent: number,
+	amountSaved: number,
+	totalScore: number,
+	departureFlightsAmount: number,
+	returnFlightsAmount: number,
+	lodgingsAmount: number,
+	departure: FlightSolutionModel;
+	return: FlightSolutionModel;
+	lodging: LodgingSolutionModel;
 }
