@@ -22,6 +22,7 @@ export class ExternalLodgingsAPIService {
 		let requirements = structuredClone(req);
 		const start = requirements.startDate;
 		const end = requirements.endDate;
+		let startTime = performance.now();
 		const duration = requirements.duration;
 		const durationMils = duration * 1440 * 60000;
 		let lodgings: any[] = [];
@@ -48,7 +49,6 @@ export class ExternalLodgingsAPIService {
 			};
 			let lodgs: any[] = [];
 			let amountPage = 40;
-			let startTime = performance.now();
 			while (amountPage == 40 && pagination <= 8) {
 				const lo = await this.getLodgingsFromExternalAPI(lodgingParams);
 				if (lo!.length === 0) {
