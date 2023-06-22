@@ -47,7 +47,8 @@ export class ExternalLodgingsAPIService {
 			};
 			let lodgs: any[] = [];
 			let amountPage = 40;
-
+			let flag = 0;
+			let startTime = performance.now();
 			while (amountPage == 40 && pagination <= 8) {
 				const lo = await this.getLodgingsFromExternalAPI(lodgingParams);
 				if (lo!.length === 0) {
@@ -57,8 +58,21 @@ export class ExternalLodgingsAPIService {
 				amountPage = lo.length;
 				lodgs = lodgs.concat(lo);
 				pagination++;
+				flag++;
 				lodgingParams.page = pagination;
-				// await setTimeout(2000);
+				// await setTimeout(500);
+
+				const endTime = performance.now();
+				const timeToFinish = endTime - startTime;
+				console.log(timeToFinish, flag);
+				if (flag === 29) {
+					flag = 0;
+					if (timeToFinish <= 59000) {
+						console.log('Call limit surpased, waiting');
+						startTime = performance.now();
+						await setTimeout(60000 - timeToFinish + 1000);
+					}
+				}
 			}
 
 			lodgings = lodgings.concat(lodgs);
