@@ -127,7 +127,7 @@ export class MinizincHelper {
 			const startTime = performance.now();
 			const timeoutAfter = () => {
 				return new Promise((resolve: any, reject: any) => {
-					setTimeout(() => reject(new Error("Time limit exceeded")), 120000)
+					setTimeout(() => reject(new Error("Time limit exceeded")), 300000)
 				})
 			}
 			//const mznResponse: IResult = await minizinc.solve(myModel, apiData);
@@ -139,7 +139,7 @@ export class MinizincHelper {
 				const endTime = performance.now();
 				const elapsedTime = endTime - startTime;
 				solverSolution = this.createSolverSolution(mznResponse, solvers[i], elapsedTime, timeFlights, timeLodgings);
-				//console.log(solvers[i], solverSolution);
+
 			} catch(error) {
 				const endTime = performance.now();
 				const elapsedTime = endTime - startTime;
@@ -154,6 +154,7 @@ export class MinizincHelper {
 			}
 
 			allSolutions = allSolutions.concat(solverSolution)
+			console.log("Solution finsihed in ", solvers[i])
 		}
 		return allSolutions;
 	}

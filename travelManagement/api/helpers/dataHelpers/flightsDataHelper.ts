@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { ExternalAPIsConstants } from '../../constants/externalAPIs/externalAPIsConstants';
 import { Aeroline } from '../../models/Flights/aeroline.model';
 import { Agent } from '../../models/Flights/agent.model';
@@ -15,15 +16,16 @@ export class FlightsDataHelper {
     amountOfReturnFlights = 0;
     largestAmountOfDeparturePrices = 0;
     largestAmountOfReturnPrices = 0;
+    dollarValue = 4150;
 
-    createFlightsPaths(departureSegments:any[], returnSegments: any[]) {
-    
+    async createFlightsPaths(adults: number, children: number, departureSegments:any[], returnSegments: any[]) {
+        this.dollarValue = await this.getDolarPrice();
         const departurePaths = this.createPathsArrays(
-            this.createPaths(departureSegments, true),
+            await this.createPaths(adults, children, departureSegments, true),
             true
         );
         const returnPaths = this.createPathsArrays(
-            this.createPaths(returnSegments, false),
+            await this.createPaths(adults, children, returnSegments, false),
             false
         );
         this.amountOfDepartureFlights = departurePaths[0].length;
@@ -147,7 +149,7 @@ export class FlightsDataHelper {
         ];
     }
 
-    createPaths(paths: any[], departure: boolean) {
+    createPaths(adults: number, children: number, paths: any[], departure: boolean) {
         let segments: Path[] = [];
         for (let i = 0; i < paths.length; i++) {
             const path: Path = {
@@ -157,7 +159,7 @@ export class FlightsDataHelper {
                 departureDate: paths[i].legs[0].departure,
                 arrivalDate: paths[i].legs[0].arrival,
                 segments: this.createFlights(paths[i].legs[0].segments),
-                price: this.createPrices(paths[i].pricing_options),
+                price: this.createPrices(adults, children, paths[i].pricing_options),
             };
             //pulir codigo
             if (departure) {
@@ -208,43 +210,51 @@ export class FlightsDataHelper {
         return flights;
     }
     
-    createPrices(priceOptions: any[]): FlightPrice[] {
+    createPrices(adults: number, children: number, priceOptions: any[]): FlightPrice[] {
         let prices: FlightPrice[] = [];
-    
+
         for (let i = 0; i < priceOptions.length; i++) {
-            const available = priceOptions[i].agents[0].rating_status === 'available';
-            let score: Score;
-            if (available) {
-                //quitar modelo de score
-                score = {
-                    ratingAvailable: available,
-                    rating: Math.round(priceOptions[i].agents[0].rating * 100)
+            const priceFromAPI = priceOptions[i].price.amount;
+
+            if (priceFromAPI) {
+                const adultPrice = priceFromAPI / adults;
+                const childrenPrice = children * adultPrice;
+                const totalPrice = this.changeCurrency(priceFromAPI + childrenPrice);
+
+                const available = priceOptions[i].agents[0].rating_status === 'available';
+                let score: Score;
+                if (available) {
+                    //quitar modelo de score
+                    score = {
+                        ratingAvailable: available,
+                        rating: Math.round(priceOptions[i].agents[0].rating * 100)
+                    };
+                } else {
+                    score = {
+                        ratingAvailable: available,
+                        rating: -1
+                    };
+                }
+                const agents = ExternalAPIsConstants.agents;
+                let agentes: any | undefined = agents.find(
+                    (agent) => agent.name === priceOptions[i].agents[0].name
+                );
+                let agentsId = 0;
+                if (agentes) {
+                    agentsId = agentes.id;
+                }
+                const agent: Agent = {
+                    id: agentsId,
+                    name: priceOptions[i].agents[0].name,
+                    isCarrier: priceOptions[i].agents[0].is_carrier,
+                    score: score,
                 };
-            } else {
-                score = {
-                    ratingAvailable: available,
-                    rating: -1
+                const price: FlightPrice = {
+                    agent: agent,
+                    amount: totalPrice,
                 };
+                prices.push(price);
             }
-            const agents = ExternalAPIsConstants.agents;
-            let agentes: any | undefined = agents.find(
-                (agent) => agent.name === priceOptions[i].agents[0].name
-            );
-            let agentsId = 0;
-            if (agentes) {
-                agentsId = agentes.id;
-            }
-            const agent: Agent = {
-                id: agentsId,
-                name: priceOptions[i].agents[0].name,
-                isCarrier: priceOptions[i].agents[0].is_carrier,
-                score: score,
-            };
-            const price: FlightPrice = {
-                agent: agent,
-                amount: Math.round(priceOptions[i].price.amount * 100),
-            };
-            prices.push(price);
         }
         return prices;
     }
@@ -257,5 +267,23 @@ export class FlightsDataHelper {
     
         return dates;
     }
+
+    async getDolarPrice() {
+        let dolarValue;
+        try {
+          const response = await axios.get('https://api.exchangerate-api.com/v4/latest/USD');
+          dolarValue = response.data.rates.COP;
+        } catch (error) {
+          dolarValue = 4150;
+        }
+        return dolarValue;
+      }
+      
+    changeCurrency(amountInCOP: number) {
+        //Devuelve pesos convertidos en centavos de dolar, porque multiplica
+        //la conversion * 100
+        const pennies = (Math.floor((amountInCOP / this.dollarValue) * 100));
+        return pennies;
+      }
 
 }

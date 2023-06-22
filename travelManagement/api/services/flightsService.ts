@@ -24,6 +24,8 @@ export class FlightsService {
 			flightsFromAPI[1]
 		);
 		const flightsPaths = await this.flightsDataHelper.createFlightsPaths(
+			requirements.adults,
+			requirements.children,
 			flightsFromAPI[0],
 			flightsFromAPI[1]
 		);

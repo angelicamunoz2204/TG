@@ -34,7 +34,7 @@ export class ExternalFlightsAPIService {
 			destination: requirements.destination.IATA,
 			departureDate: requirements.startDate.toISOString(),
 			stops: '0,1,2',
-			currency: 'USD',
+			currency: 'COP',
 			market: 'CO',
 			locale: 'es-MX',
 		};
@@ -45,7 +45,7 @@ export class ExternalFlightsAPIService {
 			origin: requirements.destination.IATA,
 			departureDate: requirements.startDate.toISOString(),
 			stops: '0,1,2',
-			currency: 'USD',
+			currency: 'COP',
 			market: 'CO',
 			locale: 'es-MX',
 		};
