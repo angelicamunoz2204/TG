@@ -14,7 +14,7 @@ export class ExternalLodgingsAPIService {
 		};
 
 		var result = await this.getExternalApiInformation(options);
-		//console.log(result)
+		console.log('Testing', result);
 		return result.results;
 	}
 
@@ -50,7 +50,7 @@ export class ExternalLodgingsAPIService {
 
 			while (amountPage == 40 && pagination <= 8) {
 				const lo = await this.getLodgingsFromExternalAPI(lodgingParams);
-				if (lo?.length === 0) {
+				if (lo!.length === 0) {
 					console.log('empty page, skipping');
 					break;
 				}
