@@ -25,13 +25,14 @@ export class ExternalLodgingsAPIService {
 		const duration = requirements.duration;
 		const durationMils = duration * 1440 * 60000;
 		let lodgings: any[] = [];
-
 		console.log('Starting lodgings');
 		while (end.getTime() - durationMils + 1440 * 60000 >= start.getTime()) {
 			const rt = new Date(start);
 			const h = new Date(rt.setDate(rt.getDate() + duration - 1));
 			var startString = start.toISOString().slice(0, 10);
 			var endString = h.toISOString().slice(0, 10);
+
+			console.log(`Searching between ${startString} and ${endString}`);
 
 			let pagination = 1;
 			let lodgingParams: ExternalLodgingsAPIParametersModel = {
@@ -49,7 +50,10 @@ export class ExternalLodgingsAPIService {
 
 			while (amountPage == 40 && pagination <= 8) {
 				const lo = await this.getLodgingsFromExternalAPI(lodgingParams);
-				if (lo.length === 0) break;
+				if (lo?.length === 0) {
+					console.log('empty page, skipping');
+					break;
+				}
 				amountPage = lo.length;
 				lodgs = lodgs.concat(lo);
 				pagination++;

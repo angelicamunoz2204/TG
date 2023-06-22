@@ -16,7 +16,7 @@ export class AllService {
 		promises.push(this.lodgingsService.getLodgings(requirements));
 
 		const results = await Promise.all(promises);
-
+		console.log('Finished data fetch');
 		const flightsPaths = results[0];
 		const lodgingsPaths = results[1];
 
@@ -27,8 +27,13 @@ export class AllService {
 			requirements,
 			requirementsAmount
 		);
+		console.log('Required info created');
 		const paths = requiredInf.concat(flightsPaths, lodgingsPaths);
-		const allSolutions = await this.minizincHelper.getSolutions(paths,this.flightsService.timeToGetFlights, this.lodgingsService.timeToGetLodgings);
+		const allSolutions = await this.minizincHelper.getSolutions(
+			paths,
+			this.flightsService.timeToGetFlights,
+			this.lodgingsService.timeToGetLodgings
+		);
 
 		return allSolutions;
 	}
