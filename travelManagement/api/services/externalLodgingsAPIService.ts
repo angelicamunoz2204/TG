@@ -14,7 +14,7 @@ export class ExternalLodgingsAPIService {
 		};
 
 		var result = await this.getExternalApiInformation(options);
-		console.log('Testing', result);
+		// console.log('Testing', result);
 		return result.results;
 	}
 
@@ -26,6 +26,7 @@ export class ExternalLodgingsAPIService {
 		const durationMils = duration * 1440 * 60000;
 		let lodgings: any[] = [];
 		console.log('Starting lodgings');
+		let flag = 0;
 		while (end.getTime() - durationMils + 1440 * 60000 >= start.getTime()) {
 			const rt = new Date(start);
 			const h = new Date(rt.setDate(rt.getDate() + duration - 1));
@@ -47,7 +48,6 @@ export class ExternalLodgingsAPIService {
 			};
 			let lodgs: any[] = [];
 			let amountPage = 40;
-			let flag = 0;
 			let startTime = performance.now();
 			while (amountPage == 40 && pagination <= 8) {
 				const lo = await this.getLodgingsFromExternalAPI(lodgingParams);
