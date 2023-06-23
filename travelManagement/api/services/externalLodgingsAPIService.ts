@@ -51,7 +51,7 @@ export class ExternalLodgingsAPIService {
 			let amountPage = 40;
 			while (amountPage == 40 && pagination <= 8) {
 				const lo = await this.getLodgingsFromExternalAPI(lodgingParams);
-				if (lo!.length === 0) {
+				if (lo.length === 0) {
 					console.log('empty page, skipping');
 					break;
 				}
@@ -65,6 +65,9 @@ export class ExternalLodgingsAPIService {
 				const endTime = performance.now();
 				const timeToFinish = endTime - startTime;
 				console.log(timeToFinish, flag);
+				if (timeToFinish > 59000 && flag < 29) {
+					startTime = performance.now();
+				}
 				if (flag === 29) {
 					flag = 0;
 					if (timeToFinish <= 59000) {
