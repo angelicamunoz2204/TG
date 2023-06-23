@@ -50,31 +50,33 @@ export class ExternalLodgingsAPIService {
 			let lodgs: any[] = [];
 			let amountPage = 40;
 			while (amountPage == 40 && pagination <= 8) {
-				const lo = await this.getLodgingsFromExternalAPI(lodgingParams);
-				if (lo.length === 0) {
-					console.log('empty page, skipping');
-					break;
-				}
-				amountPage = lo.length;
-				lodgs = lodgs.concat(lo);
-				pagination++;
-				flag++;
-				lodgingParams.page = pagination;
-				// await setTimeout(500);
-
-				const endTime = performance.now();
-				const timeToFinish = endTime - startTime;
-				console.log(timeToFinish, flag);
-				if (timeToFinish > 59000 && flag < 29) {
-					startTime = performance.now();
-				}
-				if (flag === 29) {
-					flag = 0;
-					if (timeToFinish <= 59000) {
-						console.log('Call limit surpased, waiting');
-						startTime = performance.now();
-						await setTimeout(60000 - timeToFinish + 1000);
+				try {
+					const lo = await this.getLodgingsFromExternalAPI(lodgingParams);
+					if (lo.length === 0) {
+						console.log('empty page, skipping');
+						break;
 					}
+					amountPage = lo.length;
+					lodgs = lodgs.concat(lo);
+					pagination++;
+					flag++;
+					lodgingParams.page = pagination;
+
+					const endTime = performance.now();
+					const timeToFinish = endTime - startTime;
+					console.log('elapsedTime', timeToFinish, 'calls', flag);
+
+					if (timeToFinish / flag > 2) {
+						console.log(
+							'surpasing calls per minute speed with a speed of: ',
+							timeToFinish / flag,
+							' calls per mintue'
+						);
+						await setTimeout(2000);
+					}
+				} catch (error) {
+					await setTimeout(60000 - startTime);
+					startTime = performance.now();
 				}
 			}
 
