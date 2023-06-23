@@ -64,8 +64,6 @@ export class ExternalLodgingsAPIService {
 
 					const endTime = performance.now();
 					const timeToFinish = endTime - startTime;
-					console.log('elapsedTime', timeToFinish, 'calls', flag);
-					console.log('cpm', timeToFinish / 1000 / flag);
 					if (timeToFinish / 1000 / flag < 2) {
 						console.log(
 							'surpasing calls per minute speed with a speed of: ',
