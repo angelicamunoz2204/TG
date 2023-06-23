@@ -65,17 +65,17 @@ export class ExternalLodgingsAPIService {
 					const endTime = performance.now();
 					const timeToFinish = endTime - startTime;
 					console.log('elapsedTime', timeToFinish, 'calls', flag);
-
-					if (timeToFinish / flag > 2) {
+					console.log('cpm', timeToFinish / 1000 / flag);
+					if (timeToFinish / 1000 / flag < 2) {
 						console.log(
 							'surpasing calls per minute speed with a speed of: ',
-							timeToFinish / flag,
+							timeToFinish / 1000 / flag,
 							' calls per mintue'
 						);
 						await setTimeout(2000);
 					}
 				} catch (error) {
-					await setTimeout(60000 - startTime);
+					await setTimeout(10000);
 					startTime = performance.now();
 				}
 			}
