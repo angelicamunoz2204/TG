@@ -57,5 +57,5 @@ export async function sendAllInformation(req: Request, res: Response) {
 
 	if (allSolutions.solution === 'Unsatisfiable') res.send(allSolutions);
 
-	res.send(allSolutions.reverse());
+	res.send(allSolutions);
 }

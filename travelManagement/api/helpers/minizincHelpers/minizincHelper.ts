@@ -1,13 +1,11 @@
 import { IModelParams, IResult, IMiniZincSolveRawOptions } from 'minizinc';
 import CLIMiniZinc from 'minizinc/build/CLIMiniZinc';
 import { MinizincInputDataConstants } from '../../constants/minizinc/MinizincInputDataConstants';
-import { FlightSolutionModel } from '../../models/Solutions/flightSolution.model';
-import { LodgingSolutionModel } from '../../models/Solutions/lodgingSolution.model';
 import { Solution } from '../../models/Solutions/solution.model';
 import { FlightsDatabase } from '../../dataBase/flightsDatabase';
 import { LodgingsDatabase } from '../../dataBase/lodgingsDatabase';
 import { SolverSolution } from 'models/Solutions/solverSolution.model';
-import { ResolveData } from 'webpack';
+
 const fs = require('fs');
 const path = require('path');
 const minizincModel = fs.readFileSync(
@@ -69,52 +67,28 @@ export class MinizincHelper {
 			'utf-8'
 		);*/
 
-		const modelsResponses = await this.implementModel(
+		let modelsResponses = await this.implementModel(
 			String(modelInputData),
 			timeFlights,
 			timeLodgings
 		);
-		console.log('modelsResponses', modelsResponses);
-		//return modelsResponses;
-		for (let i = 0; i < modelsResponses.length; i++) {
-			const resp: SolverSolution = modelsResponses[i];
-			const status = resp.status;
+		console.log('modelResponsesnoFiltered', modelsResponses);
+		let solutionsForReturn = modelsResponses.filter((modelResp) => modelResp.status == 'OPTIMAL_SOLUTION');
+		solutionsForReturn = this.deleteRepeatedSolutions(solutionsForReturn)
 
-			if (status == 'OPTIMAL_SOLUTION') {
-				const dep: FlightSolutionModel = resp.solution.departure;
-				const ret: FlightSolutionModel = resp.solution.return;
-				const lodg: LodgingSolutionModel = resp.solution.lodging;
-
-				const sol = await this.getEachModelSolution(dep, ret, lodg);
-				dep.result = sol.departure;
-				ret.result = sol.return;
-				lodg.result = sol.lodging;
-			}
-		}
-		return modelsResponses;
+		return [solutionsForReturn, modelsResponses];
 	}
 
-	async getEachModelSolution(
-		departure: FlightSolutionModel,
-		ret: FlightSolutionModel,
-		lodging: LodgingSolutionModel
-	): Promise<any> {
-		const depa = await this.flightsDB.getFlightById(
-			'departureFlights',
-			departure.id
-		);
-		const retu = await this.flightsDB.getFlightById('returnFlights', ret.id);
-		const lod = await this.lodgingsDB.getLodgingById(
-			lodging.id.toString(),
-			lodging.checkInDays,
-			lodging.checkOutDays
-		);
-		return {
-			departure: depa,
-			return: retu,
-			lodging: lod,
-		};
-	}
+	deleteRepeatedSolutions(minizincResponses: SolverSolution[]) {
+		const solutions = new Map();
+		minizincResponses.forEach((mznResponse) => {
+		  const key = JSON.stringify(mznResponse.solution);
+		  if (!solutions.has(key)) {
+			solutions.set(key, mznResponse);
+		  }
+		});
+		return Array.from(solutions.values());
+	  }
 
 	async implementModel(
 		apiData: string,
@@ -136,10 +110,9 @@ export class MinizincHelper {
 			const startTime = performance.now();
 			const timeoutAfter = () => {
 				return new Promise((resolve: any, reject: any) => {
-					setTimeout(() => reject(new Error('Time limit exceeded')), 300000);
+					setTimeout(() => reject(new Error('Time limit exceeded')), 180000);
 				});
 			};
-			//const mznResponse: IResult = await minizinc.solve(myModel, apiData);
 			let solverSolution: SolverSolution;
 			const mznPromise: Promise<IResult> = minizinc.solve(myModel, apiData);
 			try {
@@ -160,7 +133,7 @@ export class MinizincHelper {
 				solverSolution = {
 					solver: solvers[i],
 					status: error.message,
-					solveTimeMzn: 120000,
+					solveTimeMzn: 180000,
 					solveTimeSystem: Number(elapsedTime.toFixed(3)),
 					skyscannerTime: timeFlights,
 					airbnbTime: timeLodgings,
