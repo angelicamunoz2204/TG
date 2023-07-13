@@ -6,14 +6,13 @@ import {
 	InsertOneResult,
 	UpdateResult,
 	DeleteResult,
-	ObjectId,
 	InsertManyResult,
 } from 'mongodb';
-import { DatabaseConnection } from './databaseConnection';
+
+import { DB } from './databaseConnection';
 export class Database {
 	private client?: MongoClient;
 	private dbName: string;
-	databaseConnection = new DatabaseConnection();
 
 	constructor(dbName: string) {
 		this.dbName = dbName;
@@ -21,11 +20,15 @@ export class Database {
 
 	public async connect(): Promise<MongoClient> {
 		try {
-			this.client = await this.databaseConnection.connect();
+			this.client = await DB.Get();
 		} catch (error) {
 			console.error('Error al conectar a la base de datos', error);
 		}
 		return this.client!;
+	}
+
+	public getClient(): MongoClient {
+		return this.client;
 	}
 
 	public getCollection<T extends Document>(
@@ -85,7 +88,12 @@ export class Database {
 		return await collection.findOne(filter);
 	}
 
-	public async close(): Promise<void> {
-		await this.client!.close();
+	public async close(x: string): Promise<void> {
+		console.log('Cerrando conexión a db', x);
+		try {
+			await this.client!.close();
+		} catch {
+			console.log('Error cerrando conexión', x);
+		}
 	}
 }

@@ -6,7 +6,6 @@ export class LodgingsDatabase {
 		await this.db.connect();
 		await this.db.deleteDocuments('lodgings', {});
 		await this.db.insertDocuments('lodgings', lodgings);
-		await this.db.close();
 	}
 
 	async getLodgingById(id: string, checkIn: number, checkOut: number) {
@@ -15,7 +14,6 @@ export class LodgingsDatabase {
 			$and: [{ id: id }, { checkInDays: checkIn }, { checkOutDays: checkOut }],
 		});
 
-		await this.db.close();
 		return lod[0];
 	}
 }

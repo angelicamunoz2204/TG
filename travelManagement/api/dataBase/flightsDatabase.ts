@@ -9,13 +9,11 @@ export class FlightsDatabase {
 		await this.db.deleteDocuments('returnFlights', {});
 		await this.db.insertDocuments('departureFlights', departureSegments);
 		await this.db.insertDocuments('returnFlights', returnSegments);
-		await this.db.close();
 	}
 
 	async getFlightById(collectionName: string, id: string) {
 		await this.db.connect();
 		const flight = await this.db.findDocumentById(collectionName, id);
-		await this.db.close();
 		return flight;
 	}
 }

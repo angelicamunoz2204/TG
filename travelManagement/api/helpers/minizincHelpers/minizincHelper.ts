@@ -5,6 +5,8 @@ import { Solution } from '../../models/Solutions/solution.model';
 import { FlightsDatabase } from '../../dataBase/flightsDatabase';
 import { LodgingsDatabase } from '../../dataBase/lodgingsDatabase';
 import { SolverSolution } from 'models/Solutions/solverSolution.model';
+import { FlightSolutionModel } from 'models/Solutions/flightSolution.model';
+import { LodgingSolutionModel } from 'models/Solutions/lodgingSolution.model';
 
 const fs = require('fs');
 const path = require('path');
@@ -59,36 +61,69 @@ export class MinizincHelper {
 			minizincDataDim
 		);
 		const modelInputData = fs.readFileSync(dzn, 'utf-8');
-		/*const modelInputData = fs.readFileSync(
-			path.resolve(
-				__dirname,
-				'../../../minizincModel/modelInputData4.dzn'
-			),
-			'utf-8'
-		);*/
 
-		let modelsResponses = await this.implementModel(
+		let modelsResponses: SolverSolution[] = await this.implementModel(
 			String(modelInputData),
 			timeFlights,
 			timeLodgings
 		);
 		console.log('modelResponsesnoFiltered', modelsResponses);
-		let solutionsForReturn = modelsResponses.filter((modelResp) => modelResp.status == 'OPTIMAL_SOLUTION');
-		solutionsForReturn = this.deleteRepeatedSolutions(solutionsForReturn)
+		let solutionsForReturn: SolverSolution[] = modelsResponses.filter(
+			(modelResp) => modelResp.status == 'OPTIMAL_SOLUTION'
+		);
+		solutionsForReturn = this.deleteRepeatedSolutions(solutionsForReturn);
+		let completeSolutions: SolverSolution[] = [];
 
-		return [solutionsForReturn, modelsResponses];
+		for (const sol of solutionsForReturn) {
+			let fullObjectSolution = await this.getCompleteObjectFromDb(
+				sol.solution.departure,
+				sol.solution.return,
+				sol.solution.lodging
+			);
+
+			let tempSolution = sol;
+			tempSolution.solution.departure.result = fullObjectSolution.departure;
+			tempSolution.solution.return.result = fullObjectSolution.return;
+			tempSolution.solution.lodging.result = fullObjectSolution.lodging;
+			completeSolutions.push(tempSolution);
+		}
+
+		return [completeSolutions, modelsResponses];
+	}
+
+	async getCompleteObjectFromDb(
+		departure: FlightSolutionModel,
+		ret: FlightSolutionModel,
+		lodging: LodgingSolutionModel
+	): Promise<any> {
+		const depa = await this.flightsDB.getFlightById(
+			'departureFlights',
+			departure.id
+		);
+		const retu = await this.flightsDB.getFlightById('returnFlights', ret.id);
+
+		const lod = await this.lodgingsDB.getLodgingById(
+			lodging.id.toString(),
+			lodging.checkInDays,
+			lodging.checkOutDays
+		);
+		return {
+			departure: depa,
+			return: retu,
+			lodging: lod,
+		};
 	}
 
 	deleteRepeatedSolutions(minizincResponses: SolverSolution[]) {
 		const solutions = new Map();
 		minizincResponses.forEach((mznResponse) => {
-		  const key = JSON.stringify(mznResponse.solution);
-		  if (!solutions.has(key)) {
-			solutions.set(key, mznResponse);
-		  }
+			const key = JSON.stringify(mznResponse.solution);
+			if (!solutions.has(key)) {
+				solutions.set(key, mznResponse);
+			}
 		});
 		return Array.from(solutions.values());
-	  }
+	}
 
 	async implementModel(
 		apiData: string,
