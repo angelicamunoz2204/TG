@@ -130,7 +130,7 @@ export class MinizincHelper {
 		timeFlights: number,
 		timeLodgings: number
 	) {
-		const solvers = ['Gecode', 'Chuffed', 'OR-tools', 'COIN-BC'];
+		const solvers = ['Gecode', 'Chuffed', 'OR-tools'];//, 'COIN-BC'];
 		let allSolutions: any[] = [];
 
 		for (let i = 0; i < solvers.length; i++) {

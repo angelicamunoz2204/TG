@@ -6,11 +6,12 @@ import { setTimeout } from 'timers/promises';
 
 export class ExternalFlightsAPIService {
 	async getFlightsFromExternalAPI(params: ExternalFlightsAPIParametersModel) {
+
+		var queryString = Object.keys(params).map(key => key + '=' + params[key]).join('&');
+
 		const options = {
 			method: 'GET',
-			url: ExternalAPIsConnectionConstants.flightsExternalAPI.url,
-			params: params,
-			headers: ExternalAPIsConnectionConstants.flightsExternalAPI.headers,
+			url: ExternalAPIsConnectionConstants.flightsExternalAPI.url + queryString,
 		};
 
 		const result = await this.getExternalApiInformation(options);
